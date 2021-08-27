@@ -18,7 +18,7 @@ scripts/ga_uploadSamples.py		- A python script that does the upload processing t
 You can read more at docs/geneyx.analysis.api.pdf
 
 ## Unifying Dragen SV/CNV/Repeat files
-Illumina' Dragen pipeline creates by default 4 types of VCF files
+Illumina's Dragen pipeline creates by default 4 types of VCF files
 * SNVs
 * SV/CNV/Repeat
 for uploading those files to Geneyx Analysis it is required to merge the SV/CNV/Repeat files and upload the merged file as unified SV.
