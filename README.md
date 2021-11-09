@@ -30,11 +30,11 @@ The script takes as parameters the three VCF files created by DRAGEN SV/CNV/Repe
 2.	bgzip
 
 ## Windows Installation
-1. Install Python 
-2. From Admin command line
-2.1. python -m pip install --upgrade pip
-2.1. pip install PyYAML
-2.1. pip install requests
+1.	Install Python 
+2.	From Admin command line
+2.1.	python -m pip install --upgrade pip
+2.1.	pip install PyYAML
+2.1.	pip install requests
 
 
 
