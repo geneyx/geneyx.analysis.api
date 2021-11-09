@@ -25,11 +25,11 @@ for uploading those files to Geneyx Analysis it is required to merge the SV/CNV/
 For doing so one can use scripts/UnifiedVcf.py
 The script takes as parameters the three VCF files created by DRAGEN SV/CNV/Repeats and creates a unified SV file. 
 
-Running prerequisites:
+# Running prerequisites:
 1.	Python 3.9.
 2.	bgzip
 
-#Windows Installation
+## Windows Installation
 1. Install Python 
 2. From Admin command line
 2.1. python -m pip install --upgrade pip
