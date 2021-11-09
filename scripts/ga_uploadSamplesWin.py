@@ -6,6 +6,12 @@ import requests
 import json
 import datetime
 import ntpath
+from yaml import load, dump
+try:
+    from yaml import CLoader as Loader, CDumper as Dumper
+except ImportError:
+    from yaml import Loader, Dumper
+
 
 # ---------------------------------
 # Define the command line parameters
@@ -60,12 +66,10 @@ parser.add_argument('--config','-c', help = 'configuration file', default='ga.co
 def _loadYamlFile(file):
     with open(file, 'r') as stream:
         try:
-            obj = yaml.load(stream)
+            obj = yaml.load(stream, Loader=Loader)
             return obj
         except yaml.YAMLError as exc:
             print(exc)
-
-
 args = parser.parse_args()
 #read the config file
 config = _loadYamlFile(args.config)
