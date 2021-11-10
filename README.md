@@ -16,6 +16,8 @@ For automating the process of uploading VCFs to Geneyx Analysis you can use the 
 scripts/ga.config.yml  			- request api key and user key from Geneyx Support edit the file and enter to the right places
 scripts/ga_uploadSamples.py		- A python script that does the upload processing together with sample and patient data. please run it and check the command line arguments.
 You can read more at docs/geneyx.analysis.api.pdf
+scripts/ga_uploadSamplesWin.py  - The windows version of previous script since some component changed on windows
+
 
 ## Unifying Dragen SV/CNV/Repeat files
 Illumina's Dragen pipeline creates by default 4 types of VCF files
@@ -30,11 +32,12 @@ The script takes as parameters the three VCF files created by DRAGEN SV/CNV/Repe
 2.	bgzip
 
 ## Windows Installation
+On windows it is required to install python and also related components for using the ga_uploadSamplesWin.py
 1.	Install Python 
 2.	From Admin command line
-2.1.	python -m pip install --upgrade pip
-2.1.	pip install PyYAML
-2.1.	pip install requests
+  -	python -m pip install --upgrade pip
+  -	pip install PyYAML
+  - pip install requests
 
 
 
