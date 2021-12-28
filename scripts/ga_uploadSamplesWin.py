@@ -149,7 +149,7 @@ data = {
 			'SampleSerialNumber': sampleId,
 			'SampleSequenceDate': args.sampleSequenceDate,
             'SampleTakenDate': args.sampleTakenDate,
-            'SampleReceiveDate': args.sampleReceiveDate,
+            'SampleReceivedDate': args.sampleReceiveDate,
             'SampleType': args.sampleType,
             'SampleTarget': args.sampleTarget,
             'SampleSource': args.sampleSource,
