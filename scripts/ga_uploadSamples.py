@@ -45,7 +45,9 @@ parser.add_argument('--patientPopulationType', help = 'patient population type')
 parser.add_argument('--patientPaternalAncestry', help = 'patient parental ancenstry')
 parser.add_argument('--patientMaternalAncestry', help = 'patient maternal ancestry')
 parser.add_argument('--patientFamilyHistory', help = 'patient family history')
-
+parser.add_argument('--patientHasBioSample', help = 'patient indicate that a bio sample exists')
+parser.add_argument('--patientUseConsentPersonal', help = 'patient have personal use consent')
+parser.add_argument('--patientUseConsentClinical', help = 'patient have clinical use consent')
 
 parser.add_argument('--groupAssignmentCode', help = 'the group assignment code - for sample assignment')
 parser.add_argument('--groupAssignmentName', help = 'the group assignment name - for sample assignment')
@@ -165,6 +167,9 @@ data = {
             'SubjectPaternalAncestry': args.patientPaternalAncestry,
             'SubjectMaternalAncestry': args.patientMaternalAncestry,
             'SubjectFamilyHistory': args.patientFamilyHistory,
+            'SubjectHasBioSample': args.patientHasBioSample,
+            'SubjectUseConsentPersonal': args.patientUseConsentPersonal,
+            'SubjectUseConsentClinical': args.patientUseConsentClinical,
             'SkipAnnotation': args.skipAnnotation
 	    }
 
