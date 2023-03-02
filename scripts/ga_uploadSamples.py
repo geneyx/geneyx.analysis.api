@@ -35,6 +35,7 @@ parser.add_argument('--sampleRelation', help = 'Sample relation', choices=['Self
 
 # sample external files
 parser.add_argument('--bamUrl', help = 'Url of the FASTQ file')
+parser.add_argument('--methylationUrl', help = 'Url of the methylation file')
 
 #patient data
 parser.add_argument('--patientId', help = 'patient id (serial number)', required=True)
@@ -157,6 +158,7 @@ data = {
             'sampleQcData': args.sampleQcData,
             'sampleQcData': args.sampleQcData,
             'bamUrl': args.bamUrl,
+            'methylationUrl': args.methylationUrl,
             'SnvFile': snvBaseName,
             'StructFile': svBaseName,
             'SubjectId': args.patientId,
