@@ -2,10 +2,7 @@
 import argparse
 import yaml
 import os
-import sys
 import requests
-import json
-import datetime
 import ntpath
 
 # ---------------------------------
