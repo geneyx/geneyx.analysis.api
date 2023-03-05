@@ -4,6 +4,11 @@ import yaml
 import os
 import requests
 import ntpath
+try:
+    from yaml import CLoader as Loader
+except ImportError:
+    from yaml import Loader
+
 
 # ---------------------------------
 # Define the command line parameters
@@ -61,7 +66,7 @@ parser.add_argument('--config','-c', help = 'configuration file', default='ga.co
 def _loadYamlFile(file):
     with open(file, 'r') as stream:
         try:
-            obj = yaml.load(stream)
+            obj = yaml.load(stream, Loader=Loader)
             return obj
         except yaml.YAMLError as exc:
             print(exc)
