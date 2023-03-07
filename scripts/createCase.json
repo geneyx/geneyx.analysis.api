@@ -1,0 +1,12 @@
+{
+	"ProtocolId": "Enter-protocol-serial-number",
+	"SubjectId": "Enter-paitent-id",
+	"ProbandSampleId": "Enter-sample-serial-number",
+	"AssociatedSamples": [
+		{
+			"Relation": "Enter-Relation-type",
+			"SampleId": "Enter-sample-serial-number",
+			"Affected": "Enter-the-effected-type"
+		}
+	]
+}

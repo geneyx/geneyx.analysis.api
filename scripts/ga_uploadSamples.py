@@ -2,11 +2,13 @@
 import argparse
 import yaml
 import os
-import sys
 import requests
-import json
-import datetime
 import ntpath
+try:
+    from yaml import CLoader as Loader
+except ImportError:
+    from yaml import Loader
+
 
 # ---------------------------------
 # Define the command line parameters
@@ -35,6 +37,7 @@ parser.add_argument('--sampleRelation', help = 'Sample relation', choices=['Self
 
 # sample external files
 parser.add_argument('--bamUrl', help = 'Url of the FASTQ file')
+parser.add_argument('--methylationUrl', help = 'Url of the methylation file')
 
 #patient data
 parser.add_argument('--patientId', help = 'patient id (serial number)', required=True)
@@ -63,7 +66,7 @@ parser.add_argument('--config','-c', help = 'configuration file', default='ga.co
 def _loadYamlFile(file):
     with open(file, 'r') as stream:
         try:
-            obj = yaml.load(stream)
+            obj = yaml.load(stream, Loader=Loader)
             return obj
         except yaml.YAMLError as exc:
             print(exc)
@@ -157,6 +160,7 @@ data = {
             'sampleQcData': args.sampleQcData,
             'sampleQcData': args.sampleQcData,
             'bamUrl': args.bamUrl,
+            'methylationUrl': args.methylationUrl,
             'SnvFile': snvBaseName,
             'StructFile': svBaseName,
             'SubjectId': args.patientId,
