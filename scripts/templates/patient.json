@@ -1,0 +1,31 @@
+{
+    "SerialNumber": "string",
+    "Name": "string",
+    "DateOfBirth": "DateTime", 
+    "Gender": "string",
+    "Consang": "string",
+    "PopulationType": "string",
+    "PaternalAncestry": "string",
+    "MaternalAncestry": "string",
+    "PaternalGrandfather": "string",
+    "PaternalGrandmother": "string",
+    "MaternalGrandfather": "string",
+    "MaternalGrandmother": "string",
+    "FamilyHistory": "string",
+    "UseConsentPersonal": "boolean",
+    "UseConsentClinical": "boolean",
+    "HasBioSample": "boolean",
+    "GenerallyHealthy": "boolean",
+
+    "ClinicalRecords": [
+      {
+        "SubjectId": "string",
+        "RecordDate": "dateTime",
+        "Description": "string",
+        "PhenotypeCodes": [
+            "string",
+            "string"
+        ]
+      }
+    ]
+  }

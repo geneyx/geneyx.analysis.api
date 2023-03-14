@@ -1,0 +1,9 @@
+{
+    "SubjectId": "string",
+    "RecordDate": "dateTime",
+    "Description": "string",
+    "PhenotypeCodes": [
+        "string",
+        "string"
+    ]
+}
