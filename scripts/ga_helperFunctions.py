@@ -19,5 +19,5 @@ def loadDataJson(file):
             print(exc)
 
 def verifyFieldInData(fieldName: str, data):
-    if ((not ('fieldName' in data)) or data['fieldName'] == None):
+    if ((not (fieldName in data)) or data[fieldName] == None):
         raise Exception(f'No "{fieldName}" field in data json file, but defined as required. Please fix data file.')
