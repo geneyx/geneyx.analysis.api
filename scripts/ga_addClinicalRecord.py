@@ -7,7 +7,7 @@ import ga_helperFunctions as funcs
 
 def _verifyRequiredFields(data):
     funcs.verifyFieldInData('SubjectId', data)
-    #TODO: verify datetime correct
+    #TODO: verify datetime correct?
     funcs.verifyFieldInData('RecordDate', data)
     #TODO: is 'PhenotypeCodes' verification needed?
 

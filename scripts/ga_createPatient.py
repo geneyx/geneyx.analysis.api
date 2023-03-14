@@ -37,7 +37,7 @@ data['ApiUserID'] = config['apiUserId']
 print(data)
 
 # send request
-api = config['server']+'/api/CreatePatient'
+api = config['server']+'/api/Patient'
 print('Creating patient')
 r = requests.post(api, json = data)
 print(r)
