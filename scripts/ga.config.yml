@@ -1,3 +1,3 @@
-server: 'https://analysis.geneyx.com'
-apiUserId: 'enter-your-userid'
-apiUserKey: 'enter-your-userkey'
+server: 'http://localhost:10151'
+apiUserId: 'J8z3cXoqb2aywINyzv8AUQ=='
+apiUserKey: 'Hp6tSqbW7qnT3phetn4J23T/hZJLRwUbkONtLa5wiCN0P6k9SHJeig=='

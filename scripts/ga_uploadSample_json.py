@@ -109,6 +109,6 @@ if (svVcf != None):
     files['svFile'] = open(svVcf, "rb")
 api = config['server']+'/api/CreateSample'
 print('Uploading sample(s)')
-r = requests.post(api, json = data, files = files)
+r = requests.post(api, data = data, files = files)
 print(r)
 print(r.content)
