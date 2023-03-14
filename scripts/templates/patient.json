@@ -3,7 +3,7 @@
     "Name": "string",
     "DateOfBirth": "DateTime", 
     "Gender": "string",
-    "Consang": "string",
+    "Consang": "enum-string",
     "PopulationType": "string",
     "PaternalAncestry": "string",
     "MaternalAncestry": "string",
