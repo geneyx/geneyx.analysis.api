@@ -3,14 +3,14 @@
     "SampleSequenceDate": "dateTime",
     "SampleTakenDate": "dateTime",
     "SampleReceivedDate": "dateTime",
-    "SampleType": "string",
-    "SampleTarget": "string",
-    "SampleSource": "string",
+    "SampleType": "enum-string",
+    "SampleTarget": "enum-string",
+    "SampleSource": "enum-string",
     "SampleSequenceMachineId": "string",
     "SampleEnrichmentKitId": "string",
-    "SampleGenomeBuild": "string",
+    "SampleGenomeBuild": "enum-string",
     "SampleNotes": "string",
-    "SampleRelation": "string",
+    "SampleRelation": "enum-string",
     "sampleQcData": "string",
     "ExcludeFromLAF": "boolean",
     "bamUrl": "string",
@@ -34,5 +34,4 @@
             "Name": "string"
         }
     ]
-
 }

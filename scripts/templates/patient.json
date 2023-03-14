@@ -1,7 +1,7 @@
 {
     "SerialNumber": "string",
     "Name": "string",
-    "DateOfBirth": "DateTime", 
+    "DateOfBirth": "dateTime", 
     "Gender": "string",
     "Consang": "enum-string",
     "PopulationType": "string",
