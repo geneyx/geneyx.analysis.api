@@ -1,19 +1,15 @@
 #!/usr/bin/env python3
 import argparse
-import yaml
 import os
 import requests
 import ntpath
-try:
-    from yaml import CLoader as Loader
-except ImportError:
-    from yaml import Loader
+import ga_helperFunctions as funcs
 
 
 # ---------------------------------
 # Define the command line parameters
 # ---------------------------------
-parser = argparse.ArgumentParser(prog='ga_uploadSamples.py', description='Uploads a set of vcf files as a sample to Geneyx Analysis')
+parser = argparse.ArgumentParser(prog='ga_uploadSample.py', description='Uploads a set of vcf files as a sample to Geneyx Analysis')
 # the files
 parser.add_argument('--snvVcf', help = 'The path to the SNV VCF file', required=True)
 parser.add_argument('--svVcf', help = 'The path to the SV VCF file')
@@ -32,6 +28,7 @@ parser.add_argument('--kitId', help = 'The enrichment kit id (bed file) - From e
 parser.add_argument('--genomeBuild', help = 'The genome build of this sample', choices=['hg19','hg38'], default='hg19')
 parser.add_argument('--sampleNotes', help = 'Sample notes')
 parser.add_argument('--sampleQcData', help = 'Sample QC data as json string')
+parser.add_argument('--excludeFromLAF', help = 'exclude the sample from local AF statistics')
 
 parser.add_argument('--sampleRelation', help = 'Sample relation', choices=['Self','Mother','Father','Sibling','Twin','MotherRelative','FatherRelative','Other'], default='Self')
 
@@ -60,21 +57,10 @@ parser.add_argument('--groupAssignmentName', help = 'the group assignment name -
 parser.add_argument('--skipAnnotation', help = 'skip performingannotation after upload', action="store_true")
 parser.add_argument('--config','-c', help = 'configuration file', default='ga.config.yml')
 
-# ---------------------------------
-# Helper functions
-# ---------------------------------
-def _loadYamlFile(file):
-    with open(file, 'r') as stream:
-        try:
-            obj = yaml.load(stream, Loader=Loader)
-            return obj
-        except yaml.YAMLError as exc:
-            print(exc)
-
-
 args = parser.parse_args()
+
 #read the config file
-config = _loadYamlFile(args.config)
+config = funcs.loadYamlFile(args.config)
 
 # ---------------------------------
 # Validation
@@ -156,11 +142,11 @@ data = {
             'SampleEnrichmentKitId': args.kitId,
             'SampleGenomeBuild': args.genomeBuild,
             'SampleNotes': args.sampleNotes,
-            'SampleRelation': args.sampleRelation,
-            'sampleQcData': args.sampleQcData,
-            'sampleQcData': args.sampleQcData,
+            'SampleRelation': args.sampleRelation,            
+            'sampleQcData': args.sampleQcData,            
+            'ExcludeFromLAF': args.excludeFromLAF,
             'bamUrl': args.bamUrl,
-            'methylationUrl': args.methylationUrl,
+            'methylationUrl': args.methylationUrl,            
             'SnvFile': snvBaseName,
             'StructFile': svBaseName,
             'SubjectId': args.patientId,
@@ -181,6 +167,7 @@ data = {
 # Handle group assignment		
 if args.groupAssignmentCode != None and args.groupAssignmentName != None:
 	data['GroupAssignment'] = [{ 'Code':args.groupAssignmentCode, 'Name': args.groupAssignmentName}]
+
 
 files = { 'snvFile': open(snvVcf, "rb") }
 if (svVcf != None):
