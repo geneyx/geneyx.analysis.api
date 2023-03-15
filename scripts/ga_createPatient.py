@@ -2,14 +2,11 @@ import argparse
 import requests
 import ga_helperFunctions as funcs
 
-#TODO: generelize as template-method pattern
-
 #region Helper functions
 # ---------------------------------
 
 def _verifyRequiredFields(data):
-    funcs.verifyFieldInData('SerialNumber', data)
-    #TODO: any else field?
+    funcs.verifyFieldInData('SerialNumber', data)  
 
 # --------------------------------
 #endregion Helper functions
