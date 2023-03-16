@@ -6,19 +6,18 @@ import ga_helperFunctions as funcs
 # ---------------------------------
 
 def _verifyRequiredFields(data):
-    funcs.verifyFieldInData('ProtocolId', data)
     funcs.verifyFieldInData('SubjectId', data)
-    funcs.verifyFieldInData('ProbandSampleId', data)
-    
+    funcs.verifyFieldInData('RecordDate', data)
+
 # --------------------------------
 #endregion Helper functions
 
 # ---------------------------------
 # Define the command line parameters
 # ---------------------------------
-parser = argparse.ArgumentParser(prog='ga_createCase.py', description='Creates a case on Geneyx Analysis')
-# Case data Json file
-parser.add_argument('--data','-d', help = 'data JSON file', default='templates\case.json')
+parser = argparse.ArgumentParser(prog='ga_addClinicalRecord.py', description='Creates a clinical record for a patient on Geneyx Analysis')
+# Clinical-record data Json file
+parser.add_argument('--data','-d', help = 'data JSON file', default='templates\clinicalRecord.json')
 # commands (optional)
 parser.add_argument('--config','-c', help = 'configuration file', default='ga.config.yml')
 args = parser.parse_args()
@@ -36,8 +35,8 @@ data['ApiUserID'] = config['apiUserId']
 print(data)
 
 # send request
-api = config['server']+'/api/CreateCase'
-print('Creating case')
+api = config['server']+'/api/AddClinicalRecord'
+print('Creating clinical record')
 r = requests.post(api, json = data)
 print(r)
 print(r.content)

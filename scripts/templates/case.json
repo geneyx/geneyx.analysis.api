@@ -1,0 +1,12 @@
+{
+	"ProtocolId": "string",
+	"SubjectId": "string",
+	"ProbandSampleId": "string",
+	"AssociatedSamples": [
+		{
+			"Relation": "enum-string",
+			"SampleId": "string",
+			"Affected": "enum-string"
+		}
+	]
+}

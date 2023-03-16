@@ -1,0 +1,37 @@
+{
+    "SampleSerialNumber": "string",
+    "SampleSequenceDate": "dateTime",
+    "SampleTakenDate": "dateTime",
+    "SampleReceivedDate": "dateTime",
+    "SampleType": "enum-string",
+    "SampleTarget": "enum-string",
+    "SampleSource": "enum-string",
+    "SampleSequenceMachineId": "string",
+    "SampleEnrichmentKitId": "string",
+    "SampleGenomeBuild": "enum-string",
+    "SampleNotes": "string",
+    "SampleRelation": "enum-string",
+    "sampleQcData": "string",
+    "ExcludeFromLAF": "boolean",
+    "bamUrl": "string",
+    "methylationUrl": "string",    
+    "SubjectId": "string",
+    "SubjectName": "string",
+    "SubjectGender": "string",
+    "SubjectDateOfBirth": "dateTime",
+    "SubjectConsanguinity": "string",
+    "SubjectPopulationType": "string",
+    "SubjectPaternalAncestry": "string",
+    "SubjectMaternalAncestry": "string",
+    "SubjectFamilyHistory": "string",
+    "SubjectHasBioSample": "boolean",
+    "SubjectUseConsentPersonal": "boolean",
+    "SubjectUseConsentClinical": "boolean",
+    "SkipAnnotation": "boolean",
+    "GroupAssignment": [
+        {
+            "Code": "string",
+            "Name": "string"
+        }
+    ]
+}
