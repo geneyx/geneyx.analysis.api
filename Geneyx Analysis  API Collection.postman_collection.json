@@ -1,0 +1,700 @@
+{
+	"info": {
+		"_postman_id": "dc8b1c84-ceeb-4ca2-938b-c5c27a3f38b9",
+		"name": "Geneyx Analysis  API Collection",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "18131911"
+	},
+	"item": [
+		{
+			"name": "AddClinicalRecord",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"ApiUserId\": \"enter_apiId\",\r\n  \"ApiUserKey\": \"enter_apiKey\",\r\n  \"SubjectId\": \"Enter_SubjectID\",\r\n  \"RecordDate\": \"yyyy-mm-dd\",\r\n  \"Description\": \"recorded something new\",\r\n  \"PhenotypeCodes\": [\r\n    \"HP:0001903\",\r\n    \"HP:0000005\"            \r\n        ]\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://analysis.geneyx.com/api/AddClinicalRecord",
+					"protocol": "https",
+					"host": [
+						"analysis",
+						"geneyx",
+						"com"
+					],
+					"path": [
+						"api",
+						"AddClinicalRecord"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "BatchReportList",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"batchName\": \"Enter_Batch_File_Name\",\r\n  \"ApiUserId\": \"enter_apiId\",\r\n  \"ApiUserKey\": \"enter_apiKey\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://analysis.geneyx.com/api/BatchReportList",
+					"protocol": "https",
+					"host": [
+						"analysis",
+						"geneyx",
+						"com"
+					],
+					"path": [
+						"api",
+						"BatchReportList"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "BatchSeqSamples",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"ApiUserId\": \"enter_apiId\",\r\n  \"ApiUserKey\": \"enter_apiKey\",\r\n  \"batchName\": \"string\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://analysis.geneyx.com/api/BatchSeqSamples",
+					"protocol": "https",
+					"host": [
+						"analysis",
+						"geneyx",
+						"com"
+					],
+					"path": [
+						"api",
+						"BatchSeqSamples"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "BatchVcfSamples",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"ApiUserId\": \"enter_apiId\",\r\n  \"ApiUserKey\": \"enter_apiKey\",\r\n  \"batchName\": \"string\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://analysis.geneyx.com/api/BatchVcfSamples",
+					"protocol": "https",
+					"host": [
+						"analysis",
+						"geneyx",
+						"com"
+					],
+					"path": [
+						"api",
+						"BatchVcfSamples"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Cases",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"ApiUserId\": \"enter_apiId\",\r\n  \"ApiUserKey\": \"enter_apiKey\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://analysis.geneyx.com/api/Cases",
+					"protocol": "https",
+					"host": [
+						"analysis",
+						"geneyx",
+						"com"
+					],
+					"path": [
+						"api",
+						"Cases"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "CaseAssignment",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"SerialNumber\": \"string\",\r\n  \"AssignedToUserId\": \"00000000-0000-0000-0000-000000000000\",\r\n  \"AssignedToFullName\": \"string\",\r\n  \"ApiUserId\": \"enter_apiId\",\r\n  \"ApiUserKey\": \"enter_apiKey\",\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://analysis.geneyx.com/api/CaseAssignment",
+					"protocol": "https",
+					"host": [
+						"analysis",
+						"geneyx",
+						"com"
+					],
+					"path": [
+						"api",
+						"CaseAssignment"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "CaseReports",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"caseSn\": \"enter_caseSn\",\r\n  \"ApiUserId\": \"enter_apiId\",\r\n  \"ApiUserKey\": \"enter_apiKey\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://analysis.geneyx.com/api/CaseReports",
+					"protocol": "https",
+					"host": [
+						"analysis",
+						"geneyx",
+						"com"
+					],
+					"path": [
+						"api",
+						"CaseReports"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "CreateCase",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"SerialNumber\": \"string\",\r\n  \"Name\": \"string\",\r\n  \"Description\": \"string\",\r\n  \"PhenAlleleFreq\": 0,\r\n  \"Phenotypes\": \"string\",\r\n  \"Owner\": \"string\",\r\n  \"OwnerDepartment\": \"string\",\r\n  \"GeneList\": \"string\",\r\n  \"ProtocolId\": \"string\",\r\n  \"SubjectId\": \"string\",\r\n  \"ProbandSampleId\": \"string\",\r\n  \"AssociatedSamples\": [\r\n    {\r\n      \"Relation\": 0,\r\n      \"SampleId\": \"string\",\r\n      \"Affected\": 0\r\n    }\r\n  ],\r\n  \"AssignedToUserId\": \"00000000-0000-0000-0000-000000000000\",\r\n  \"AssignedToFullName\": \"string\",\r\n  \"AssignedToUser\": \"string\",\r\n  \"ApiUserId\": \"enter_apiId\",\r\n  \"ApiUserKey\": \"enter_apiKey\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://analysis.geneyx.com/api/CreateCase",
+					"protocol": "https",
+					"host": [
+						"analysis",
+						"geneyx",
+						"com"
+					],
+					"path": [
+						"api",
+						"CreateCase"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "DataEntryBatches",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"ApiUserId\": \"enter_apiId\",\r\n  \"ApiUserKey\": \"enter_apiKey\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://analysis.geneyx.com/api/DataEntryBatches",
+					"protocol": "https",
+					"host": [
+						"analysis",
+						"geneyx",
+						"com"
+					],
+					"path": [
+						"api",
+						"DataEntryBatches"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "enrichmentKits",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"ApiUserId\": \"enter_apiId\",\r\n  \"ApiUserKey\": \"enter_apiKey\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://analysis.geneyx.com/api/enrichmentKits",
+					"protocol": "https",
+					"host": [
+						"analysis",
+						"geneyx",
+						"com"
+					],
+					"path": [
+						"api",
+						"enrichmentKits"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "GetVcfSampleQcData",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"ApiUserId\": \"enter_apiId\",\r\n  \"ApiUserKey\": \"enter_apiKey\",\r\n  \"sampleSn\": \"string\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://analysis.geneyx.com/api/GetVcfSampleQcData",
+					"protocol": "https",
+					"host": [
+						"analysis",
+						"geneyx",
+						"com"
+					],
+					"path": [
+						"api",
+						"GetVcfSampleQcData"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "GetVcfSampleCoverage",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"ApiUserKey\": \"enter_apiKey\",\r\n    \"ApiUserId\": \"enter_apiId\",\r\n    \"sampleSn\": \"string\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://analysis.geneyx.com/api/GetVcfSampleCoverage",
+					"protocol": "https",
+					"host": [
+						"analysis",
+						"geneyx",
+						"com"
+					],
+					"path": [
+						"api",
+						"GetVcfSampleCoverage"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "GetVcfSampleFile",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"ApiUserId\": \"enter_apiId\",\r\n  \"ApiUserKey\": \"enter_apiKey\",\r\n  \"sampleSn\": \"string\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://analysis.geneyx.com/api/GetVcfSampleFile",
+					"protocol": "https",
+					"host": [
+						"analysis",
+						"geneyx",
+						"com"
+					],
+					"path": [
+						"api",
+						"GetVcfSampleFile"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "GetVcfSampleArtifact",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"ApiUserId\": \"enter_apiId\",\r\n  \"ApiUserKey\": \"enter_apiKey\",\r\n  \"sampleSn\": \"string\",\r\n  \"pipelineType\": \"string\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://analysis.geneyx.com/api/GetVcfSampleArtifact",
+					"protocol": "https",
+					"host": [
+						"analysis",
+						"geneyx",
+						"com"
+					],
+					"path": [
+						"api",
+						"GetVcfSampleArtifact"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Patient",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"APIUserId\":\"enter_apiId\",\r\n    \"APIUserKey\":\"enter_apiKey\",\r\n    \"SerialNumber\": \"123456789\",\r\n    \"Name\": \"Patient-Name\",\r\n    \"DateOfBirth\": \"2001-06-25\", \r\n    \"Gender\": \"M\",\r\n    \"Consang\": \"NonConsang\",\r\n    \"PopulationType\": \"general population\",\r\n    \"PaternalAncestry\": \"string\",\r\n    \"MaternalAncestry\": \"string\",\r\n    \"PaternalGrandfather\": \"string\",\r\n    \"PaternalGrandmother\": \"string\",\r\n    \"MaternalGrandfather\": \"string\",\r\n    \"MaternalGrandmother\": \"string\",\r\n    \"FamilyHistory\": \"long long history of nothing\",\r\n    \"UseConsentPersonal\": \"true\",\r\n    \"UseConsentClinical\": \"false\",\r\n    \"HasBioSample\": \"true\",\r\n    \"GenerallyHealthy\": \"false\",\r\n\r\n    \"ClinicalRecords\": [\r\n      {\r\n        \"RecordDate\": \"2005-06-25\",\r\n        \"Description\": \"recorded something\",\r\n        \"PhenotypeCodes\": [\r\n            \"HP:0002000\"            \r\n        ]\r\n      }\r\n    ]\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://analysis.geneyx.com/api/patient",
+					"protocol": "https",
+					"host": [
+						"analysis",
+						"geneyx",
+						"com"
+					],
+					"path": [
+						"api",
+						"patient"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Patients",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"ApiUserId\": \"enter_apiId\",\r\n  \"ApiUserKey\": \"enter_apiKey\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://analysis.geneyx.com/api/patients",
+					"protocol": "https",
+					"host": [
+						"analysis",
+						"geneyx",
+						"com"
+					],
+					"path": [
+						"api",
+						"patients"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Protocols",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"ApiUserId\": \"enter_apiId\",\r\n  \"ApiUserKey\": \"enter_apiKey\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://analysis.geneyx.com/api/Protocols",
+					"protocol": "https",
+					"host": [
+						"analysis",
+						"geneyx",
+						"com"
+					],
+					"path": [
+						"api",
+						"Protocols"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "ReportUrl",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"ApiUserId\": \"enter_apiId\",\r\n  \"ApiUserKey\": \"enter_apiKey\",\r\n  \"fileName\": \"string\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://analysis.geneyx.com/api/ReportUrl",
+					"protocol": "https",
+					"host": [
+						"analysis",
+						"geneyx",
+						"com"
+					],
+					"path": [
+						"api",
+						"ReportUrl"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "ReportList",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"ApiUserId\": \"enter_apiId\",\r\n  \"ApiUserKey\": \"enter_apiKey\",\r\n  \"startTime\": \"string\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://analysis.geneyx.com/api/ReportList",
+					"protocol": "https",
+					"host": [
+						"analysis",
+						"geneyx",
+						"com"
+					],
+					"path": [
+						"api",
+						"ReportList"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Samples",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"ApiUserId\": \"enter_apiId\",\r\n  \"ApiUserKey\": \"enter_apiKey\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://analysis.geneyx.com/api/Samples",
+					"protocol": "https",
+					"host": [
+						"analysis",
+						"geneyx",
+						"com"
+					],
+					"path": [
+						"api",
+						"Samples"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "SampleAssignment",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"SerialNumber\": \"string\",\r\n  \"GroupAssignment\": [\r\n    {\r\n      \"Code\": \"string\",\r\n      \"Name\": \"string\"\r\n    }\r\n  ],\r\n  \"AssignedToUserId\": \"00000000-0000-0000-0000-000000000000\",\r\n  \"AssignedToFullName\": \"string\",\r\n  \"ApiUserId\": \"enter_apiId\",\r\n  \"ApiUserKey\": \"enter_apiKey\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://analysis.geneyx.com/api/SampleAssignment",
+					"protocol": "https",
+					"host": [
+						"analysis",
+						"geneyx",
+						"com"
+					],
+					"path": [
+						"api",
+						"SampleAssignment"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "SequenceMachines",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"ApiUserId\": \"enter_apiId\",\r\n  \"ApiUserKey\": \"enter_apiKey\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://analysis.geneyx.com/api/SequenceMachines",
+					"protocol": "https",
+					"host": [
+						"analysis",
+						"geneyx",
+						"com"
+					],
+					"path": [
+						"api",
+						"SequenceMachines"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "UpdateSampleQc",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"SampleSerialNumber\": \"string\",\r\n  \"SampleTakenDate\": \"2022-12-27T18:56:48.329Z\",\r\n  \"SampleSequenceDate\": \"2022-12-27T18:56:48.329Z\",\r\n  \"SampleReceivedDate\": \"2022-12-27T18:56:48.329Z\",\r\n  \"SampleType\": \"string\",\r\n  \"SampleTarget\": \"string\",\r\n  \"SampleSource\": \"string\",\r\n  \"SampleSequenceMachineId\": \"string\",\r\n  \"SampleEnrichmentKitId\": \"string\",\r\n  \"SampleNotes\": \"string\",\r\n  \"SampleRelation\": \"string\",\r\n  \"SampleGenomeBuild\": \"string\",\r\n  \"BamUrl\": \"string\",\r\n  \"SnvFile\": \"string\",\r\n  \"StructFile\": \"string\",\r\n  \"SampleQcData\": \"string\",\r\n  \"SubjectId\": \"string\",\r\n  \"SubjectName\": \"string\",\r\n  \"SubjectGender\": \"string\",\r\n  \"SubjectDateOfBirth\": \"2022-12-27T18:56:48.329Z\",\r\n  \"SubjectConsanguinity\": \"string\",\r\n  \"SubjectPopulationType\": \"string\",\r\n  \"SubjectPaternalAncestry\": \"string\",\r\n  \"SubjectMaternalAncestry\": \"string\",\r\n  \"SubjectFamilyHistory\": \"string\",\r\n  \"SubjectHasBioSample\": true,\r\n  \"SubjectUseConsentPersonal\": true,\r\n  \"SubjectUseConsentClinical\": true,\r\n  \"GroupAssignment\": [\r\n    {\r\n      \"Code\": \"string\",\r\n      \"Name\": \"string\"\r\n    }\r\n  ],\r\n  \"AssignedToUserId\": \"00000000-0000-0000-0000-000000000000\",\r\n  \"AssignedToFullName\": \"string\",\r\n  \"SkipAnnotation\": true,\r\n  \"ApiUserId\": \"enter_apiId\",\r\n  \"ApiUserKey\": \"enter_apiKey\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://analysis.geneyx.com/api/UpdateSampleQc",
+					"protocol": "https",
+					"host": [
+						"analysis",
+						"geneyx",
+						"com"
+					],
+					"path": [
+						"api",
+						"UpdateSampleQc"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
