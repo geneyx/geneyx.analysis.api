@@ -1,0 +1,22 @@
+{
+	"SerialNumber":"Enter Serial Number1", 
+	"Name":"Enter Case Name",
+	"Description":"Enter Clinical Description",
+	"PhenAlleleFreq":"",
+	"Phenotypes":"Enter List of Phenotypes",
+	"Owner": "Enter Case Doctor Owner",
+	"OwnerDepartment":"Enter Department",
+	"GeneList":"",
+	"ProtocolId": "Enter Protocol Id",
+	"SubjectId": "Enter Subject Id",
+	"ProbandSampleId": "Enter VCF sample Id present in account",
+	"AssociatedSamples": [ 
+		{
+			"Relation": "Enter relation to proband",
+			"SampleId": "Enter VCF sample Id present in account",
+			"Affected": "Enter Affection Status"
+		}
+	],
+	"AssignedToUserId":"Enter Assignment to UserId",
+	"AssignedToFullName":"Enter Assigned UserId Full Name"
+}
