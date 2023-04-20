@@ -18,7 +18,7 @@ C:\Users\eliws\geneyx.analysis.api-main\scripts>python ga_CreateCase.py --data "
 This would create a create a case in the account with the information derived from the json file. 
 
 
-##ga_addClinicalRecord.py
+## ga_addClinicalRecord.py
 
 This python script allows the user to add a clinical record to an existing subject. The clinicalRecord.json file can be modified with the specific information and executed with the script. Descripton of the fields can be found here: 
 
