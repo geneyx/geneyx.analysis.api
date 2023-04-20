@@ -8,7 +8,7 @@ This configuration files needs to be placed in the directory with the other pyth
 The apiUserId and apiUserKey can be provided by contacting support@geneyx.com. 
 
 ## ga_CreateCase.py
-This script allows a user to create an analysis using existing VCF files in an account. The CreateCase_Data.json file contains the data fields that can be used with this python script. Descriptions of the available fields can be found here: https://github.com/geneyx/geneyx.analysis.api/wiki/Create-Case. 
+This script allows a user to create an analysis using existing VCF files in an account. The CreateCase_Data.json file is located in the templates directory and contains the data fields that can be used with this python script. Descriptions of the available fields can be found here: https://github.com/geneyx/geneyx.analysis.api/wiki/Create-Case. 
 
 Below is an example of this script that is run from command line:
 
