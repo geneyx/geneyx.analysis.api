@@ -28,5 +28,15 @@ Here is an example of the script being executed in command line:
 
 C:\geneyx.analysis.api-main\scripts>python ga_addClinicalRecord.py --data "C:\clinicalRecord.json"
 
+## ga_createPatient.py
+This python script is used to create a new subject. The patient.json file contains the available fields and the description for the fields can be found here:
+
+https://github.com/geneyx/geneyx.analysis.api/wiki/CreatePatient
+
+Below is an example of this script that is run from command line:
+
+C: \geneyx.analysis.api-main\scripts>python ga_CreateCase.py --data "C:\ Patient.json"
+
+
 
 
