@@ -13,7 +13,7 @@ https://github.com/geneyx/geneyx.analysis.api/wiki/Create-Case.
 
 Below is an example of this script that is run from command line:
 
-C:\Users\eliws\geneyx.analysis.api-main\scripts>python ga_CreateCase.py --data "C:\Users\eliws\ CreateCase_Data.json"
+C:\geneyx.analysis.api-main\scripts>python ga_CreateCase.py --data "C:\CreateCase_Data.json"
 
 This would create a create a case in the account with the information derived from the json file. 
 
@@ -26,7 +26,7 @@ https://github.com/geneyx/geneyx.analysis.api/wiki/AddClinicalRecord
 
 Here is an example of the script being executed in command line:
 
-C:\Users\eliws\geneyx.analysis.api-main\scripts>python ga_addClinicalRecord.py --data "C:\Users\eliws\clinicalRecord.json"
+C:\geneyx.analysis.api-main\scripts>python ga_addClinicalRecord.py --data "C:\clinicalRecord.json"
 
 
 
