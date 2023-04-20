@@ -3,6 +3,7 @@ If you are Geneyx Analysis user that want to automate your data flow, for exampl
 - Integrate your sequencing machine and automatically send FASTQ to Geneyx Analysis
 - Integrate with your LIMS and automatically create VCF samples or download reports
 - Integrate with your EMR and uploading clinical data to the patient record
+
 The following items listed provide details for accomplishing these functions. If there is a feature that you would like to have, please contact support@geneyx.com. 
 
 # Examples
