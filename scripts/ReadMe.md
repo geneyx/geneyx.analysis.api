@@ -20,7 +20,7 @@ This would create a create a case in the account with the information derived fr
 
 ## ga_addClinicalRecord.py
 
-This python script allows the user to add a clinical record to an existing subject. The clinicalRecord.json file can be modified with the specific information and executed with the script. Descripton of the fields can be found here: 
+This python script allows the user to add a clinical record to an existing subject. The clinicalRecord.json file can be modified with the specific information and executed with the script. For the phenotypic codes, only "HP:" terms can be entered. Descripton of the fields can be found here: 
 
 https://github.com/geneyx/geneyx.analysis.api/wiki/AddClinicalRecord
 
