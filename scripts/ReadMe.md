@@ -37,6 +37,20 @@ Below is an example of this script that is run from command line:
 
 C: \geneyx.analysis.api-main\scripts>python ga_CreateCase.py --data "C:\ Patient.json"
 
+## ga_uploadSample_json.py
+This python script enables a user to upload a VCF sample into a new or existing Subject with associated patient information. The data file is the sample.json file located in the template directory. Descriptions of the fields can be found here:
+
+https://github.com/geneyx/geneyx.analysis.api/wiki/Create-Sample
+
+To run this command the following fields need to be specified:
+--snvVCF
+--svVCF
+--cnvVCF
+
+An example of this command would be:
+
+C:\geneyx.analysis.api-main\scripts>python ga_uploadSample_json.py --data "C:\sample.json" --snvVcf "C:\UpNew.vcf.gz"
+
 
 
 
