@@ -15,7 +15,7 @@ def _verifyRequiredFields(data):
 # Define the command line parameters
 # ---------------------------------
 parser = argparse.ArgumentParser(prog='ga_addQcData.py', description='Updates a QC data for a sample on Geneyx Analysis')
-# Clinical-record data Json file
+# QC data Json file
 parser.add_argument('--data','-d', help = 'data JSON file', default='templates\qcData.json')
 # commands (optional)
 parser.add_argument('--config','-c', help = 'configuration file', default='ga.config.yml')
