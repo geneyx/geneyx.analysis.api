@@ -1,0 +1,17 @@
+{
+    "sampleSn": "string",
+
+    "PassedReadsNum": "integer",
+    "FailedReadsNum": "integer",
+    "MappedReadsNum": "integer",
+    "PairedReadsNum": "integer",
+
+    "MeanCoverage": "double",
+    "Percent5x": "double",
+    "Percent20x": "double",
+    "Percent50x": "double",
+
+    "BedFilePosNum": "nullable-integer",
+    "AvrAlignCoverage": "nullable-double",
+    "AlignedReads": "nullable-integer"
+}
