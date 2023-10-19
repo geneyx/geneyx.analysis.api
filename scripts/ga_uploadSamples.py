@@ -56,6 +56,7 @@ parser.add_argument('--groupAssignmentName', help = 'the group assignment name -
 # commands (optional)
 parser.add_argument('--skipAnnotation', help = 'skip performingannotation after upload', action="store_true")
 parser.add_argument('--config','-c', help = 'configuration file', default='ga.config.yml')
+parser.add_argument('--customerAccountKey','-a', help = 'Customer account key - for uploading to a different account')
 
 args = parser.parse_args()
 
@@ -131,6 +132,7 @@ if (svVcf != None):
 data = {
 			'ApiUserKey': config['apiUserKey'],
 			'ApiUserID': config['apiUserId'],
+			'CustomerAccountKey': args.customerAccountKey,
 			'SampleSerialNumber': sampleId,
 			'SampleSequenceDate': args.sampleSequenceDate,
             'SampleTakenDate': args.sampleTakenDate,
