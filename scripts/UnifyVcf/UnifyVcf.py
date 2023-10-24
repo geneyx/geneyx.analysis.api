@@ -111,7 +111,8 @@ def __sort_vcf__(vcf_file_path: str):
     except:
         logging.error("could not sort unified vcf file")
     finally:
-        shutil.rmtree(temp_dir_name)
+        if(os.path.exists(temp_dir_name)):
+            shutil.rmtree(temp_dir_name)
         pass
 
     
