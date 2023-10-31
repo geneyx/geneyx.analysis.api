@@ -3,6 +3,8 @@ Unifying structural vcf files
 UnifyVcf.py is a script that unifies different types of vcf files so that the unified file can be 
 uploaded as sv-vcf into Geneyx application.
 
+Please notice this script should be ran using python3
+
 The vcf files that are unified by it are:
 SV - structural variants vcf
 CNV - copy number variants vcf
