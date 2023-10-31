@@ -51,6 +51,11 @@ An example of this command would be:
 
 C:\geneyx.analysis.api-main\scripts>python ga_uploadSample_json.py --data "C:\sample.json" --snvVcf "C:\UpNew.vcf.gz"
 
+## ga_uploadBatch.py
+This script allows a user to initiate a batch upload via command line into a secondary pipeline of Geneyx using the BatchImportTemplate.txt file, located in the template directory (https://github.com/geneyx/geneyx.analysis.api/blob/main/scripts/templates/BatchImportTemplate.txt). To run this, a Data Source must be configured in your Geneyx account, which can be accessed in the Settings dialog of the application. 
+Below is an example of this script that is run from command line:
 
+C:\geneyx.analysis.api-main\scripts>python ga_uploadBatch.py --batchFile "C:\Geneyx\geneyx.analysis.api-main\scripts\BatchImportTemplate.txt"
 
+This would iniate a batch upload of fastq files into the secondary pipeline of Geneyx following the data specified in BatchImportTemplate.txt. 
 
