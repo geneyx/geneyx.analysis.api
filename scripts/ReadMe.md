@@ -1,5 +1,5 @@
 ## ga.config.yml
-This configuration files needs to be placed in the directory with the other python scripts. It serves as a reference to the account configuration. This configuration file specifies:
+This configuration file needs to be placed in the directory with the other python scripts. It serves as a reference to the account configuration. This configuration file specifies:
 1.	Server: 'http://analysis.geneyx.com'
 2.	apiUserId
 3.	apiUserKey
