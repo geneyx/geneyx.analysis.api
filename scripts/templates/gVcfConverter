@@ -1,0 +1,33 @@
+#!/bin/bash
+
+# Function to check if a command is available
+command_exists() {
+    command -v "$1" >/dev/null 2>&1
+}
+
+# Check if bcftools is installed
+if ! command_exists bcftools; then
+    echo "Installing bcftools..."
+    # Add installation command here, e.g., using package manager like apt or brew
+    # For Ubuntu:
+    # sudo apt-get update
+    # sudo apt-get install bcftools
+    # For macOS with Homebrew:
+    # brew install bcftools
+fi
+
+# Check if bgzip is installed
+if ! command_exists bgzip; then
+    echo "Installing bgzip..."
+    # Add installation command here, e.g., using package manager like apt or brew
+    # For Ubuntu:
+    # sudo apt-get update
+    # sudo apt-get install bgzip
+    # For macOS with Homebrew:
+    # brew install bgzip
+fi
+
+# Add similar checks for other dependencies if needed
+
+# Main command to annotate and process the VCF
+bcftools annotate -a pgx-genotype-hg38-chr.bed.gz -c CHROM,FROM,TO,FORCE_RSID -h <(echo '##INFO=<ID=FORCE_RSID,Number=1,Type=String,Description="Forced RSID">') bc49_trimmmed.gvcf.recode.vcf.gz | sed -E -e 's/,<NON_REF>|<NON_REF>,//g' -e 's/<NON_REF>/<REF>/g' | bgzip > bc49_final.PgX.vcf.gz
