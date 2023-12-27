@@ -4,7 +4,7 @@
 	"Description":"string",
 	"PhenAlleleFreq":"nullable-double",
 	"Phenotypes":"string",
-	"SetSubjectPhenotypes": "boolean",
+	"ConcatSubjectPhenotypes": "boolean",
 	"Owner": "string",
 	"OwnerDepartment":"string",
 	"GeneList":"string",
