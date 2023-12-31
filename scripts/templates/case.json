@@ -1,4 +1,13 @@
 {
+	"SerialNumber":"string", 
+	"Name":"string",
+	"Description":"string",
+	"PhenAlleleFreq":"nullable-double",
+	"Phenotypes":"string",
+	"ConcatSubjectPhenotypes": "boolean",
+	"Owner": "string",
+	"OwnerDepartment":"string",
+	"GeneList":"string",
 	"ProtocolId": "string",
 	"SubjectId": "string",
 	"ProbandSampleId": "string",
@@ -8,5 +17,7 @@
 			"SampleId": "string",
 			"Affected": "enum-string"
 		}
-	]
+	],
+	"AssignedToUserId":"string",
+	"AssignedToFullName":"string"
 }
