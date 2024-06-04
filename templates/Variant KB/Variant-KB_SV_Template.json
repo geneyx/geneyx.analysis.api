@@ -1,0 +1,34 @@
+﻿[
+  {
+    "ChrEnd": "1",
+    "PosEnd": 16386161,
+    "Len": 9655,
+    "Effect": "BND",
+    "Chr": "1",
+    "Pos": 16376507,
+    "Zyg": "HET",
+    "Relevance": 1,
+    "Pathogenic": 5,
+    "Validation": 1,
+    "AdvancedPheno": false,
+    "Interpretation": "Variant Interpretation",
+    "Recommend": "Variant Level Recommendations",
+    "Note": "hello there"
+  },
+  {
+    "ChrEnd": "1",
+    "PosEnd": 3643733,
+    "Len": 2097,
+    "Effect": "DEL",
+    "CopyNumber": 1,
+    "Chr": "1",
+    "Pos": 3641636,
+    "Zyg": "HET",
+    "Relevance": 1,
+    "Pathogenic": 5,
+    "Validation": 1,
+    "Phenos": "\"EEG with spike-wave complexes\" \"P mitrale\" \"EEG with irregular generalized spike and wave complexes\" \"Shortened PR interval\" \"Myoclonic status epilepticus\" \"Myoclonic seizure\" \"Abnormal ST segment\" \"Focal motor seizure with negative myoclonus\"",
+    "AdvancedPheno": false,
+    "Note": "Example"
+  }
+  ]

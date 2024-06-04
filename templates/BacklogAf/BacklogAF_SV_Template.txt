@@ -1,0 +1,10 @@
+#chr - Chromosome
+#chrEnd - End Chromosome
+#effect - Variant effect (DEL, DUP, INV, INS, BND)
+#posStart - Variant start position
+#posEnd - Varianr end position
+#len - Variant length
+#hem - Number of Hemizygous
+#hom - Number of homozygous
+#het - Number of heterozygous
+chr	chrEnd	effect	posStart	posEnd	len	hem	hom	het

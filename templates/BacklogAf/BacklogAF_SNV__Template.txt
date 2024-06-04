@@ -1,0 +1,8 @@
+#chr - Chromosome						
+#pos - Position						
+#ref - Reference allele						
+#alt - ALT allele						
+#hem - Number of Hemizygous						
+#hom - Number of Homozygous						
+#het - Number of Heterozygous
+chr	pos	ref	alt	hem	hom	het

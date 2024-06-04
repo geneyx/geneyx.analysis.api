@@ -1,0 +1,60 @@
+[
+  {
+    "Ref": "G",
+    "Alt": "A",
+    "OMIM": [
+      "CARDIOMYOPATHY, FAMILIAL HYPERTROPHIC, 2; CMH2"
+    ],
+    "Gene": "TNNT2",
+    "Trid": "NM_001276345.2",
+    "Chr": "1",
+    "Pos": 201328373,
+    "Zyg": "HET",
+    "Relevance": 1,
+    "Pathogenic": "Pathogenic",
+    "Validation": 0,
+	"Note": "Observed 4/12/20",
+	"Tags": [
+      "Secondary findings"
+    ],
+	"Interpretation": "Mutations in TNNT2 are associated with various cardiomyopathies, including hypertrophic cardiomyopathy (HCM), dilated cardiomyopathy (DCM), and restrictive cardiomyopathy (RCM). These mutations can disrupt the normal function of the troponin complex, leading to impaired cardiac muscle contraction and subsequent heart dysfunction.",
+    "Recommend": "Genetic testing for mutations in TNNT2 may be recommended for individuals with a family history of cardiomyopathy or unexplained cardiac symptoms. Identifying mutations in TNNT2 can help in diagnosing specific types of cardiomyopathy and guiding treatment decisions, including the use of medications and interventions to manage symptoms and reduce the risk of complications",
+    "Phenos": "\"Congestive heart failure\"",
+	"AdvancedPheno": false
+  },
+   {
+    "Ref": "G",
+    "Alt": "A",
+    "OMIM": [
+      "235200"
+    ],
+    "Gene": "HFE",
+    "Trid": "NM_000410.4",
+    "Chr": "6",
+    "Pos": 26093141,
+    "Zyg": "HET",
+    "Relevance": 1,
+    "Pathogenic": "LikelyBenign",
+    "Validation": 0,
+	"Interpretation": "Variant Interpretation",
+    "Recommend": "Variant Level Recommendations",
+    "AdvancedPheno": false
+  },
+  {
+    "Ref": "ACT",
+    "Alt": "A",
+    "Gene": "BRCA1",
+    "Trid": "NM_007294.4",
+    "Chr": "17",
+    "Pos": 41276044,
+    "Zyg": "HET",
+    "Relevance": 1,
+    "Pathogenic": "LikelyPathogenic",
+    "Tags": [
+      "De novo"
+    ],
+    "Phenos": "\"breast cancer\" \"Inguinal hernia\"",
+    "AdvancedPheno": false,
+    "Note": "Requires Validation"
+  }
+  ]
