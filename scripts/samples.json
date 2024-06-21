@@ -1,0 +1,22 @@
+{
+    "samples": [
+        {
+            "snvVcf": "/mnt/c/Users/eliws/OneDrive/Desktop/Geneyx/GeneyxAnalysis/Customers/Accenture/UploadScript/21306.dragen.wes.grch37.20240518-195054.vcf.gz",
+            "svVcf": "/mnt/c/Users/eliws/OneDrive/Desktop/Geneyx/GeneyxAnalysis/Customers/Accenture/UploadScript/21306.dragen.wes.grch37.20240518-195054.sv.vcf.gz",
+            "genomeBuild": "hg38",
+            "patientId": "21301.dragen.wes.grch37.20240527-044729"
+        },
+        {
+            "snvVcf": "/mnt/c/Users/eliws/OneDrive/Desktop/Geneyx/GeneyxAnalysis/Customers/Accenture/UploadScript/22502.dragen.wes.grch37.20240527-044820.vcf.gz",
+            "svVcf": "/mnt/c/Users/eliws/OneDrive/Desktop/Geneyx/GeneyxAnalysis/Customers/Accenture/UploadScript/22502.dragen.wes.grch37.20240527-044820.sv.vcf.gz",
+            "genomeBuild": "hg38",
+            "patientId": "21301.dragen.wes.grch37.20240527-044729"
+        },
+        {
+            "snvVcf": "/mnt/c/Users/eliws/OneDrive/Desktop/Geneyx/GeneyxAnalysis/Customers/Accenture/UploadScript/23270.dragen.wes.grch37.20240321-111145.vcf.gz",
+            "svVcf": "/mnt/c/Users/eliws/OneDrive/Desktop/Geneyx/GeneyxAnalysis/Customers/Accenture/UploadScript/23270.dragen.wes.grch37.20240321-111145.sv.vcf.gz",
+            "genomeBuild": "hg38",
+            "patientId": "21301.dragen.wes.grch37.20240527-044729"
+        }
+    ]
+}
