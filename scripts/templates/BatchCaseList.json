@@ -1,0 +1,17 @@
+[
+    {
+        "ProtocolId": "LR_Seq",
+        "SubjectId": "PMGRC-573-575-2",
+        "ProbandSampleId": "PMGRC-573-575-2"
+    },
+    {
+        "ProtocolId": "LR_Seq",
+        "SubjectId": "PMGRC-564-575-1",
+        "ProbandSampleId": "PMGRC-564-575-1"
+    },
+    {
+        "ProtocolId": "LR_Seq",
+        "SubjectId": "PMGRC-528-525-1",
+        "ProbandSampleId": "PMGRC-528-525-1"
+    }
+]
