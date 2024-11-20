@@ -2,7 +2,6 @@
 import gzip
 import os
 import logging
-import argparse
 import shutil
 
 # Gets a file and return its lines.
@@ -141,7 +140,7 @@ def __create_unified_file__(files_lines: dict, output_path: str, skip_svtype: bo
     rep_printed = False
 
     with open(output_path, 'w+') as output_h:
-        
+
         # prints into the output file all the sv file (with header) 
         # or all the cnv file (with header) if the sv file is empty 
         # or all the repeats file (with header) if the sv and cnv files are empty
@@ -191,7 +190,6 @@ def run(output_path: str, sv_path: str = None, cnv_path: str = None, repeat_path
         'repeat': repeat_path,
         'roh' : roh_bed_path
     }
-    print(struct_files)
     struct_lines = {}
 
     for file_type in struct_files.keys():
