@@ -27,6 +27,15 @@ def __modify_repeat_line__(repeat_line: str) -> str:
     repeat_line = "\t".join((chrom, pos, id, ref, alt, qual, filter, info, format, _))
     return repeat_line
 
+def __modify_roh_line__(vcf_line) -> str:
+        bed_data = vcf_line.strip().split('\t')
+        #Bed files are 0 Based while VCF files are 1 based.
+        pos_value = min([int(bed_data[1]),int(bed_data[2])]) + 1
+        end_value = max([int(bed_data[1]),int(bed_data[2])])
+        chromosome = bed_data[0]
+        roh_score = bed_data[3]
+        return f"{chromosome}\t{pos_value}\t.\tN\t<ROH>\t.\tPASS\tEND={end_value};SVTYPE=ROH;ROH_SCORE={roh_score}\tGT\t1/1\n"
+
 
 # checks whether this line contains SVTYPE= in it
 # this is Geneyx way to recognizing structural variants
@@ -61,10 +70,14 @@ def __is_valid_line__(line: str) -> bool:
 # modifies lines when necessary (e.g
 def __write_vcf_content__(ftype: str, lines_dict: dict, output_h, skip_svtype: bool):
     start_read_content_flag = False
+    if ftype == 'roh':
+        start_read_content_flag = True
     for vcf_line in lines_dict[ftype]:
         if start_read_content_flag:
             if ftype == 'repeat' and not skip_svtype:
                 vcf_line = __modify_repeat_line__(vcf_line)
+            elif ftype == 'roh':
+                vcf_line = __modify_roh_line__(vcf_line)
             output_h.write(vcf_line)
         if vcf_line.find('#CHROM	POS	ID	REF	ALT	QUAL	FILTER	INFO	FORMAT') != -1:
             start_read_content_flag = True
@@ -76,12 +89,21 @@ def __write_vcf_content__(ftype: str, lines_dict: dict, output_h, skip_svtype: b
 # gets vcf lines and returns the header lines
 def __get_vcf_header_from_lines__(vcf_lines: []):
     vcf_header = ""
+    #IF ROH
     for line in vcf_lines:
         vcf_header = vcf_header + line
         if line.find("#CHROM") != -1:
             break
     return vcf_header
 
+def __add_header__(file_lines,file_type,headerDict):
+
+    header_line_regex = r"##(?P<header_type>[a-zA-Z]+)\b=\<ID=(?P<header_id>[a-zA-Z0-9_]+)\W(?P<header_data>.*)\>"
+
+    pass
+
+def __format_header__(headerDict):
+     
 
 def __is_empty__(lines: []) -> bool:
     for line in lines:
@@ -115,7 +137,7 @@ def __sort_vcf__(vcf_file_path: str):
             shutil.rmtree(temp_dir_name)
         pass
 
-    
+
 # prints the sv file complete (with header), then the cnv without a header
 # and repeats without a header and with modified info section
 # if sv file is empty prints all cnv lines (with header) and repeat lines without a header
@@ -125,11 +147,55 @@ def __create_unified_file__(files_lines: dict, output_path: str, skip_svtype: bo
     cnv_printed = False
     rep_printed = False
     with open(output_path, 'w+') as output_h:
-        
-        # prints into the output file all the sv file (with header) 
-        # or all the cnv file (with header) if the sv file is empty 
-        # or all the repeats file (with header) if the sv and cnv files are empty
+
+        #Create combined header
+        header = {
+                """
+##fileformat=VCFv4.2
+##fileDate=20240628
+##DRAGENVersion=<ID=dragen,Version="SW: 05.121.676.4.2.4a, HW: 05.121.676">
+##DRAGENCommandLine=<ID=dragen,Date="Fri Jun 28 23:23:58 UTC 2024",CommandLineOptions="--output-directory /ephemeral/working_dir/primary_pipeline/2024-06-28-22-14-48_1d9f7c6741fb45e194993db3331e1ca7/output --output-file-prefix DNA23645 --output_status_file /ephemeral/working_dir/primary_pipeline/2024-06-28-22-14-48_1d9f7c6741fb45e194993db3331e1ca7/output/job-speedometer.log --intermediate-results-dir /ephemeral/ --logging-to-output-dir true --watchdog-resources-monitored THREADS --bin_memory 60000000000 --fastq-list /ephemeral/working_dir/primary_pipeline/2024-06-28-22-14-48_1d9f7c6741fb45e194993db3331e1ca7/fastq_list/fastq_list.csv --fastq-list-sample-id DNA23645 --ref-dir /ephemeral/working_dir/primary_pipeline/2024-06-28-22-14-48_1d9f7c6741fb45e194993db3331e1ca7/reference --enable-map-align true --output-format BAM --enable-duplicate-marking true --enable-bam-indexing true --enable-map-align-output true --enable-variant-caller true --enable-sv true --enable-cnv true --vc-combine-phased-variants-distance 1 --cnv-enable-self-normalization true --targeted-enable-legacy-output=true --enable-targeted=true --repeat-genotype-enable true --repeat-genotype-specs /opt/edico/repeat-specs/hg19 --qc-coverage-reports-1 full_res cov_report --qc-coverage-region-1 /ephemeral/working_dir/primary_pipeline/2024-06-28-22-14-48_1d9f7c6741fb45e194993db3331e1ca7/bed/default/exome-default.hg19.bed --qc-coverage-ignore-overlaps true">
+##source=DRAGEN_SV
+##reference=file:///ephemeral/working_dir/primary_pipeline/2024-06-28-22-14-48_1d9f7c6741fb45e194993db3331e1ca7/reference
+##contig=<ID=chrUn_gl000247,length=36422>
+##INFO=<ID=IMPRECISE,Number=0,Type=Flag,Description="Imprecise structural variation">
+##FORMAT=<ID=SR,Number=.,Type=Integer,Description="Split reads for the ref and alt alleles in the order listed, for reads where P(allele|read)>0.999">
+##FILTER=<ID=Ploidy,Description="For DEL & DUP variants, the genotypes of overlapping variants (with similar size) are inconsistent with diploid expectation (not applied to records with KnownSVScoring flag)">
+##ALT=<ID=DUP:TANDEM,Description="Tandem Duplication">
+    """
+            "##fileformat" : {}, #VCFv4.2
+            "##fileDate" : {},#=20240628
+            #""
+            "##contig" : {},
+            "##INFO" : {},
+            "##FORMAT" : {},
+            "##FILTER" : {},
+            "##ALT" : {},
+            "##source" : {},
+            "##reference" : {}
+        }
+
+        for file_type in files_lines:
+            if files_lines[file_type] != None:
+                __add_header__(file_type,files_lines,header)
+        output_h.write(__format_header__(header))
+
+        #Write Vcf contents
+        for file_type in files_lines:
+            if files_lines[file_type] != None:
+                __write_vcf_content__(file_type, files_lines[files_lines], output_h, skip_svtype)
+
+        #Log if no files where given
+        if len([files_lines[f] != None for f in file_type]) == 0:
+
+            logging.warning('Empty/no vcf files to concatenate')
+            return
+
+        """
+        __add_entries__(file_type,files_lines,header)
         if files_lines['sv'] is not None:
+            if files_lines['roh'] is not None:
+                pass#ADD ROH header INFO
             output_h.write("".join(files_lines['sv']))
         elif files_lines['cnv'] is not None:
             cnv_printed = True
@@ -144,7 +210,8 @@ def __create_unified_file__(files_lines: dict, output_path: str, skip_svtype: bo
         else:
             logging.warning('Empty/no vcf files to concatenate')
             return
-
+        """
+            
         # in case sv exist, adds the CNV lines (without the header)
         # if sv doesn't exist, CNV was already written into the output file with its header
         if files_lines['cnv'] is not None and not cnv_printed:
@@ -153,6 +220,7 @@ def __create_unified_file__(files_lines: dict, output_path: str, skip_svtype: bo
         # if sv and cnv don't exist, the repeats file was already written into the output file with its header
         if files_lines['repeat'] is not None and not rep_printed:
             __write_vcf_content__('repeat', files_lines, output_h, skip_svtype)
+        
 
         output_h.flush()
         output_h.close()
@@ -162,14 +230,16 @@ def __create_unified_file__(files_lines: dict, output_path: str, skip_svtype: bo
 
 
 # creates a dictionary with the different vcf files per type and calls the unifying function
-def run(output_path: str, sv_path: str = None, cnv_path: str = None, repeat_path: str = None, skip_svtype: bool = False):
+def run(output_path: str, sv_path: str = None, cnv_path: str = None, repeat_path: str = None, roh_bed_path : str = None, skip_svtype: bool = False):
     output_file_path = output_path
 
     struct_files = {
         'sv': sv_path,
         'cnv': cnv_path,
-        'repeat': repeat_path
+        'repeat': repeat_path,
+        'roh' : roh_bed_path
     }
+    print(struct_files)
     struct_lines = {}
 
     for file_type in struct_files.keys():
