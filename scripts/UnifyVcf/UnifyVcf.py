@@ -96,14 +96,6 @@ def __get_vcf_header_from_lines__(vcf_lines: []):
             break
     return vcf_header
 
-def __add_header__(file_lines,file_type,headerDict):
-
-    header_line_regex = r"##(?P<header_type>[a-zA-Z]+)\b=\<ID=(?P<header_id>[a-zA-Z0-9_]+)\W(?P<header_data>.*)\>"
-
-    pass
-
-def __format_header__(headerDict):
-     
 
 def __is_empty__(lines: []) -> bool:
     for line in lines:
@@ -142,60 +134,19 @@ def __sort_vcf__(vcf_file_path: str):
 # and repeats without a header and with modified info section
 # if sv file is empty prints all cnv lines (with header) and repeat lines without a header
 # if cnv is also empty prints repeat lines with the header
+
 def __create_unified_file__(files_lines: dict, output_path: str, skip_svtype: bool):
 
     cnv_printed = False
     rep_printed = False
+
     with open(output_path, 'w+') as output_h:
+        
+        # prints into the output file all the sv file (with header) 
+        # or all the cnv file (with header) if the sv file is empty 
+        # or all the repeats file (with header) if the sv and cnv files are empty
 
-        #Create combined header
-        header = {
-                """
-##fileformat=VCFv4.2
-##fileDate=20240628
-##DRAGENVersion=<ID=dragen,Version="SW: 05.121.676.4.2.4a, HW: 05.121.676">
-##DRAGENCommandLine=<ID=dragen,Date="Fri Jun 28 23:23:58 UTC 2024",CommandLineOptions="--output-directory /ephemeral/working_dir/primary_pipeline/2024-06-28-22-14-48_1d9f7c6741fb45e194993db3331e1ca7/output --output-file-prefix DNA23645 --output_status_file /ephemeral/working_dir/primary_pipeline/2024-06-28-22-14-48_1d9f7c6741fb45e194993db3331e1ca7/output/job-speedometer.log --intermediate-results-dir /ephemeral/ --logging-to-output-dir true --watchdog-resources-monitored THREADS --bin_memory 60000000000 --fastq-list /ephemeral/working_dir/primary_pipeline/2024-06-28-22-14-48_1d9f7c6741fb45e194993db3331e1ca7/fastq_list/fastq_list.csv --fastq-list-sample-id DNA23645 --ref-dir /ephemeral/working_dir/primary_pipeline/2024-06-28-22-14-48_1d9f7c6741fb45e194993db3331e1ca7/reference --enable-map-align true --output-format BAM --enable-duplicate-marking true --enable-bam-indexing true --enable-map-align-output true --enable-variant-caller true --enable-sv true --enable-cnv true --vc-combine-phased-variants-distance 1 --cnv-enable-self-normalization true --targeted-enable-legacy-output=true --enable-targeted=true --repeat-genotype-enable true --repeat-genotype-specs /opt/edico/repeat-specs/hg19 --qc-coverage-reports-1 full_res cov_report --qc-coverage-region-1 /ephemeral/working_dir/primary_pipeline/2024-06-28-22-14-48_1d9f7c6741fb45e194993db3331e1ca7/bed/default/exome-default.hg19.bed --qc-coverage-ignore-overlaps true">
-##source=DRAGEN_SV
-##reference=file:///ephemeral/working_dir/primary_pipeline/2024-06-28-22-14-48_1d9f7c6741fb45e194993db3331e1ca7/reference
-##contig=<ID=chrUn_gl000247,length=36422>
-##INFO=<ID=IMPRECISE,Number=0,Type=Flag,Description="Imprecise structural variation">
-##FORMAT=<ID=SR,Number=.,Type=Integer,Description="Split reads for the ref and alt alleles in the order listed, for reads where P(allele|read)>0.999">
-##FILTER=<ID=Ploidy,Description="For DEL & DUP variants, the genotypes of overlapping variants (with similar size) are inconsistent with diploid expectation (not applied to records with KnownSVScoring flag)">
-##ALT=<ID=DUP:TANDEM,Description="Tandem Duplication">
-    """
-            "##fileformat" : {}, #VCFv4.2
-            "##fileDate" : {},#=20240628
-            #""
-            "##contig" : {},
-            "##INFO" : {},
-            "##FORMAT" : {},
-            "##FILTER" : {},
-            "##ALT" : {},
-            "##source" : {},
-            "##reference" : {}
-        }
-
-        for file_type in files_lines:
-            if files_lines[file_type] != None:
-                __add_header__(file_type,files_lines,header)
-        output_h.write(__format_header__(header))
-
-        #Write Vcf contents
-        for file_type in files_lines:
-            if files_lines[file_type] != None:
-                __write_vcf_content__(file_type, files_lines[files_lines], output_h, skip_svtype)
-
-        #Log if no files where given
-        if len([files_lines[f] != None for f in file_type]) == 0:
-
-            logging.warning('Empty/no vcf files to concatenate')
-            return
-
-        """
-        __add_entries__(file_type,files_lines,header)
         if files_lines['sv'] is not None:
-            if files_lines['roh'] is not None:
-                pass#ADD ROH header INFO
             output_h.write("".join(files_lines['sv']))
         elif files_lines['cnv'] is not None:
             cnv_printed = True
@@ -210,8 +161,7 @@ def __create_unified_file__(files_lines: dict, output_path: str, skip_svtype: bo
         else:
             logging.warning('Empty/no vcf files to concatenate')
             return
-        """
-            
+
         # in case sv exist, adds the CNV lines (without the header)
         # if sv doesn't exist, CNV was already written into the output file with its header
         if files_lines['cnv'] is not None and not cnv_printed:
@@ -220,10 +170,12 @@ def __create_unified_file__(files_lines: dict, output_path: str, skip_svtype: bo
         # if sv and cnv don't exist, the repeats file was already written into the output file with its header
         if files_lines['repeat'] is not None and not rep_printed:
             __write_vcf_content__('repeat', files_lines, output_h, skip_svtype)
-        
+        if files_lines['roh'] is not None:
+            __write_vcf_content__('roh', files_lines, output_h, skip_svtype)
 
         output_h.flush()
         output_h.close()
+    
     
     # sorts the unified vcf to enable indexing in the application
     __sort_vcf__(output_path)
