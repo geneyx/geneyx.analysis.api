@@ -9,9 +9,14 @@ if __name__ == '__main__':
     parser.add_argument('-s', '--svPath', help='SV input file path (optional)', required=False, default=None)
     parser.add_argument('-c', '--cnvPath', help='CNV input file path (optional)', required=False, default=None)
     parser.add_argument('-r', '--repeatPath', help='repeats input file path (optional)', required=False, default=None)
-
+    parser.add_argument('-modify', action='store_true', help='a flag indicating whether to modify the repeat calls or not. Add this flag when STRaglr is the repeat caller')
 
     args = parser.parse_args()
     # a flag indicating whether to add the SVTYPE=REP to the repeats lines or not
-    skip_svtype = True
+    if(args.modify):
+        skip_svtype = False
+    else:
+        skip_svtype = True
+
     run(args.outputPath, args.svPath, args.cnvPath, args.repeatPath, skip_svtype)
+
