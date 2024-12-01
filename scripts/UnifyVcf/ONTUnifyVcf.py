@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
 import argparse
 
+
 from UnifyVcf import run
 
 if __name__ == '__main__':
