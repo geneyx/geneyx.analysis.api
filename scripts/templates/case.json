@@ -3,7 +3,7 @@
 	"Name":"string",
 	"Description":"string",
 	"PhenAlleleFreq":"nullable-double",
-	"Phenotypes":"string",
+	"Phenotypes": "HP:0000189,HP:0000219",   OR  "Phenotypes": "\"Narrow palate\", \"Thin upper lip vermilion\"",
 	"ConcatSubjectPhenotypes": "boolean",
 	"Owner": "string",
 	"OwnerDepartment":"string",
