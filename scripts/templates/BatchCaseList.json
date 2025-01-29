@@ -2,7 +2,8 @@
     {
         "ProtocolId": "LR_Seq",
         "SubjectId": "PMGRC-573-575-2",
-        "ProbandSampleId": "PMGRC-573-575-2"
+        "ProbandSampleId": "PMGRC-573-575-2",
+        "Phenotypes": "HP:0000189,HP:0000219",   OR  "Phenotypes": "\"Narrow palate\", \"Thin upper lip vermilion\"",
     },
     {
         "ProtocolId": "LR_Seq",
