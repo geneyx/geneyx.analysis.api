@@ -18,5 +18,5 @@ if __name__ == '__main__':
     else:
         skip_svtype = True
 
-    run(args.outputPath, args.svPath, args.cnvPath, args.repeatPath, skip_svtype)
+    run(output_path=args.outputPath, sv_path=args.svPath, cnv_path=args.cnvPath, repeat_path=args.repeatPath, skip_svtype=skip_svtype)
 

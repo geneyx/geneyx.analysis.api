@@ -49,7 +49,7 @@ def filter_and_run(output_path: str, sv_path: str = None, cnv_path: str = None, 
     # a flag indicating whether to add the SVTYPE=REP to the repeats lines or not
     skip_svtype = False
     
-    run(output_path, sv_path, cnv_path, filtered_repeat_path, skip_svtype)
+    run(output_path=output_path, sv_path=sv_path, cnv_path=cnv_path, repeat_path=filtered_repeat_path, skip_svtype=skip_svtype)
 
 
 if __name__ == '__main__':
