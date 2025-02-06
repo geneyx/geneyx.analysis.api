@@ -13,6 +13,4 @@ if __name__ == '__main__':
 
 
     args = parser.parse_args()
-    # a flag indicating whether to add the SVTYPE=REP to the repeats lines or not
-    skip_svtype = False
-    run(args.outputPath, args.svPath, args.cnvPath, args.repeatPath, args.roh, skip_svtype)
+    run(output_path=args.outputPath, sv_path=args.svPath, cnv_path=args.cnvPath, repeat_path=args.repeatPath, roh_bed_path=args.roh)
