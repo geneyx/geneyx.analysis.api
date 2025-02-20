@@ -28,6 +28,7 @@ parser.add_argument('--kitId', help = 'The enrichment kit id (bed file) - From e
 parser.add_argument('--genomeBuild', help = 'The genome build of this sample', choices=['hg19','hg38'], default='hg19')
 parser.add_argument('--sampleNotes', help = 'Sample notes')
 parser.add_argument('--sampleQcData', help = 'Sample QC data as json string')
+parser.add_argument('--sampleAdvAnalysis', help = 'Sample advanced analysis data as json string')
 parser.add_argument('--excludeFromLAF', help = 'exclude the sample from local AF statistics')
 
 parser.add_argument('--sampleRelation', help = 'Sample relation', choices=['Self','Mother','Father','Sibling','Twin','MotherRelative','FatherRelative','Other'], default='Self')
@@ -145,7 +146,8 @@ data = {
             'SampleGenomeBuild': args.genomeBuild,
             'SampleNotes': args.sampleNotes,
             'SampleRelation': args.sampleRelation,            
-            'sampleQcData': args.sampleQcData,            
+            'SampleQcData': args.sampleQcData,            
+            'SampleAdvAnalysis': args.sampleAdvAnalysis,            
             'ExcludeFromLAF': args.excludeFromLAF,
             'bamUrl': args.bamUrl,
             'methylationUrl': args.methylationUrl,            
