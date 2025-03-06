@@ -1,4 +1,4 @@
-# Who needs geneyx anlysis API?
+# Who needs geneyx analysis API?
 If you are Geneyx Analysis user that want to automate your data flow, for example:
 - Integrate your sequencing machine and automatically send FASTQ to Geneyx Analysis
 - Integrate with your LIMS and automatically create VCF samples or download reports
