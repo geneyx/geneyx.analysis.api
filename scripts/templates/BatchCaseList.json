@@ -6,6 +6,27 @@
         "Phenotypes": "HP:0000189,HP:0000219",   OR  "Phenotypes": "\"Narrow palate\", \"Thin upper lip vermilion\"",
     },
     {
+        "SerialNumber": "TRIO-CSCFCA-IN4127",
+        "ProtocolId": "RG_TRIO",
+        "SubjectId": "CSCFCA-IN4127-R21AD324-D1L",
+        "ProbandSampleId": "CSCFCA-IN4127-R21AD324-D1L_snv.vcf.gz",
+        "Description": "monsomy X",
+		"Phenotypes": "HP:0001649,HP:0001888,HP:0001954,HP:0004313,HP:0011968",
+        "ConcatSubjectPhenotypes": "True",
+        "AssociatedSamples": [
+            {
+                "Relation": "Mother",
+                "SampleId": "CHCM-CLINSVCS-CSCFCA-INC3CD-R21AD326-D1L_snv.vcf.gz",
+                "Affected": "Unaffected"
+            },
+            {
+                "Relation": "Father",
+                "SampleId": "CHCM-CLINSVCS-CSCFCA-INDDA6-R21AD327-D1L_snv.vcf.gz",
+                "Affected": "Unaffected"
+            }
+        ]
+    },
+    {
         "ProtocolId": "LR_Seq",
         "SubjectId": "PMGRC-564-575-1",
         "ProbandSampleId": "PMGRC-564-575-1"
