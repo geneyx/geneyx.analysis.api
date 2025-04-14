@@ -46,7 +46,7 @@ def process_sample(sample):
         svVcf = combinedFile
     
     # Prepare the sample data
-    sampleId = ntpath.basename(snvVcf)
+    sampleId = sample['patientId'] 
     snvBaseName = ntpath.basename(snvVcf)
     svBaseName = ntpath.basename(svVcf) if svVcf else None
     
