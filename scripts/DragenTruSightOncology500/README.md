@@ -77,8 +77,8 @@ This command will produce `payload.json` with the structure:
 
 ## API: `UploadAdvanceAnalysisToSample`
 
-* **Endpoint**: `POST /api/samples/{sampleId}/advance-analysis`
-* **Content-Type**: `application/json` or `multipart/form-data`
+* **Endpoint**: `POST /api/samples/{sampleId}/UploadAdvanceAnalysisToSample`
+* **Content-Type**:  `multipart/form-data`
 
 On success, you’ll receive HTTP `200 OK` with the saved analysis record.
 
@@ -87,14 +87,10 @@ On success, you’ll receive HTTP `200 OK` with the saved analysis record.
 You can combine parsing and upload in a single Python script:
 
 ```python
-import json
-import requests
-from parser import DragenTruSightOncology500TSVParser
-
+from DragenTruSightOncology500TSVParser import DragenTruSightOncology500TSVParser
 # Parse TSV
 parser = DragenTruSightOncology500TSVParser('sample_report.tsv')
 payload = parser.parse_tsv(sections_to_parse)
-
 ```
 
 ## Contributing
