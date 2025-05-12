@@ -59,24 +59,25 @@ C:\geneyx.analysis.api-main\scripts>python ga_uploadBatch.py --batchFile "C:\Gen
 
 This would iniate a batch upload of fastq files into the secondary pipeline of Geneyx following the data specified in BatchImportTemplate.txt. 
 
-## gVcfMod.sh: VCF File Processing Script
-Overview
-The gVcfMod.sh script is designed to process VCF (Variant Call Format) files, specifically by removing the <REF> and <NON_REF> entries from the ALT field in the VCF file. It works with both gzipped (.vcf.gz) and uncompressed .vcf files. The script preserves the header lines, processes the variant lines, and outputs the modified VCF file.
 
-Prerequisites
-To run the script successfully, you need the following:
+# gVcfMod.sh: VCF File Processing Script
 
-Bash: A Unix-like environment (Linux, macOS, or WSL on Windows).
+## Overview
+The `gVcfMod.sh` script is designed to process **VCF (Variant Call Format)** files by removing the `<REF>` and `<NON_REF>` entries from the **ALT field** in the VCF file. The script works with both **gzipped** (`.vcf.gz`) and **uncompressed** `.vcf` files, preserving the header lines and modifying the variant data.
 
-AWK: For processing the VCF data.
+## Prerequisites
+To run the script, you need the following:
+- **Bash**: A Unix-like environment (Linux, macOS, or **WSL** on Windows).
+- **AWK**: For processing the VCF data.
+- **zcat** or **gzip**: For decompressing gzipped files on the fly.
+- **dos2unix**: If you're on **Windows** (via WSL or Cygwin), you may need to convert line endings from Windows to Unix style.
 
-zcat or gzip: For decompressing gzipped files on the fly.
+### Install `dos2unix` (Windows Users)
+If you're using Windows and encounter issues with line endings (e.g., `^M` errors), you can install and use `dos2unix` to convert the script's line endings to Unix-style.
 
-dos2unix: If you are working on a Windows machine (via WSL or Cygwin), you'll need to convert line endings to Unix-style line endings.
+To install `dos2unix` on WSL:
 
-Install dos2unix (for Windows Users)
-If you're using Windows and encounter issues with line endings (e.g., ^M errors), you can convert the file using dos2unix. You can install dos2unix on WSL with:
-
+```bash
 sudo apt-get install dos2unix
 
 Once installed, you can convert the script file:
