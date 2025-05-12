@@ -77,11 +77,11 @@ If you're using Windows and encounter issues with line endings (e.g., `^M` error
 
 To install `dos2unix` on WSL:
 
-```bash
+```bash```
 sudo apt-get install dos2unix
 
 Once installed, you can convert the script file:
-
+```bash```
 dos2unix gVcfMod.sh
 
 This command will convert the line endings from Windows-style (CRLF) to Unix-style (LF).
@@ -97,6 +97,7 @@ Output file where the processed VCF data will be saved.
 Step 2: Run the Script
 To use the script, execute the following command in your Bash terminal:
 
+```bash```
 ./gVcfMod.sh <input_vcf_file> <output_vcf_file>
 
 Where:
@@ -108,7 +109,7 @@ Where:
 Step 3: Check the Output
 After the script finishes running, the modified VCF file will be saved to the specified output file (modified.vcf in the example).
 
-Script Details
+### Script Details
 What the Script Does:
 Preserves header lines: Lines starting with # are preserved as-is (they contain metadata and column names).
 
