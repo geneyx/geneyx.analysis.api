@@ -59,3 +59,70 @@ C:\geneyx.analysis.api-main\scripts>python ga_uploadBatch.py --batchFile "C:\Gen
 
 This would iniate a batch upload of fastq files into the secondary pipeline of Geneyx following the data specified in BatchImportTemplate.txt. 
 
+## gVcfMod.sh: VCF File Processing Script
+Overview
+The gVcfMod.sh script is designed to process VCF (Variant Call Format) files, specifically by removing the <REF> and <NON_REF> entries from the ALT field in the VCF file. It works with both gzipped (.vcf.gz) and uncompressed .vcf files. The script preserves the header lines, processes the variant lines, and outputs the modified VCF file.
+
+Prerequisites
+To run the script successfully, you need the following:
+
+Bash: A Unix-like environment (Linux, macOS, or WSL on Windows).
+
+AWK: For processing the VCF data.
+
+zcat or gzip: For decompressing gzipped files on the fly.
+
+dos2unix: If you are working on a Windows machine (via WSL or Cygwin), you'll need to convert line endings to Unix-style line endings.
+
+Install dos2unix (for Windows Users)
+If you're using Windows and encounter issues with line endings (e.g., ^M errors), you can convert the file using dos2unix. You can install dos2unix on WSL with:
+
+sudo apt-get install dos2unix
+
+Once installed, you can convert the script file:
+
+dos2unix gVcfMod.sh
+
+This command will convert the line endings from Windows-style (CRLF) to Unix-style (LF).
+
+Usage
+Step 1: Prepare the Files
+Ensure you have the following:
+
+Input VCF file (either gzipped or uncompressed).
+
+Output file where the processed VCF data will be saved.
+
+Step 2: Run the Script
+To use the script, execute the following command in your Bash terminal:
+
+./gVcfMod.sh <input_vcf_file> <output_vcf_file>
+
+Where:
+
+<input_vcf_file> is the path to your input VCF file (either .vcf or .vcf.gz).
+
+<output_vcf_file> is the path to the output file that will contain the processed VCF data.
+
+Step 3: Check the Output
+After the script finishes running, the modified VCF file will be saved to the specified output file (modified.vcf in the example).
+
+Script Details
+What the Script Does:
+Preserves header lines: Lines starting with # are preserved as-is (they contain metadata and column names).
+
+Removes <REF> and <NON_REF> from the ALT field: If these entries exist in the ALT field (column 5), they will be removed.
+
+Skips variants with no alternate alleles left: If the ALT field becomes empty after removing <REF> and <NON_REF>, that variant is skipped.
+
+Supports gzipped VCF files: The script can process gzipped (.vcf.gz) files using zcat or gzip.
+
+What to Expect After Running:
+The script will produce a new VCF file where:
+
+The <REF> and <NON_REF> values are removed from the ALT field.
+
+The header lines are retained.
+
+Variants with no remaining alternate alleles are skipped.
+
