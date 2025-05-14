@@ -1,0 +1,99 @@
+{
+    "hba": {
+        "totalCopyNumber": 4,
+        "genotype": "aa/aa",
+        "genotypeQuality": 93,
+        "genotypeFilter": "PASS",
+        "variants": [
+            {
+                "alleleId": "NM_000517.6:c.95+1G>A",
+                "alleleCopyNumber": 1,
+                "genotypeQuality": 26,
+                "filter": "PASS"
+            }
+        ]
+    },
+    "rh": {
+        "totalCopyNumber": 4,
+        "rhdCopyNumber": 2,
+        "rhceCopyNumber": 2,
+        "variants": [
+            {
+                "hgvs": "NC_000001.11g.25405596_25409676con25283766_25287797",
+                "qual": 63.42360372675952,
+                "altCopyNumber": 2,
+                "altCopyNumberQuality": 74.27989942583051
+            }
+        ]
+    },
+    "lpa":  {
+        "kiv2CopyNumber": 28.709054093341653,
+        "refMarkerAlleleCopyNumber": null,
+        "altMarkerAlleleCopyNumber": null,
+        "type": "Homozygous REF markers call",
+        "variants": [
+            {
+                "hgvs": "LPA:4925G>A",
+                "qual": 0.0,
+                "altCopyNumber": 0,
+                "altCopyNumberQuality": 150.0
+            },
+            {
+                "hgvs": "LPA:4733G>A",
+                "qual": 132.8341692747592,
+                "altCopyNumber": 1,
+                "altCopyNumberQuality": 15.776967125542765
+            }
+        ]
+    },
+    "cyp2b6": {
+        "genotype": "*17/*2",
+        "genotypeFilter": "PASS",
+        "phenotypeDatabaseAnnotation": "Normal Metabolizer"
+    },
+    "cyp2d6": {
+        "genotype": "*17/*2",
+        "genotypeFilter": "PASS",
+        "phenotypeDatabaseAnnotation": "Normal Metabolizer"
+    },
+    "cyp21a2": {
+        "totalCopyNumber": 2,
+        "deletionBreakpointInGene": true,
+        "recombinantHaplotypes": [
+            "NM_000500.9:c.92C>T+NM_000500.9:c.293-13C>G+NM_000500.9:c.332_339del+NM_000500.9:c.518T>A+NM_000500.9:c.710T>A+NM_000500.9:c.713T>A+NM_000500.9:c.719T>A+NM_000500.9:c.923dupT",
+            "NM_000500.9:c.92C>T+NM_000500.9:c.293-13C>G+NM_000500.9:c.332_339del+NM_000500.9:c.518T>A+NM_000500.9:c.710T>A+NM_000500.9:c.713T>A+NM_000500.9:c.719T>A+NM_000500.9:c.923dupT+NM_000500.9:c.955C>T"
+        ],
+        "variants": [
+            {
+                "alleleId": "NM_000500.9:c.1360C>T",
+                "alleleCopyNumber": 2,
+                "genotypeQuality": 18,
+                "filter": "PASS"
+            }
+        ]
+    },
+    "gba": {
+        "totalCopyNumber": 4,
+        "deletionBreakpointInGene": null,
+        "recombinantHaplotypes": [
+          "L483P",
+          ""
+        ],
+        "variants": []
+      },
+    "smn": {
+        "smn1CopyNumber": 3,
+        "smn2CopyNumber": 1,
+        "smn2Delta78CopyNumber": 0,
+        "totalCopyNumber": "3.89",
+        "fullLengthCopyNumber": "4.10",
+        "variants": [
+            {
+                "hgvs": "NM_000344.4:c.*3+80T>G",
+                "qual": null,
+                "altCopyNumber": 1,
+                "altCopyNumberQuality": 54.63854344932561
+            }
+        ]
+    }
+}

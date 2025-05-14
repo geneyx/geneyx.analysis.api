@@ -1,0 +1,2 @@
+#Sample	is_biallelic	is_carrier	total_CN	deletion_breakpoint_in_GBA_gene	recombinant_variants	other_variants
+SRR12898317_	True	True	4	None		NM_000157.4:c.754T>A,NM_000157.4:c.580A>T
