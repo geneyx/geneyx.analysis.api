@@ -11,7 +11,7 @@ import ga_helperFunctions as funcs
 # ---------------------------------
 parser = argparse.ArgumentParser(prog='ga_uploadSample.py', description='Uploads a set of vcf files as a sample to Geneyx Analysis')
 # the files
-parser.add_argument('--snvVcf', help = 'The path to the SNV VCF file', required=True)
+parser.add_argument('--snvVcf', help = 'The path to the SNV VCF file')
 parser.add_argument('--svVcf', help = 'The path to the SV VCF file')
 parser.add_argument('--cnvVcf', help = 'The path to the CNV  VCF file')
 
@@ -68,7 +68,7 @@ config = funcs.loadYamlFile(args.config)
 # Validation
 # ---------------------------------
 # check the SNV
-if (not os.path.exists(args.snvVcf)):
+if (args.snvVcf != None and not os.path.exists(args.snvVcf)):
     raise Exception("The file {} does not exist".format(args.snvVcf))
 
 # check the SV
@@ -82,7 +82,10 @@ if (args.cnvVcf != None and not os.path.exists(args.cnvVcf)):
 # ---------------------------------
 # Files preparation
 # ---------------------------------
-snvVcf = args.snvVcf
+snvVcf = None
+if (args.snvVcf != None):
+	print("provided SNV file")
+	snvVcf = args.snvVcf
 svVcf = None
 if (args.svVcf != None and args.cnvVcf != None):
     print("provided both SV and CNV file need to combine")
@@ -112,12 +115,19 @@ elif(args.cnvVcf != None):
     print("provided CNV file")
     svVcf = args.cnvVcf
 
+if (snvVcf == None and svVcf == None):
+	raise Exception("No SNV nor SV file were provided")
+
 # ---------------------------------
 # prepare the parameters for upload
 # ---------------------------------
 sampleId = args.sampleId
 if (sampleId == None):
-    sampleId = ntpath.basename(args.snvVcf)
+	if (snvVcf != None):
+		sampleId = ntpath.basename(snvVcf)
+	if (svVcf != None):
+		sampleId = ntpath.basename(svVcf)
+		
 
 print(config)
 
@@ -173,7 +183,10 @@ if args.groupAssignmentCode != None and args.groupAssignmentName != None:
 	data['GroupAssignment'] = [{ 'Code':args.groupAssignmentCode, 'Name': args.groupAssignmentName}]
 
 
-files = { 'snvFile': open(snvVcf, "rb") }
+files = { }
+if (snvVcf != None):
+	files['snvFile'] = open(snvVcf, "rb")
+
 if (svVcf != None):
     files['svFile'] = open(svVcf, "rb")
 api = config['server']+'/api/CreateSample'
