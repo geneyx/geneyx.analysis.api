@@ -291,25 +291,24 @@ def test_parser_in_memory(context: JsonDict):
 ```
 
 ---
----
 
 ## AdvancedAnalysisFile Properties
 
-| Property Name | Type                               | Required? |
-|---------------|------------------------------------|-----------|
-| Lpa           | AdvancedAnalysis<LpaData>          | No        |
-| Smn1          | AdvancedAnalysis<Smn1Data>         | No        |
-| Smn           | AdvancedAnalysis<SmnData>          | No        |
-| Hba           | AdvancedAnalysis<HbaData>          | No        |
-| Rh            | AdvancedAnalysis<RhData>           | No        |
-| Cyp2d6        | AdvancedAnalysis<Cyp2bData>        | No        |
-| Cyp2b6        | AdvancedAnalysis<Cyp2bData>        | No        |
-| Cyp21a2       | AdvancedAnalysis<Cyp21a2Data>      | No        |
-| Gba           | AdvancedAnalysis<GbaData>          | No        |
-| Tmb           | AdvancedAnalysis<TmbData>          | No        |
-| Gis           | AdvancedAnalysis<GisData>          | No        |
-| Msi           | AdvancedAnalysis<MsiData>          | No        |
-| Hrd           | AdvancedAnalysis<HrdData>          | No        |
+| JSON Name | Type                               | Required? |
+|-----------|------------------------------------|-----------|
+| LPA       | AdvancedAnalysis<LpaData>          | No        |
+| SMN1      | AdvancedAnalysis<Smn1Data>         | No        |
+| SMN       | AdvancedAnalysis<SmnData>          | No        |
+| HBA       | AdvancedAnalysis<HbaData>          | No        |
+| RH        | AdvancedAnalysis<RhData>           | No        |
+| CYP2D6    | AdvancedAnalysis<Cyp2bData>        | No        |
+| CYP2B6    | AdvancedAnalysis<Cyp2bData>        | No        |
+| CYP21A2   | AdvancedAnalysis<Cyp21a2Data>      | No        |
+| GBA       | AdvancedAnalysis<GbaData>          | No        |
+| TMB       | AdvancedAnalysis<TmbData>          | No        |
+| GIS       | AdvancedAnalysis<GisData>          | No        |
+| MSI       | AdvancedAnalysis<MsiData>          | No        |
+| HRD       | AdvancedAnalysis<HrdData>          | No        |
 
 ---
 
@@ -317,10 +316,10 @@ def test_parser_in_memory(context: JsonDict):
 
 ### AdvancedAnalysis<T>
 
-| Property Name | Type     | Required? |
-|---------------|----------|-----------|
-| Data          | T        | No        |
-| Warning       | string   | No        |
+| JSON Name | Type     | Required? |
+|-----------|----------|-----------|
+| data      | T        | No        |
+| Warning   | string   | No        |
 
 ---
 
@@ -328,145 +327,146 @@ def test_parser_in_memory(context: JsonDict):
 
 ### LpaData
 
-| Property Name                | Type               | Required? |
-|------------------------------|--------------------|-----------|
-| Kiv2CopyNumber               | double             | Yes       |
-| RefMarkerAlleleCopyNumber    | double?            | No        |
-| AltMarkerAlleleCopyNumber    | double?            | No        |
-| Type                         | LpaType            | Yes       |
-| Variants                     | List<Variant>      | Yes       |
+| JSON Name                   | Type               | Required? |
+|-----------------------------|--------------------|-----------|
+| kiv2CopyNumber              | double             | Yes       |
+| refMarkerAlleleCopyNumber   | double?            | No        |
+| altMarkerAlleleCopyNumber   | double?            | No        |
+| type                        | LpaType            | Yes       |
+| variants                    | List<Variant>      | Yes       |
 
 ---
+
 ### Smn1Data
 
-| Property Name    | Type    | Required? |
-|------------------|---------|-----------|
-| Sample           | string  | Yes       |
-| IsSma            | bool    | Yes       |
-| IsCarrier        | bool    | Yes       |
-| Smn1Cn           | double  | No        |
-| Smn2Cn           | double  | No        |
-| Smn2delta78Cn    | int     | Yes       |
-| TotalCnRaw       | double  | Yes       |
-| FullLengthCnRaw  | double  | Yes       |
-| Smn1CnRaw        | string  | Yes       |
+| JSON Name            | Type    | Required? |
+|----------------------|---------|-----------|
+| #Sample              | string  | Yes       |
+| isSMA                | bool    | Yes       |
+| isCarrier            | bool    | Yes       |
+| SMN1_CN              | double  | No        |
+| SMN2_CN              | double  | No        |
+| SMN2delta7-8_CN      | int     | Yes       |
+| Total_CN_raw         | double  | Yes       |
+| Full_length_CN_raw   | double  | Yes       |
+| SMN1_CN_raw          | string  | Yes       |
 
 ---
 
 ### SmnData
 
-| Property Name      | Type            | Required? |
-|--------------------|-----------------|-----------|
-| Smn1Cn             | double?         | Yes       |
-| Smn2Cn             | double?         | Yes       |
-| Smn2delta78Cn      | int             | Yes       |
-| TotalCnRaw         | double          | Yes       |
-| FullLengthCnRaw    | double          | No        |
-| Variants           | List<Variant>   | Yes       |
+| JSON Name            | Type            | Required? |
+|----------------------|-----------------|-----------|
+| smn1CopyNumber       | double?         | Yes       |
+| smn2CopyNumber       | double?         | Yes       |
+| smn2Delta78CopyNumber| int             | Yes       |
+| totalCopyNumber      | double          | Yes       |
+| fullLengthCopyNumber | double          | No        |
+| variants             | List<Variant>   | Yes       |
 
 ---
 
 ### HbaData
 
-| Property Name    | Type              | Required? |
-|------------------|-------------------|-----------|
-| Genotype         | string            | Yes       |
-| GenotypeFilter   | GenotypeFilter    | Yes       |
-| GenotypeQual     | double            | Yes       |
-| MinPValue        | double            | Yes       |
-| Variants         | List<Variant>     | Yes       |
+| JSON Name         | Type              | Required? |
+|-------------------|-------------------|-----------|
+| genotype          | string            | Yes       |
+| genotypeFilter    | GenotypeFilter    | Yes       |
+| genotypeQual      | double            | Yes       |
+| minPValue         | double            | Yes       |
+| variants          | List<Variant>     | Yes       |
 
 ---
 
 ### RhData
 
-| Property Name     | Type            | Required? |
-|-------------------|-----------------|-----------|
-| TotalCopyNumber   | int             | Yes       |
-| RhdCopyNumber     | int             | Yes       |
-| RhceCopyNumber    | int             | Yes       |
-| Variants          | List<Variant>   | Yes       |
+| JSON Name        | Type            | Required? |
+|------------------|-----------------|-----------|
+| totalCopyNumber  | int             | Yes       |
+| rhdCopyNumber    | int             | Yes       |
+| rhceCopyNumber   | int             | Yes       |
+| variants         | List<Variant>   | Yes       |
 
 ---
 
 ### Cyp2bData
 
-| Property Name              | Type             | Required? |
-|----------------------------|------------------|-----------|
-| Genotype                   | string           | Yes       |
-| GenotypeFilter             | GenotypeFilter   | Yes       |
-| PharmcatDescription        | string           | No        |
-| PharmcatMetabolismStatus   | string           | No        |
+| JSON Name               | Type             | Required? |
+|-------------------------|------------------|-----------|
+| genotype                | string           | Yes       |
+| genotypeFilter          | GenotypeFilter   | Yes       |
+| pharmcatDescription     | string           | No        |
+| pharmcatMetabolismStatus| string           | No        |
 
 ---
 
 ### Cyp21a2Data
 
-| Property Name                | Type            | Required? |
-|------------------------------|-----------------|-----------|
-| TotalCopyNumber              | int             | Yes       |
-| DeletionBreakpointInGene     | bool?           | No        |
-| RecombinantHaplotypes        | List<string>    | No        |
-| Variants                     | List<Variant>   | Yes       |
+| JSON Name                | Type            | Required? |
+|--------------------------|-----------------|-----------|
+| totalCopyNumber          | int             | Yes       |
+| deletionBreakpointInGene | bool?           | No        |
+| recombinantHaplotypes    | List<string>    | No        |
+| variants                 | List<Variant>   | Yes       |
 
 ---
 
 ### GbaData
 
-| Property Name                  | Type    | Required? |
+| JSON Name                      | Type    | Required? |
 |--------------------------------|---------|-----------|
-| Sample                         | string  | Yes       |
-| IsBiallelic                    | bool    | Yes       |
-| IsCarrier                      | bool    | Yes       |
-| TotalCn                        | int     | Yes       |
-| DeletionBreakpointInGbaGene    | string  | No        |
-| RecombinantVariants            | string  | No        |
-| OtherVariants                  | string  | No        |
+| #Sample                        | string  | Yes       |
+| is_biallelic                   | bool    | Yes       |
+| is_carrier                     | bool    | Yes       |
+| total_CN                       | int     | Yes       |
+| deletion_breakpoint_in_GBA_gene| string  | No        |
+| recombinant_variants           | string  | No        |
+| other_variants                 | string  | No        |
 
 ---
 
 ### TmbData
 
-| Property Name   | Type   | Required? |
-|-----------------|--------|-----------|
-| Total           | double | Yes       |
+| JSON Name   | Type   | Required? |
+|-------------|--------|-----------|
+| Total TMB   | double | Yes       |
 
 ---
 
 ### GisData
 
-| Property Name     | Type    | Required? |
-|-------------------|---------|-----------|
-| Instability       | int     | No        |
-| TumorFraction     | double  | No        |
-| Ploidy            | double  | No        |
+| JSON Name                | Type    | Required? |
+|--------------------------|---------|-----------|
+| Genomic Instability Score| int     | No        |
+| Tumor Fraction           | double  | No        |
+| Ploidy                   | double  | No        |
 
 ---
 
 ### MsiData
 
-| Property Name           | Type    | Required? |
-|-------------------------|---------|-----------|
-| UnstableMsiSitePercent  | double  | Yes       |
+| JSON Name                  | Type    | Required? |
+|----------------------------|---------|-----------|
+| Percent Unstable MSI Sites | double  | Yes       |
 
 ---
 
 ### HrdData
 
-| Property Name   | Type   | Required? |
-|-----------------|--------|-----------|
-| Score           | int    | Yes       |
+| JSON Name   | Type   | Required? |
+|-------------|--------|-----------|
+| HRD Score   | int    | Yes       |
 
 ---
 
 ### Variant
 
-| Property Name         | Type    | Required? |
-|-----------------------|---------|-----------|
-| Hgvs                  | string  | No        |
-| Qual                  | double  | No        |
-| AltCopyNumber         | int     | No        |
-| AltCopyNumberQuality  | double  | No        |
+| JSON Name            | Type    | Required? |
+|----------------------|---------|-----------|
+| hgvs                 | string  | No        |
+| qual                 | double  | No        |
+| altCopyNumber        | int     | No        |
+| altCopyNumberQuality | double  | No        |
 
 ---
 
