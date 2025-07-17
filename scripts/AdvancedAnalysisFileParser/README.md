@@ -326,6 +326,17 @@ def test_parser_in_memory(context: JsonDict):
 
 ## Data Models
 
+### LpaData
+
+| Property Name                | Type               | Required? |
+|------------------------------|--------------------|-----------|
+| Kiv2CopyNumber               | double             | Yes       |
+| RefMarkerAlleleCopyNumber    | double?            | No        |
+| AltMarkerAlleleCopyNumber    | double?            | No        |
+| Type                         | LpaType            | Yes       |
+| Variants                     | List<Variant>      | Yes       |
+
+---
 ### Smn1Data
 
 | Property Name    | Type    | Required? |
@@ -447,6 +458,18 @@ def test_parser_in_memory(context: JsonDict):
 | Score           | int    | Yes       |
 
 ---
+
+### Variant
+
+| Property Name         | Type    | Required? |
+|-----------------------|---------|-----------|
+| Hgvs                  | string  | No        |
+| Qual                  | double  | No        |
+| AltCopyNumber         | int     | No        |
+| AltCopyNumberQuality  | double  | No        |
+
+---
+
 ## Contributing
 
 1. Fork
