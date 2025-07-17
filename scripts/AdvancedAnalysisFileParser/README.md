@@ -291,7 +291,162 @@ def test_parser_in_memory(context: JsonDict):
 ```
 
 ---
+---
 
+## AdvancedAnalysisFile Properties
+
+| Property Name | Type                               | Required? |
+|---------------|------------------------------------|-----------|
+| Lpa           | AdvancedAnalysis<LpaData>          | No        |
+| Smn1          | AdvancedAnalysis<Smn1Data>         | No        |
+| Smn           | AdvancedAnalysis<SmnData>          | No        |
+| Hba           | AdvancedAnalysis<HbaData>          | No        |
+| Rh            | AdvancedAnalysis<RhData>           | No        |
+| Cyp2d6        | AdvancedAnalysis<Cyp2bData>        | No        |
+| Cyp2b6        | AdvancedAnalysis<Cyp2bData>        | No        |
+| Cyp21a2       | AdvancedAnalysis<Cyp21a2Data>      | No        |
+| Gba           | AdvancedAnalysis<GbaData>          | No        |
+| Tmb           | AdvancedAnalysis<TmbData>          | No        |
+| Gis           | AdvancedAnalysis<GisData>          | No        |
+| Msi           | AdvancedAnalysis<MsiData>          | No        |
+| Hrd           | AdvancedAnalysis<HrdData>          | No        |
+
+---
+
+## Common Wrapper
+
+### AdvancedAnalysis<T>
+
+| Property Name | Type     | Required? |
+|---------------|----------|-----------|
+| Data          | T        | No        |
+| Warning       | string   | No        |
+
+---
+
+## Data Models
+
+### Smn1Data
+
+| Property Name    | Type    | Required? |
+|------------------|---------|-----------|
+| Sample           | string  | Yes       |
+| IsSma            | bool    | Yes       |
+| IsCarrier        | bool    | Yes       |
+| Smn1Cn           | double  | No        |
+| Smn2Cn           | double  | No        |
+| Smn2delta78Cn    | int     | Yes       |
+| TotalCnRaw       | double  | Yes       |
+| FullLengthCnRaw  | double  | Yes       |
+| Smn1CnRaw        | string  | Yes       |
+
+---
+
+### SmnData
+
+| Property Name      | Type            | Required? |
+|--------------------|-----------------|-----------|
+| Smn1Cn             | double?         | Yes       |
+| Smn2Cn             | double?         | Yes       |
+| Smn2delta78Cn      | int             | Yes       |
+| TotalCnRaw         | double          | Yes       |
+| FullLengthCnRaw    | double          | No        |
+| Variants           | List<Variant>   | Yes       |
+
+---
+
+### HbaData
+
+| Property Name    | Type              | Required? |
+|------------------|-------------------|-----------|
+| Genotype         | string            | Yes       |
+| GenotypeFilter   | GenotypeFilter    | Yes       |
+| GenotypeQual     | double            | Yes       |
+| MinPValue        | double            | Yes       |
+| Variants         | List<Variant>     | Yes       |
+
+---
+
+### RhData
+
+| Property Name     | Type            | Required? |
+|-------------------|-----------------|-----------|
+| TotalCopyNumber   | int             | Yes       |
+| RhdCopyNumber     | int             | Yes       |
+| RhceCopyNumber    | int             | Yes       |
+| Variants          | List<Variant>   | Yes       |
+
+---
+
+### Cyp2bData
+
+| Property Name              | Type             | Required? |
+|----------------------------|------------------|-----------|
+| Genotype                   | string           | Yes       |
+| GenotypeFilter             | GenotypeFilter   | Yes       |
+| PharmcatDescription        | string           | No        |
+| PharmcatMetabolismStatus   | string           | No        |
+
+---
+
+### Cyp21a2Data
+
+| Property Name                | Type            | Required? |
+|------------------------------|-----------------|-----------|
+| TotalCopyNumber              | int             | Yes       |
+| DeletionBreakpointInGene     | bool?           | No        |
+| RecombinantHaplotypes        | List<string>    | No        |
+| Variants                     | List<Variant>   | Yes       |
+
+---
+
+### GbaData
+
+| Property Name                  | Type    | Required? |
+|--------------------------------|---------|-----------|
+| Sample                         | string  | Yes       |
+| IsBiallelic                    | bool    | Yes       |
+| IsCarrier                      | bool    | Yes       |
+| TotalCn                        | int     | Yes       |
+| DeletionBreakpointInGbaGene    | string  | No        |
+| RecombinantVariants            | string  | No        |
+| OtherVariants                  | string  | No        |
+
+---
+
+### TmbData
+
+| Property Name   | Type   | Required? |
+|-----------------|--------|-----------|
+| Total           | double | Yes       |
+
+---
+
+### GisData
+
+| Property Name     | Type    | Required? |
+|-------------------|---------|-----------|
+| Instability       | int     | No        |
+| TumorFraction     | double  | No        |
+| Ploidy            | double  | No        |
+
+---
+
+### MsiData
+
+| Property Name           | Type    | Required? |
+|-------------------------|---------|-----------|
+| UnstableMsiSitePercent  | double  | Yes       |
+
+---
+
+### HrdData
+
+| Property Name   | Type   | Required? |
+|-----------------|--------|-----------|
+| Score           | int    | Yes       |
+
+---
 ## Contributing
 
 1. Fork
