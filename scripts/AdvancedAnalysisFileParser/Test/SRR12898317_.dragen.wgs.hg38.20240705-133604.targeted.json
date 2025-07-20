@@ -1,0 +1,202 @@
+{
+  "dragenVersion": "05.121.676.4.2.4a",
+  "sample": "SRR12898317_",
+  "pharmcatMetabolismStatusResourceUrl": "https://github.com/PharmGKB/PharmCAT/blob/aeecfe5f787e95dfb31ede62884e287affef45b3/src/main/resources/org/pharmgkb/pharmcat/definition/gene_phenotypes.json",
+  "cyp2d6": {
+    "genotype": "None",
+    "genotypeFilter": "No_call",
+    "pharmcatDescription": null,
+    "pharmcatMetabolismStatus": null
+  },
+  "cyp2b6": {
+    "genotype": "*1/*1",
+    "genotypeFilter": "PASS",
+    "pharmcatDescription": "null",
+    "pharmcatMetabolismStatus": "Normal Metabolizer"
+  },
+  "cyp21a2": {
+    "totalCopyNumber": 4,
+    "deletionBreakpointInGene": null,
+    "recombinantHaplotypes": [
+      "",
+      ""
+    ],
+    "variants": []
+  },
+  "lpa": {
+    "kiv2CopyNumber": 36.90938336204826,
+    "refMarkerAlleleCopyNumber": 22.284910709161213,
+    "altMarkerAlleleCopyNumber": 14.624472652887047,
+    "type": "Heterozygous markers call",
+    "variants": [
+      {
+        "hgvs": "LPA:4925G>A",
+        "qual": 0.0,
+        "altCopyNumber": 0,
+        "altCopyNumberQuality": 150.0
+      },
+      {
+        "hgvs": "LPA:4733G>A",
+        "qual": 0.0,
+        "altCopyNumber": 0,
+        "altCopyNumberQuality": 150.0
+      }
+    ]
+  },
+  "hba": {
+    "genotype": "aa/aa",
+    "genotypeFilter": "PASS",
+    "genotypeQual": 85.0,
+    "minPValue": 0.0731288557825458,
+    "variants": [
+      {
+        "hgvs": "NM_000517.6:c.60delG",
+        "qual": 0.0,
+        "altCopyNumber": 0,
+        "altCopyNumberQuality": 150.0
+      },
+      {
+        "hgvs": "NM_000517.6:c.69C>T",
+        "qual": 0.0,
+        "altCopyNumber": 0,
+        "altCopyNumberQuality": 150.0
+      },
+      {
+        "hgvs": "NM_000517.6:c.75T>G",
+        "qual": 0.0,
+        "altCopyNumber": 0,
+        "altCopyNumberQuality": 150.0
+      },
+      {
+        "hgvs": "NM_000517.6:c.95+2_95+6delTGAGG",
+        "qual": 0.0,
+        "altCopyNumber": 0,
+        "altCopyNumberQuality": 150.0
+      },
+      {
+        "hgvs": "NM_000517.6:c.95+1G>A",
+        "qual": 0.0,
+        "altCopyNumber": 0,
+        "altCopyNumberQuality": 150.0
+      },
+      {
+        "hgvs": "NM_000558.5:c.96-1G>A",
+        "qual": 0.0,
+        "altCopyNumber": 0,
+        "altCopyNumberQuality": 150.0
+      },
+      {
+        "hgvs": "NM_000558.5:c.179G>A",
+        "qual": 0.0,
+        "altCopyNumber": 0,
+        "altCopyNumberQuality": 150.0
+      },
+      {
+        "hgvs": "NM_000517.6:c.314G>A",
+        "qual": 0.0,
+        "altCopyNumber": 0,
+        "altCopyNumberQuality": 150.0
+      },
+      {
+        "hgvs": "NM_000558.5:c.358C>T",
+        "qual": 0.0,
+        "altCopyNumber": 0,
+        "altCopyNumberQuality": 150.0
+      },
+      {
+        "hgvs": "NM_000517.6:c.377T>C",
+        "qual": 0.0,
+        "altCopyNumber": 0,
+        "altCopyNumberQuality": 150.0
+      },
+      {
+        "hgvs": "NM_000517.6:c.377T>G",
+        "qual": 0.0,
+        "altCopyNumber": 0,
+        "altCopyNumberQuality": 150.0
+      },
+      {
+        "hgvs": "NM_000517.6:c.379G>A",
+        "qual": 0.0,
+        "altCopyNumber": 0,
+        "altCopyNumberQuality": 150.0
+      },
+      {
+        "hgvs": "NM_000517.6:c.427T>C",
+        "qual": 0.0,
+        "altCopyNumber": 0,
+        "altCopyNumberQuality": 150.0
+      },
+      {
+        "hgvs": "NM_000517.6:c.427T>G",
+        "qual": 0.0,
+        "altCopyNumber": 0,
+        "altCopyNumberQuality": 150.0
+      },
+      {
+        "hgvs": "NM_000517.6:c.428A>C",
+        "qual": 0.0,
+        "altCopyNumber": 0,
+        "altCopyNumberQuality": 150.0
+      },
+      {
+        "hgvs": "NM_000517.6:c.429A>T",
+        "qual": 0.0,
+        "altCopyNumber": 0,
+        "altCopyNumberQuality": 150.0
+      },
+      {
+        "hgvs": "NM_000517.6:c.*92A>G",
+        "qual": 0.0,
+        "altCopyNumber": 0,
+        "altCopyNumberQuality": 150.0
+      },
+      {
+        "hgvs": "NM_000517.6:c.*94A>G",
+        "qual": 0.0,
+        "altCopyNumber": 0,
+        "altCopyNumberQuality": 150.0
+      }
+    ]
+  },
+  "rh": {
+    "totalCopyNumber": 4,
+    "rhdCopyNumber": 2,
+    "rhceCopyNumber": 2,
+    "variants": [
+      {
+        "hgvs": "NC_000001.11g.25405596_25409676con25283766_25287797",
+        "qual": 0.0,
+        "altCopyNumber": 0,
+        "altCopyNumberQuality": 0.0
+      }
+    ]
+  },
+  "smn": {
+    "smn1CopyNumber": 2,
+    "smn2CopyNumber": 2,
+    "smn2Delta78CopyNumber": 0,
+    "totalCopyNumberFloat": "4.01",
+    "fullLengthCopyNumberFloat": "4.14",
+    "variants": [
+      {
+        "hgvs": "NM_000344.4:c.*3+80T>G",
+        "qual": 0.0,
+        "altCopyNumber": 0,
+        "altCopyNumberQuality": 150.0
+      }
+    ]
+  },
+  "gba": {
+    "totalCopyNumber": 4,
+    "deletionBreakpointInGene": null,
+    "recombinantHaplotypes": [
+      "",
+      ""
+    ],
+    "variants": [
+      "NM_000157.4:c.754T>A",
+      "NM_000157.4:c.580A>T"
+    ]
+  }
+}
