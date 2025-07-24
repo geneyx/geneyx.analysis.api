@@ -5,7 +5,6 @@ import requests
 import ntpath
 import ga_helperFunctions as funcs
 
-
 # ---------------------------------
 # Define the command line parameters
 # ---------------------------------
@@ -145,12 +144,12 @@ data = {
             'SampleEnrichmentKitId': args.kitId,
             'SampleGenomeBuild': args.genomeBuild,
             'SampleNotes': args.sampleNotes,
-            'SampleRelation': args.sampleRelation,            
-            'SampleQcData': args.sampleQcData,            
-            'SampleAdvAnalysis': args.sampleAdvAnalysis,            
+            'SampleRelation': args.sampleRelation,
+            'SampleQcData': args.sampleQcData,
+            'SampleAdvAnalysis': args.sampleAdvAnalysis,
             'ExcludeFromLAF': args.excludeFromLAF,
             'bamUrl': args.bamUrl,
-            'methylationUrl': args.methylationUrl,            
+            'methylationUrl': args.methylationUrl,
             'SnvFile': snvBaseName,
             'StructFile': svBaseName,
             'SubjectId': args.patientId,

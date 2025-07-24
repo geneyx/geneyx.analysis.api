@@ -1,3 +1,4 @@
+import json
 import logging
 import pytest
 from AdvancedAnalysisFileParser import JsonDict
@@ -177,13 +178,12 @@ TEST_CONTEXTS = [
         }
     }
 ]
-
 @pytest.mark.parametrize("context", TEST_CONTEXTS)
 def test_parser_in_memory( context : JsonDict) -> None:
     # Instantiate parser with in-memory adv_cfg
     parser = AdvancedAnalysisParser(context["request"])
     result = parser.run(return_dict=True)
-    logging.info(f"Result: {result}")
+    print(json.dumps(result, indent=2, default=str))
     # Compare to expected
     assert result is not None
     assert result['MSI'].get('warning') == 'MSI>10 detected in this sample'
