@@ -43,8 +43,10 @@ A Python utility to parse Illumina-DRAGEN “special caller” outputs (TSV or J
 
 ```bash
 git clone https://github.com/geneyx/geneyx.analysis.api.git
-cd scripts/advanced-analysis-parser
+cd geneyx.analysis.api\scripts\AdvancedAnalysisFileParser
 pip install -e .
+pip install pytest
+pytest -s Test_AdvancedAnalysisParser.py
 ```
 
 ---
@@ -269,10 +271,6 @@ Your top‐level JSON must include:
 
 We use `pytest` and parametrize via in-memory JSON contexts.
 
-```bash
-pip install pytest
-pytest tests/
-```
 
 Sample snippet from `tests/test_parser.py`:
 
