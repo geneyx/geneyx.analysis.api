@@ -42,8 +42,8 @@ A Python utility to parse Illumina-DRAGEN “special caller” outputs (TSV or J
 ## Installation
 
 ```bash
-git clone https://github.com/your-org/advanced-analysis-parser.git
-cd advanced-analysis-parser
+git clone https://github.com/geneyx/geneyx.analysis.api.git
+cd scripts/advanced-analysis-parser
 pip install -e .
 ```
 
