@@ -8,6 +8,267 @@
 	},
 	"item": [
 		{
+			"name": "DeleteSample",
+			"request": {
+				"method": "DELETE",
+				"header": [
+					{
+						"key": "ApiUserId",
+						"value": "{{ApiUserId}}",
+						"type": "text"
+					},
+					{
+						"key": "ApiUserKey",
+						"value": "{{ApiUserKey}}",
+						"type": "text"
+					},
+					{
+						"key": "CustomerAccountKey",
+						"value": "{{CustomerAccountKey}}",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"SampleSn\": \"string\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{baseURL}}/Sample",
+					"host": [
+						"{{baseURL}}"
+					],
+					"path": [
+						"Sample"
+					]
+				},
+				"description": "**Endpoint Description**\n\nThis endpoint allows users to **delete a sample** from the Geneyx platform by specifying its `SampleSn` (sample serial number). Deletion is irreversible and will remove the sample and associated data from the account.\n\n---\n\n### **Request Parameters**\n\nThe request body should be formatted as a JSON object with the following parameter:\n\n- **SampleSn** (string, required): The serial number of the sample to be deleted.\n    \n\n**Example Request:**\n\n```\n{\n  \"SampleSn\": \"62436756_S6.dragen.wes.hg38.20241217-103119 - All Genes + PGx 2\"\n}\n\n ```\n\n---\n\n### **Expected Response**\n\nUpon a successful request, the server will return a JSON object with the following fields:\n\n- **Code** (string): A status message, typically `\"success\"` if the deletion completed without errors.\n    \n- **Data** (boolean): `true` if the sample was successfully deleted; `false` otherwise.\n    \n- **Info** (nullable): Additional context if relevant; often `null`.\n    \n- **MoreInfo** (nullable): Supplementary information; typically `null`.\n    \n- **NeedEval** (boolean): Indicates whether further evaluation is required; usually `false`.\n    \n\n**Example Response:**\n\n```\n{\n  \"Code\": \"success\",\n  \"Data\": true,\n  \"Info\": null,\n  \"MoreInfo\": null,\n  \"NeedEval\": false\n}\n\n ```\n\n---\n\n### **Notes**\n\n- Deleting a sample will also remove associated files (VCF, BAM, QC metrics, etc.).\n    \n- Ensure that the `SampleSn` is correct and that deletion is intended — **this action cannot be undone**.\n    \n- If the sample is part of a case, the case may also need to be updated or deleted separately.\n    \n- You must have the appropriate permissions to perform a delete operation."
+			},
+			"response": []
+		},
+		{
+			"name": "DeletePatient",
+			"request": {
+				"method": "DELETE",
+				"header": [
+					{
+						"key": "ApiUserId",
+						"value": "{{ApiUserId}}",
+						"type": "text"
+					},
+					{
+						"key": "ApiUserKey",
+						"value": "{{ApiUserKey}}",
+						"type": "text"
+					},
+					{
+						"key": "CustomerAccountKey",
+						"value": "{{CustomerAccountKey}}",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{baseURL}}/patient/{patientSn}",
+					"host": [
+						"{{baseURL}}"
+					],
+					"path": [
+						"patient",
+						"{patientSn}"
+					]
+				},
+				"description": "### Delete Patient Record\n\nThis endpoint allows you to delete a specific patient record from the system.\n\n#### Request Parameters\n\n- **URL Parameter**:\n    \n    - `patientSn` (string): The unique identifier for the patient whose record you wish to delete. This parameter is required.\n        \n\n#### Response\n\nUpon successful deletion, the response will confirm the operation. The structure of the response may include:\n\n- A success message indicating that the patient record has been deleted.\n    \n- An error message if the deletion was unsuccessful, which may include reasons such as the patient not being found.\n    \n\nMake sure to handle the response appropriately to inform the user of the result of their request."
+			},
+			"response": []
+		},
+		{
+			"name": "DeleteCase",
+			"request": {
+				"method": "DELETE",
+				"header": [
+					{
+						"key": "ApiUserId",
+						"value": "{{ApiUserId}}",
+						"type": "text"
+					},
+					{
+						"key": "ApiUserKey",
+						"value": "{{ApiUserKey}}",
+						"type": "text"
+					},
+					{
+						"key": "CustomerAccountKey",
+						"value": "{{CustomerAccountKey}}",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{baseURL}}/case/{62436756_S6.dragen.wes.hg38.20241217-103119 - All Genes + PGx 2 - Exons + PGx}",
+					"host": [
+						"{{baseURL}}"
+					],
+					"path": [
+						"case",
+						"{62436756_S6.dragen.wes.hg38.20241217-103119 - All Genes + PGx 2 - Exons + PGx}"
+					]
+				},
+				"description": "## Delete Case Endpoint\n\nThis endpoint allows users to delete a specific case identified by its unique serial number (`caseSn`).\n\n### Request\n\n- **Method**: `DELETE`\n    \n- **Endpoint**: `{{baseURL}}/case/{caseSn}`\n    \n- **Path Parameter**:\n    \n    - `caseSn` (string): The unique serial number of the case that you want to delete.\n        \n\n### Response\n\nUpon a successful deletion, the API will return a response indicating the status of the operation. The expected response format is typically a confirmation message or status code indicating that the case has been successfully deleted.\n\n### Notes\n\n- Ensure that the `caseSn` provided in the request is valid and corresponds to an existing case in the system.\n    \n- Deleting a case is irreversible; once deleted, the case cannot be recovered."
+			},
+			"response": []
+		},
+		{
+			"name": "DeleteSeqSample",
+			"request": {
+				"method": "DELETE",
+				"header": [
+					{
+						"key": "ApiUserId",
+						"value": "{{ApiUserId}}",
+						"type": "text"
+					},
+					{
+						"key": "ApiUserKey",
+						"value": "{{ApiUserKey}}",
+						"type": "text"
+					},
+					{
+						"key": "CustomerAccountKey",
+						"value": "{{CustomerAccountKey}}",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{baseURL}}/seqSample/{seqSampleSn}",
+					"host": [
+						"{{baseURL}}"
+					],
+					"path": [
+						"seqSample",
+						"{seqSampleSn}"
+					]
+				},
+				"description": "### DELETE Request to Remove a Sequence Sample\n\nThis endpoint allows you to delete a specific sequence sample identified by its unique serial number (`seqSampleSn`).\n\n#### Request Parameters\n\n- **seqSampleSn** (path parameter): The unique identifier for the sequence sample that you wish to delete. This parameter is required.\n    \n\n#### Expected Response\n\nUpon a successful deletion, the API responds with a JSON object containing the following fields:\n\n- **Code**: A string that may contain error codes or messages (empty in this case).\n    \n- **Data**: A boolean indicating the success of the operation. A value of `true` confirms that the sequence sample was successfully deleted.\n    \n- **Info**: Additional information about the request (null in this case).\n    \n- **MoreInfo**: Further details if available (null in this case).\n    \n- **NeedEval**: A boolean indicating whether further evaluation is needed after the deletion (true in this case).\n    \n\n#### Notes\n\n- A successful response status of `200` indicates that the deletion was processed correctly.\n    \n- Ensure that the `seqSampleSn` provided is valid and corresponds to an existing sequence sample to avoid errors."
+			},
+			"response": []
+		},
+		{
+			"name": "Sample",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "ApiUserId",
+						"value": "{{ApiUserId}}",
+						"type": "text"
+					},
+					{
+						"key": "ApiUserKey",
+						"value": "{{ApiUserKey}}",
+						"type": "text"
+					},
+					{
+						"key": "CustomerAccountKey",
+						"value": "{{CustomerAccountKey}}",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"SampleSn\": \"string\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{baseURL}}/Sample",
+					"host": [
+						"{{baseURL}}"
+					],
+					"path": [
+						"Sample"
+					]
+				},
+				"description": "**Endpoint Description**\n\nThis endpoint retrieves detailed metadata for a specific sample, identified by its `SampleSn` (sample serial number). The response includes clinical context, file availability, sequencing platform metadata, QC links, assignment status, and associated uploaded files.\n\n---\n\n### **Request Parameters**\n\nThe request body should be formatted as a JSON object with the following parameter:\n\n- **SampleSn** (string, required): The serial number of the sample for which metadata is being requested.\n    \n\n**Example Request:**\n\n```\n{\n  \"SampleSn\": \"62436756_S6.dragen.wes.hg38.20241217-103119 - All Genes + PGx 2\"\n}\n\n ```\n\n---\n\n### **Expected Response**\n\nUpon a successful request, the server will respond with a status code of `200` and a JSON object containing the following fields:\n\n- **Code** (string): `\"success\"` if the request succeeded.\n    \n- **Data** (object): Contains detailed sample metadata including:\n    \n    - **PatientId** / **Patient**: Patient identifiers\n        \n    - **SerialNumber**: The sample’s unique name\n        \n    - **EnrichmentKitId**, **EnrichmentKit**, **EnrichmentKitDescription**: Details about the kit used\n        \n    - **Target**, **TargetName**: Sequencing target (e.g., Exome)\n        \n    - **GenomeBuild** / **GenomeBuildName**: Reference genome used (e.g., hg38)\n        \n    - **File URLs and statuses** (e.g., `BamUrl`, `QcMetricsUrl`, `BamFileExists`, etc.)\n        \n    - **Files**: An array of associated uploaded files, each with:\n        \n        - `FileTypeName`, `FileName`, `CreateDate`, and `TotalVariants` (if applicable)\n            \n    - **Assignment**: Metadata about who is assigned to the sample\n        \n    - **CreateDate**, **CreatedByUser**, **ModifyDate**, **ModifiedByUser**\n        \n- **Info** / **MoreInfo** (nullable): May contain additional or diagnostic information\n    \n- **NeedEval** (boolean): Indicates if further evaluation is needed (typically `false`)\n    \n\n**Example Response (partial):**\n\n```\n{\n  \"Code\": \"success\",\n  \"Data\": {\n    \"PatientId\": \"6f44db3c-66e2-4b91-8cdc-6856228bdf47\",\n    \"SerialNumber\": \"62436756_S6.dragen.wes.hg38.20241217-103119 - All Genes + PGx 2\",\n    \"EnrichmentKit\": \"All Genes + PGx 2\",\n    \"TargetName\": \"Exome\",\n    \"GenomeBuildName\": \"hg38\",\n    \"BamFileExists\": true,\n    \"QcMetricsFileExists\": true,\n    \"Files\": [\n      {\n        \"FileTypeName\": \"BAM\",\n        \"FileName\": \"62436756_S6.dragen.wes.hg38.20241217-103119.bam\",\n        \"TotalVariants\": null\n      },\n      {\n        \"FileTypeName\": \"SNV\",\n        \"FileName\": \"62436756_S6.dragen.wes.hg38.20241217-103119.vcf.gz\",\n        \"TotalVariants\": 4934353\n      }\n    ],\n    \"Assignment\": {\n      \"AssignedBy\": \"Geneyx Support\",\n      \"AssignDate\": \"2025-08-07T04:36:14.017\"\n    }\n  },\n  \"Info\": null,\n  \"MoreInfo\": null,\n  \"NeedEval\": false\n}\n\n ```\n\n---\n\n### **Notes**\n\n- Ensure the sample serial number matches exactly with one stored in your Geneyx account.\n    \n- The `Files` array includes all uploaded and processed files tied to the sample, such as VCFs, BAMs, and QC reports.\n    \n- Null fields indicate that data is either not yet available or was not provided during sample upload.\n    \n- File URLs (e.g., `BamUrl`, `QcMetricsUrl`) may be used to programmatically download files, if permissions allow."
+			},
+			"response": []
+		},
+		{
+			"name": "Patient",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "ApiUserId",
+						"value": "{{ApiUserId}}",
+						"type": "text"
+					},
+					{
+						"key": "ApiUserKey",
+						"value": "{{ApiUserKey}}",
+						"type": "text"
+					},
+					{
+						"key": "CustomerAccountKey",
+						"value": "{{CustomerAccountKey}}",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"SerialNumber\": \"5.9testPavel\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{baseURL}}/Patient",
+					"host": [
+						"{{baseURL}}"
+					],
+					"path": [
+						"Patient"
+					]
+				},
+				"description": "### **Endpoint Description**\n\nThis endpoint retrieves detailed metadata for an existing patient using the patient’s `SerialNumber`. It returns demographic information, ancestry, consent status, and relational links to family members.\n\n---\n\n### **Request Parameters**\n\nThe request body should be formatted as a JSON object with the following parameter:\n\n- **SerialNumber** (string, required): The unique identifier of the patient to retrieve.\n    \n\n**Example Request:**\n\n```\n{\n  \"SerialNumber\": \"5.9testPavel\"\n}\n\n ```\n\n---\n\n### **Expected Response**\n\nUpon a successful request, the server returns a JSON object with the following fields:\n\n- **Code** (string): `\"success\"` if the request was successful.\n    \n- **Data** (object): Contains patient metadata, including:\n    \n    - **SerialNumber**: Patient’s ID\n        \n    - **Gender**, **DateOfBirth**, **YearOfBirth**: Demographic info (nullable if not provided)\n        \n    - **Consang**, **ConsangName**: Consanguinity status\n        \n    - **PaternalAncestry**, **MaternalAncestry**, **FamilyHistory**: Ancestral background (nullable)\n        \n    - **UseConsentPersonal**, **UseConsentClinical**: Consent types (nullable)\n        \n    - **GenerallyHealthy**: Health flag (nullable)\n        \n    - **Family Members**: Optional links to grandparents\n        \n    - **CreatedByUser**, **ModifiedByUser**\n        \n    - **CreateDate**, **ModifyDate**\n        \n    - **ID**: Internal Geneyx patient identifier\n        \n\n**Example Response (truncated):**\n\n```\n{\n  \"Code\": \"success\",\n  \"Data\": {\n    \"SerialNumber\": \"5.9testPavel\",\n    \"Consang\": 0,\n    \"ConsangName\": \"Unknown\",\n    \"CreatedByUser\": \"Pavel Shataylo\",\n    \"CreateDate\": \"2022-08-07T10:23:48.597\",\n    \"ModifyDate\": \"2025-08-07T06:28:26.7113585Z\"\n  },\n  \"Info\": null,\n  \"MoreInfo\": null,\n  \"NeedEval\": false\n}\n\n ```\n\n---\n\n### **Notes**\n\n- Fields such as `Name`, `Gender`, `DateOfBirth`, and ancestry data may be `null` if not collected during sample registration.\n    \n- The `SerialNumber` must match exactly — it is case-sensitive and unique per patient.\n    \n- This endpoint is useful for **auditing**, **data review**, or **linking metadata** to samples and cases programmatically."
+			},
+			"response": []
+		},
+		{
 			"name": "Protocols",
 			"request": {
 				"method": "POST",
@@ -133,92 +394,6 @@
 					]
 				},
 				"description": "### **Endpoint Description**\n\nThis endpoint retrieves a list of supported sequencing machines available in the Geneyx platform. It can be used to populate dropdowns, validate machine names, or associate samples with sequencing hardware.\n\n---\n\n### **Request Parameters**\n\nThe request body should be formatted as a JSON object with the following parameters:\n\n- **Query** (string or null, optional): A string to filter sequencing machine names. If `null`, all machines are returned.\n    \n- **Page** (integer, optional): Page number for pagination. A value of `0` returns the first page.\n    \n- **PageSize** (integer, optional): Number of items per page. A value of `0` disables pagination and returns the full list.\n    \n\n**Example Request:**\n\n```\n{\n  \"Query\": null,\n  \"Page\": 0,\n  \"PageSize\": 0\n}\n\n ```\n\n---\n\n### **Expected Response**\n\nUpon a successful request, the server will return a JSON object containing the following fields:\n\n- **Code** (string): `\"success\"` if the request completed successfully.\n    \n- **Data** (array of strings): A list of supported sequencing machine names.\n    \n- **Info** (nullable): May contain additional metadata; typically `null`.\n    \n- **MoreInfo** (nullable): Extended context; typically `null`.\n    \n- **NeedEval** (boolean): Indicates whether follow-up evaluation is needed; usually `false`.\n    \n\n**Example Response:**\n\n```\n{\n  \"Code\": \"success\",\n  \"Data\": [\n    \"400\",\n    \"HiSeq 2500\",\n    \"HiSeq 4000\",\n    \"Ion GeneStudio S5\",\n    \"Ion Torrent Genexus\",\n    \"iSeq\",\n    \"MiniSeq\",\n    \"MiSeq\",\n    \"MiSeq DX\",\n    \"NextSeq 1000\",\n    \"NextSeq 2000\",\n    \"NextSeq 500\",\n    \"NextSeq 550\",\n    \"NextSeq DX 550\",\n    \"NovaSeq 6000\",\n    \"ONSO SYSTEM\",\n    \"PacBio Sequel IIe\",\n    \"REVIO SYSTEM\",\n    \"SEQUEL IIe SYSTEM\",\n    \"x\"\n  ],\n  \"Info\": null,\n  \"MoreInfo\": null,\n  \"NeedEval\": false\n}\n\n ```\n\n---\n\n### **Notes**\n\n- Use this endpoint to validate sequencing machine names before assigning them to a sample or protocol.\n    \n- Pagination is supported but optional. Setting `PageSize: 0` returns the entire list.\n    \n- Some machine names may include identifiers used internally; ensure you reference them exactly as returned."
-			},
-			"response": []
-		},
-		{
-			"name": "DeleteSample",
-			"request": {
-				"method": "DELETE",
-				"header": [
-					{
-						"key": "ApiUserId",
-						"value": "{{ApiUserId}}",
-						"type": "text"
-					},
-					{
-						"key": "ApiUserKey",
-						"value": "{{ApiUserKey}}",
-						"type": "text"
-					},
-					{
-						"key": "CustomerAccountKey",
-						"value": "{{CustomerAccountKey}}",
-						"type": "text"
-					}
-				],
-				"body": {
-					"mode": "raw",
-					"raw": "{\r\n    \"SampleSn\": \"string\"\r\n}",
-					"options": {
-						"raw": {
-							"language": "json"
-						}
-					}
-				},
-				"url": {
-					"raw": "{{baseURL}}/Sample",
-					"host": [
-						"{{baseURL}}"
-					],
-					"path": [
-						"Sample"
-					]
-				},
-				"description": "**Endpoint Description**\n\nThis endpoint allows users to **delete a sample** from the Geneyx platform by specifying its `SampleSn` (sample serial number). Deletion is irreversible and will remove the sample and associated data from the account.\n\n---\n\n### **Request Parameters**\n\nThe request body should be formatted as a JSON object with the following parameter:\n\n- **SampleSn** (string, required): The serial number of the sample to be deleted.\n    \n\n**Example Request:**\n\n```\n{\n  \"SampleSn\": \"62436756_S6.dragen.wes.hg38.20241217-103119 - All Genes + PGx 2\"\n}\n\n ```\n\n---\n\n### **Expected Response**\n\nUpon a successful request, the server will return a JSON object with the following fields:\n\n- **Code** (string): A status message, typically `\"success\"` if the deletion completed without errors.\n    \n- **Data** (boolean): `true` if the sample was successfully deleted; `false` otherwise.\n    \n- **Info** (nullable): Additional context if relevant; often `null`.\n    \n- **MoreInfo** (nullable): Supplementary information; typically `null`.\n    \n- **NeedEval** (boolean): Indicates whether further evaluation is required; usually `false`.\n    \n\n**Example Response:**\n\n```\n{\n  \"Code\": \"success\",\n  \"Data\": true,\n  \"Info\": null,\n  \"MoreInfo\": null,\n  \"NeedEval\": false\n}\n\n ```\n\n---\n\n### **Notes**\n\n- Deleting a sample will also remove associated files (VCF, BAM, QC metrics, etc.).\n    \n- Ensure that the `SampleSn` is correct and that deletion is intended — **this action cannot be undone**.\n    \n- If the sample is part of a case, the case may also need to be updated or deleted separately.\n    \n- You must have the appropriate permissions to perform a delete operation."
-			},
-			"response": []
-		},
-		{
-			"name": "Sample",
-			"request": {
-				"method": "POST",
-				"header": [
-					{
-						"key": "ApiUserId",
-						"value": "{{ApiUserId}}",
-						"type": "text"
-					},
-					{
-						"key": "ApiUserKey",
-						"value": "{{ApiUserKey}}",
-						"type": "text"
-					},
-					{
-						"key": "CustomerAccountKey",
-						"value": "{{CustomerAccountKey}}",
-						"type": "text"
-					}
-				],
-				"body": {
-					"mode": "raw",
-					"raw": "{\r\n    \"SampleSn\": \"string\"\r\n}",
-					"options": {
-						"raw": {
-							"language": "json"
-						}
-					}
-				},
-				"url": {
-					"raw": "{{baseURL}}/Sample",
-					"host": [
-						"{{baseURL}}"
-					],
-					"path": [
-						"Sample"
-					]
-				},
-				"description": "**Endpoint Description**\n\nThis endpoint retrieves detailed metadata for a specific sample, identified by its `SampleSn` (sample serial number). The response includes clinical context, file availability, sequencing platform metadata, QC links, assignment status, and associated uploaded files.\n\n---\n\n### **Request Parameters**\n\nThe request body should be formatted as a JSON object with the following parameter:\n\n- **SampleSn** (string, required): The serial number of the sample for which metadata is being requested.\n    \n\n**Example Request:**\n\n```\n{\n  \"SampleSn\": \"62436756_S6.dragen.wes.hg38.20241217-103119 - All Genes + PGx 2\"\n}\n\n ```\n\n---\n\n### **Expected Response**\n\nUpon a successful request, the server will respond with a status code of `200` and a JSON object containing the following fields:\n\n- **Code** (string): `\"success\"` if the request succeeded.\n    \n- **Data** (object): Contains detailed sample metadata including:\n    \n    - **PatientId** / **Patient**: Patient identifiers\n        \n    - **SerialNumber**: The sample’s unique name\n        \n    - **EnrichmentKitId**, **EnrichmentKit**, **EnrichmentKitDescription**: Details about the kit used\n        \n    - **Target**, **TargetName**: Sequencing target (e.g., Exome)\n        \n    - **GenomeBuild** / **GenomeBuildName**: Reference genome used (e.g., hg38)\n        \n    - **File URLs and statuses** (e.g., `BamUrl`, `QcMetricsUrl`, `BamFileExists`, etc.)\n        \n    - **Files**: An array of associated uploaded files, each with:\n        \n        - `FileTypeName`, `FileName`, `CreateDate`, and `TotalVariants` (if applicable)\n            \n    - **Assignment**: Metadata about who is assigned to the sample\n        \n    - **CreateDate**, **CreatedByUser**, **ModifyDate**, **ModifiedByUser**\n        \n- **Info** / **MoreInfo** (nullable): May contain additional or diagnostic information\n    \n- **NeedEval** (boolean): Indicates if further evaluation is needed (typically `false`)\n    \n\n**Example Response (partial):**\n\n```\n{\n  \"Code\": \"success\",\n  \"Data\": {\n    \"PatientId\": \"6f44db3c-66e2-4b91-8cdc-6856228bdf47\",\n    \"SerialNumber\": \"62436756_S6.dragen.wes.hg38.20241217-103119 - All Genes + PGx 2\",\n    \"EnrichmentKit\": \"All Genes + PGx 2\",\n    \"TargetName\": \"Exome\",\n    \"GenomeBuildName\": \"hg38\",\n    \"BamFileExists\": true,\n    \"QcMetricsFileExists\": true,\n    \"Files\": [\n      {\n        \"FileTypeName\": \"BAM\",\n        \"FileName\": \"62436756_S6.dragen.wes.hg38.20241217-103119.bam\",\n        \"TotalVariants\": null\n      },\n      {\n        \"FileTypeName\": \"SNV\",\n        \"FileName\": \"62436756_S6.dragen.wes.hg38.20241217-103119.vcf.gz\",\n        \"TotalVariants\": 4934353\n      }\n    ],\n    \"Assignment\": {\n      \"AssignedBy\": \"Geneyx Support\",\n      \"AssignDate\": \"2025-08-07T04:36:14.017\"\n    }\n  },\n  \"Info\": null,\n  \"MoreInfo\": null,\n  \"NeedEval\": false\n}\n\n ```\n\n---\n\n### **Notes**\n\n- Ensure the sample serial number matches exactly with one stored in your Geneyx account.\n    \n- The `Files` array includes all uploaded and processed files tied to the sample, such as VCFs, BAMs, and QC reports.\n    \n- Null fields indicate that data is either not yet available or was not provided during sample upload.\n    \n- File URLs (e.g., `BamUrl`, `QcMetricsUrl`) may be used to programmatically download files, if permissions allow."
 			},
 			"response": []
 		},
@@ -954,50 +1129,6 @@
 			"response": []
 		},
 		{
-			"name": "DeletePatient",
-			"request": {
-				"method": "DELETE",
-				"header": [
-					{
-						"key": "ApiUserId",
-						"value": "{{ApiUserId}}",
-						"type": "text"
-					},
-					{
-						"key": "ApiUserKey",
-						"value": "{{ApiUserKey}}",
-						"type": "text"
-					},
-					{
-						"key": "CustomerAccountKey",
-						"value": "{{CustomerAccountKey}}",
-						"type": "text"
-					}
-				],
-				"body": {
-					"mode": "raw",
-					"raw": "",
-					"options": {
-						"raw": {
-							"language": "json"
-						}
-					}
-				},
-				"url": {
-					"raw": "{{baseURL}}/patient/{patientSn}",
-					"host": [
-						"{{baseURL}}"
-					],
-					"path": [
-						"patient",
-						"{patientSn}"
-					]
-				},
-				"description": "### Delete Patient Record\n\nThis endpoint allows you to delete a specific patient record from the system.\n\n#### Request Parameters\n\n- **URL Parameter**:\n    \n    - `patientSn` (string): The unique identifier for the patient whose record you wish to delete. This parameter is required.\n        \n\n#### Response\n\nUpon successful deletion, the response will confirm the operation. The structure of the response may include:\n\n- A success message indicating that the patient record has been deleted.\n    \n- An error message if the deletion was unsuccessful, which may include reasons such as the patient not being found.\n    \n\nMake sure to handle the response appropriately to inform the user of the result of their request."
-			},
-			"response": []
-		},
-		{
 			"name": "AddClinicalRecord",
 			"request": {
 				"method": "POST",
@@ -1252,50 +1383,6 @@
 					]
 				},
 				"description": "## Add Case History\n\nThis endpoint allows you to reviwe case history information associated with a specific case number. The request is made using the HTTP POST method to the endpoint `{{baseURL}}/CaseHistory`.\n\n### Request\n\n#### Method\n\n`POST`\n\n#### Endpoint\n\n`{{baseURL}}/CaseHistory`\n\n#### Request Body\n\nThe request body must be in JSON format and should include the following parameter:\n\n- **CaseSn** (string): The unique identifier for the case. This parameter is mandatory and should be provided in the request payload.\n    \n\n**Example Request Body:**\n\n``` json\n{\n  \"CaseSn\": \"62436756_S6.dragen.wes.hg38.20 ...\"\n}\n\n ```\n\n### Response\n\nUpon a successful request, the server will respond with a status code of `200` and the response will be in JSON format. The structure of the response is as follows:\n\n- **Code** (string): A code representing the status of the operation.\n    \n- **Data** (array): An array containing details about the case history. Each item in the array includes:\n    \n    - **Type** (integer): An identifier for the type of data.\n        \n    - **TypeName** (string): The name associated with the type.\n        \n    - **Data** (object): An object containing additional data, which may include:\n        \n        - **Comment** (string or null): Any comments related to the case.\n            \n    - **ID** (string): The unique identifier for the entry.\n        \n    - **CreatedByUser** (string): The user who created the entry.\n        \n    - **CreateDate** (string): The date when the entry was created.\n        \n    - **ModifiedByUser** (string): The user who last modified the entry.\n        \n    - **ModifyDate** (string): The date when the entry was last modified.\n        \n- **Info** (null or object): Additional information related to the request.\n    \n- **MoreInfo** (null or object): Any extra information that may be useful.\n    \n- **NeedEval** (boolean): Indicates whether further evaluation is required.\n    \n\n**Example Response:**\n\n``` json\n{\n  \"Code\": \"\",\n  \"Data\": [\n    {\n      \"Type\": 0,\n      \"TypeName\": \"\",\n      \"Data\": {\n        \"Comment\": null\n      },\n      \"ID\": \"\",\n      \"CreatedByUser\": \"\",\n      \"CreateDate\": \"\",\n      \"ModifiedByUser\": \"\",\n      \"ModifyDate\": \"\"\n    }\n  ],\n  \"Info\": null,\n  \"MoreInfo\": null,\n  \"NeedEval\": true\n}\n\n ```\n\n### Summary\n\nThis API is essential for adding case history data and retrieving confirmation of the operation's success, along with any relevant details about the case history entries."
-			},
-			"response": []
-		},
-		{
-			"name": "DeleteCase",
-			"request": {
-				"method": "DELETE",
-				"header": [
-					{
-						"key": "ApiUserId",
-						"value": "{{ApiUserId}}",
-						"type": "text"
-					},
-					{
-						"key": "ApiUserKey",
-						"value": "{{ApiUserKey}}",
-						"type": "text"
-					},
-					{
-						"key": "CustomerAccountKey",
-						"value": "{{CustomerAccountKey}}",
-						"type": "text"
-					}
-				],
-				"body": {
-					"mode": "raw",
-					"raw": "",
-					"options": {
-						"raw": {
-							"language": "json"
-						}
-					}
-				},
-				"url": {
-					"raw": "{{baseURL}}/case/{62436756_S6.dragen.wes.hg38.20241217-103119 - All Genes + PGx 2 - Exons + PGx}",
-					"host": [
-						"{{baseURL}}"
-					],
-					"path": [
-						"case",
-						"{62436756_S6.dragen.wes.hg38.20241217-103119 - All Genes + PGx 2 - Exons + PGx}"
-					]
-				},
-				"description": "## Delete Case Endpoint\n\nThis endpoint allows users to delete a specific case identified by its unique serial number (`caseSn`).\n\n### Request\n\n- **Method**: `DELETE`\n    \n- **Endpoint**: `{{baseURL}}/case/{caseSn}`\n    \n- **Path Parameter**:\n    \n    - `caseSn` (string): The unique serial number of the case that you want to delete.\n        \n\n### Response\n\nUpon a successful deletion, the API will return a response indicating the status of the operation. The expected response format is typically a confirmation message or status code indicating that the case has been successfully deleted.\n\n### Notes\n\n- Ensure that the `caseSn` provided in the request is valid and corresponds to an existing case in the system.\n    \n- Deleting a case is irreversible; once deleted, the case cannot be recovered."
 			},
 			"response": []
 		},
@@ -2198,50 +2285,6 @@
 					]
 				},
 				"description": "## Gene Panels API Endpoint\n\nThis endpoint allows you to retrieve gene panel information based on the provided query parameters.\n\n### Request\n\n- **Method:** POST\n    \n- **Endpoint:** `{{baseURL}}/GenePanels`\n    \n- **Request Body:**\n    \n    - `Query` (string, optional): A search query for filtering the gene panels. Currently, it can be set to `null`.\n        \n    - `Page` (integer): The page number for pagination. This should be set to `0` for the first page.\n        \n    - `PageSize` (integer): The number of items to return per page. This should be set to `0` to indicate no specific size.\n        \n\n### Response\n\n- **Status Code:** 200 OK\n    \n- **Content-Type:** application/json\n    \n- **Response Body:**\n    \n    - `Code` (string): A code indicating the status of the request.\n        \n    - `Data` (array of strings): An array containing the gene panel data. In this case, it may return an empty string if no data is found.\n        \n    - `Info` (string or null): Additional information about the request, if any.\n        \n    - `MoreInfo` (string or null): Further details related to the request, if available.\n        \n    - `NeedEval` (boolean): Indicates whether further evaluation is needed for the request.\n        \n\nThis endpoint is useful for querying gene panels with pagination support."
-			},
-			"response": []
-		},
-		{
-			"name": "DeleteSeqSample",
-			"request": {
-				"method": "DELETE",
-				"header": [
-					{
-						"key": "ApiUserId",
-						"value": "{{ApiUserId}}",
-						"type": "text"
-					},
-					{
-						"key": "ApiUserKey",
-						"value": "{{ApiUserKey}}",
-						"type": "text"
-					},
-					{
-						"key": "CustomerAccountKey",
-						"value": "{{CustomerAccountKey}}",
-						"type": "text"
-					}
-				],
-				"body": {
-					"mode": "raw",
-					"raw": "",
-					"options": {
-						"raw": {
-							"language": "json"
-						}
-					}
-				},
-				"url": {
-					"raw": "{{baseURL}}/seqSample/{seqSampleSn}",
-					"host": [
-						"{{baseURL}}"
-					],
-					"path": [
-						"seqSample",
-						"{seqSampleSn}"
-					]
-				},
-				"description": "### DELETE Request to Remove a Sequence Sample\n\nThis endpoint allows you to delete a specific sequence sample identified by its unique serial number (`seqSampleSn`).\n\n#### Request Parameters\n\n- **seqSampleSn** (path parameter): The unique identifier for the sequence sample that you wish to delete. This parameter is required.\n    \n\n#### Expected Response\n\nUpon a successful deletion, the API responds with a JSON object containing the following fields:\n\n- **Code**: A string that may contain error codes or messages (empty in this case).\n    \n- **Data**: A boolean indicating the success of the operation. A value of `true` confirms that the sequence sample was successfully deleted.\n    \n- **Info**: Additional information about the request (null in this case).\n    \n- **MoreInfo**: Further details if available (null in this case).\n    \n- **NeedEval**: A boolean indicating whether further evaluation is needed after the deletion (true in this case).\n    \n\n#### Notes\n\n- A successful response status of `200` indicates that the deletion was processed correctly.\n    \n- Ensure that the `seqSampleSn` provided is valid and corresponds to an existing sequence sample to avoid errors."
 			},
 			"response": []
 		}
