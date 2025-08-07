@@ -1,12 +1,59 @@
-# Geneyx Analysis API Collection.postman.json
-The API feature allows an account to automate sample workflows by pushing and pulling patient metadata from LIMS and EHR systems to and from Geneyx. This directory contains all of the scripts, with details of each field. Additionally, a collection of the scripts are available here:
+# Geneyx Analysis API Postman Collection
 
-https://github.com/geneyx/geneyx.analysis.api:
+This collection provides programmatic access to **Geneyx Analysis**, enabling integration with external systems such as LIMS, EHRs, and internal pipelines. It supports a wide range of functions including sample and case management, annotation workflows, metadata retrieval, and file handling.
 
-If you want to use an example API platform, a pubic source can be downloaded here: https://www.postman.com/.
+---
 
-Once downloaded, open the Postman application and next to “My Workspace” select “Import”. Click “Upload Files” and select: Geneyx Analysis API collection.postman_collection.json file that was downloaded.
+## 🔐 Authentication
 
-This will create a collection of scripts with available fields that can be used to push or extract information from the Geneyx account. To use, you will need to obtain the API User ID and API User Key for your account, contact support@geneyx.com for this information.
+To authenticate requests:
 
-Updating the fields in postman can be accessed by going to Body. Field structure should be in JSON format.
+1. Open the **Postman Collection Settings**
+2. Go to the **Variables** tab
+3. Set the following variables:
+   - `ApiUserId`
+   - `ApiUserKey`
+   - `CustomerAccountKey` (if applicable)
+
+These credentials will automatically populate the headers of all API calls.
+
+---
+
+## 🌍 Supported Server URLs
+
+Update the `baseURL` variable based on your deployment:
+
+- **Global Server**: `https://analysis.geneyx.com/`
+- **US Server**: `https://ga-us.geneyx.com/`
+- **China Server**: `https://fa.shanyint.com/`
+
+
+---
+
+## 📥 Importing the Collection into Postman
+
+1. Download [Postman](https://www.postman.com/downloads/)
+2. Open the app and click **Import**
+3. Upload `Geneyx Analysis API Collection.postman_collection.json`
+
+Once imported, navigate to the collection, set your variables, and begin testing endpoints.
+
+---
+
+## 🧪 Best Practices
+
+- Use the `Page` and `PageSize` parameters when retrieving lists to manage pagination
+- Use exact names/IDs for fields like `SampleSn`, `PatientId`, `ProtocolId`, etc.
+- A response with `"Data": true` typically indicates a successfully initiated operation (e.g., annotation or deletion)
+- Check `Info` and `MoreInfo` fields in responses for additional debug information when needed
+
+---
+
+## 🆘 Need Help?
+
+If you require access credentials or technical assistance, contact:
+
+📧 **support@geneyx.com**
+
+---
+
