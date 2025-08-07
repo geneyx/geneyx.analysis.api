@@ -1,6 +1,6 @@
 {
 	"info": {
-		"_postman_id": "5bf0e49d-8e10-456e-9f63-d4b8bb381a1b",
+		"_postman_id": "51e19ae4-e594-4657-9f37-1e60b61427bc",
 		"name": "Geneyx Analysis API Collection",
 		"description": "## **Geneyx Analysis API Collection**\n\nThis collection provides programmatic access to Geneyx Analysis, enabling automation and integration with external systems such as LIMS, EHR, and internal bioinformatics tools.\n\nIt supports a wide range of functions, including:\n\n- Sample creation, deletion, and annotation\n    \n- Metadata retrieval (samples, enrichment kits, sequencing machines, protocols)\n    \n- Case creation and management\n    \n- File handling and analysis triggering\n    \n\n### 🔐 **Authentication**\n\nTo use this collection:\n\n- Set the following variables in the **collection-level \"Variables\" tab**:\n    \n    - `ApiUserId`\n        \n    - `ApiUserKey`\n        \n    - `CustomerAccountKey` (if required)\n        \n- These credentials will automatically populate the headers of all requests.\n    \n\n### 🌍 **Supported Server URLs**\n\nUpdate the `baseURL` variable to match your regional deployment:\n\n- **Global**: `https://analysis.geneyx.com/`\n    \n- **US**: `https://ga-us.geneyx.com/`\n    \n- **China**: `https://fa.shanyint.com/`\n    \n\n### 📦 **Collection Structure**\n\nThe collection is organized into logical folders representing key workflows:\n\n- `Samples`: Upload, delete, annotate, and retrieve sample metadata\n    \n- `Cases`: Create and manage analysis cases\n    \n- `Resources`: Fetch supported enrichment kits, protocols, and sequencing machines\n    \n- `Clinical Records`: Add phenotype data to patient records\n    \n\n### 🧪 **Best Practices**\n\n- Use the `Page` and `PageSize` parameters for endpoints returning lists\n    \n- Always validate `SampleSn` and `PatientId` formats before submission\n    \n- For endpoints that trigger actions (e.g., annotation), `Data: true` in the response indicates the action was successfully queued",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
@@ -125,13 +125,13 @@
 					}
 				},
 				"url": {
-					"raw": "{{baseURL}}/case/{62436756_S6.dragen.wes.hg38.20241217-103119 - All Genes + PGx 2 - Exons + PGx}",
+					"raw": "{{baseURL}}/case/{caseSn}",
 					"host": [
 						"{{baseURL}}"
 					],
 					"path": [
 						"case",
-						"{62436756_S6.dragen.wes.hg38.20241217-103119 - All Genes + PGx 2 - Exons + PGx}"
+						"{caseSn}"
 					]
 				},
 				"description": "## Delete Case Endpoint\n\nThis endpoint allows users to delete a specific case identified by its unique serial number (`caseSn`).\n\n### Request\n\n- **Method**: `DELETE`\n    \n- **Endpoint**: `{{baseURL}}/case/{caseSn}`\n    \n- **Path Parameter**:\n    \n    - `caseSn` (string): The unique serial number of the case that you want to delete.\n        \n\n### Response\n\nUpon a successful deletion, the API will return a response indicating the status of the operation. The expected response format is typically a confirmation message or status code indicating that the case has been successfully deleted.\n\n### Notes\n\n- Ensure that the `caseSn` provided in the request is valid and corresponds to an existing case in the system.\n    \n- Deleting a case is irreversible; once deleted, the case cannot be recovered."
@@ -248,7 +248,7 @@
 				],
 				"body": {
 					"mode": "raw",
-					"raw": "{\r\n    \"SerialNumber\": \"5.9testPavel\"\r\n}",
+					"raw": "{\r\n    \"SerialNumber\": \"string\"\r\n}",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -463,7 +463,7 @@
 				],
 				"body": {
 					"mode": "raw",
-					"raw": "{\r\n  \"sampleSerialNumbers\": [\r\n    \"GT test3.vcf.gz\",\r\n    \"62436756_S6.dragen.wes.hg38.20241217-103119 - All Genes + PGx 2\"\r\n  ]\r\n}",
+					"raw": "{\r\n  \"sampleSerialNumbers\": [\r\n    \"string\",\r\n    \"string\"\r\n  ]\r\n}",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -527,7 +527,7 @@
 			"response": []
 		},
 		{
-			"name": "SampleAssignment (REVIEW)",
+			"name": "SampleAssignment",
 			"request": {
 				"method": "POST",
 				"header": [
@@ -549,7 +549,7 @@
 				],
 				"body": {
 					"mode": "raw",
-					"raw": "{\r\n  \"SerialNumber\": \"string\",\r\n  \"GroupAssignment\": [\r\n    {\r\n      \"Code\": \"string\",\r\n      \"Name\": \"string\"\r\n    }\r\n  ],\r\n  \"AssignedToUserId\": \"string\",\r\n  \"AssignedToFullName\": \"string\"\r\n}",
+					"raw": "{\r\n  \"SerialNumber\": \"string\",\r\n  \"GroupAssignment\": [\r\n    {\r\n      \"Code\": \"string\",\r\n      \"Name\": \"string\"\r\n    }\r\n  ]\r\n}",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -613,49 +613,6 @@
 			"response": []
 		},
 		{
-			"name": "UpdateSampleSequencingQcRaw (REVIEW)",
-			"request": {
-				"method": "POST",
-				"header": [
-					{
-						"key": "ApiUserId",
-						"value": "{{ApiUserId}}",
-						"type": "text"
-					},
-					{
-						"key": "ApiUserKey",
-						"value": "{{ApiUserKey}}",
-						"type": "text"
-					},
-					{
-						"key": "CustomerAccountKey",
-						"value": "{{CustomerAccountKey}}",
-						"type": "text"
-					}
-				],
-				"body": {
-					"mode": "raw",
-					"raw": "{\r\n  \"sampleSn\": \"GT test3.vcf.gz\",  \r\n  \"PassedReadsNum\": 1,\r\n  \"FailedReadsNum\": 2,\r\n  \"MappedReadsNum\": 30,\r\n  \"PairedReadsNum\": 4,\r\n  \"MeanCoverage\": 5.1,\r\n  \"Percent5x\": 6.1,\r\n  \"Percent20x\": 7.1,\r\n  \"Percent50x\": 8.1,\r\n  \"BedFilePosNum\": 9,\r\n  \"AvrAlignCoverage\": 10,\r\n  \"AlignedReads\": 11,\r\n  \"BiallelicCount\": 4816423,\r\n  \"BiallelicPercentage\": 18.6,\r\n  \"ChrXSnpsCount\": 15,\r\n  \"TotalVariants\": 4909967,\r\n  \"MultiallelicCount\": 93544,\r\n  \"MultiallelicPercentage\": 6.3,\r\n  \"SnpCount\": 3949368,\r\n  \"SnpPercentage\": 5.4,\r\n  \"TotalHeteroCount\": 2964732,\r\n  \"TotalHeterPercentage\": 7.3,\r\n  \"TotalHomoCount\": 1835495,\r\n  \"TotalHomoPercentage\": 5.1,\r\n  \"HetHomRatio\": 1.62,\r\n  \"ChrXSnpsPercentage\": 31.35,\r\n  \"ChrYSnpsCount\": 88295,\r\n  \"ChrYSnpsPercentage\": 10.1,\r\n  \"XySnpsRatio\": 22.48\r\n  }",
-					"options": {
-						"raw": {
-							"language": "json"
-						}
-					}
-				},
-				"url": {
-					"raw": "{{baseURL}}/UpdateSampleSequencingQc",
-					"host": [
-						"{{baseURL}}"
-					],
-					"path": [
-						"UpdateSampleSequencingQc"
-					]
-				},
-				"description": "### Update Sample Sequencing QC Raw\n\nThis endpoint is used to update the quality control metrics for a specific sample sequencing analysis. It processes the provided metrics and returns a status indicating whether the update was successful.\n\n#### Request\n\n**Method:** POST  \n**Endpoint:** `{{baseURL}}/UpdateSampleSequencingQc`\n\n**Request Body (JSON):**  \nThe request body must be a JSON object containing the following parameters:\n\n- `sampleSn` (string): The sample identifier (e.g., filename of the sequencing data).\n    \n- `PassedReadsNum` (integer): The number of reads that passed quality control.\n    \n- `FailedReadsNum` (integer): The number of reads that failed quality control.\n    \n- `MappedReadsNum` (integer): The number of reads that were successfully mapped.\n    \n- `PairedReadsNum` (integer): The number of paired-end reads.\n    \n- `MeanCoverage` (float): The average coverage across the sample.\n    \n- `Percent5x` (float): Percentage of the genome covered at least 5x.\n    \n- `Percent20x` (float): Percentage of the genome covered at least 20x.\n    \n- `Percent50x` (float): Percentage of the genome covered at least 50x.\n    \n- `BedFilePosNum` (integer): The number of positions in the BED file.\n    \n- `AvrAlignCoverage` (integer): The average alignment coverage.\n    \n- `AlignedReads` (integer): The total number of aligned reads.\n    \n- `BiallelicCount` (integer): The count of biallelic variants.\n    \n- `BiallelicPercentage` (float): The percentage of biallelic variants.\n    \n- `ChrXSnpsCount` (integer): The count of SNPs on chromosome X.\n    \n- `TotalVariants` (integer): The total number of variants detected.\n    \n- `MultiallelicCount` (integer): The count of multiallelic variants.\n    \n- `MultiallelicPercentage` (float): The percentage of multiallelic variants.\n    \n- `SnpCount` (integer): The total number of SNPs.\n    \n- `SnpPercentage` (float): The percentage of SNPs.\n    \n- `TotalHeteroCount` (integer): The total count of heterozygous variants.\n    \n- `TotalHeterPercentage` (float): The percentage of heterozygous variants.\n    \n- `TotalHomoCount` (integer): The total count of homozygous variants.\n    \n- `TotalHomoPercentage` (float): The percentage of homozygous variants.\n    \n- `HetHomRatio` (float): The ratio of heterozygous to homozygous variants.\n    \n- `ChrXSnpsPercentage` (float): The percentage of SNPs on chromosome X.\n    \n- `ChrYSnpsCount` (integer): The count of SNPs on chromosome Y.\n    \n- `ChrYSnpsPercentage` (float): The percentage of SNPs on chromosome Y.\n    \n- `XySnpsRatio` (float): The ratio of SNPs between chromosome X and Y.\n    \n\n#### Response\n\n**Status Code:** 200  \n**Content-Type:** application/json\n\n**Response Structure:**  \nThe response will be a JSON object containing the following fields:\n\n- `Code` (string): A code representing the status of the request (empty if successful).\n    \n- `Data` (string): Additional data related to the request (empty if not applicable).\n    \n- `Info` (null or object): Information about the request status (null if not applicable).\n    \n- `MoreInfo` (null or object): Additional information (null if not applicable).\n    \n- `NeedEval` (boolean): Indicates whether further evaluation is needed (true if evaluation is required).\n    \n\nThis endpoint is crucial for maintaining the integrity and accuracy of sequencing data by ensuring that quality metrics are accurately recorded and updated."
-			},
-			"response": []
-		},
-		{
 			"name": "UpdateSampleQc",
 			"request": {
 				"method": "POST",
@@ -678,7 +635,7 @@
 				],
 				"body": {
 					"mode": "raw",
-					"raw": "{\r\n  \"SampleSerialNumber\": \"GT test.vcf.gz\",\r\n  \"SampleQcData\": \"{\\\"genes\\\": {\\\"AARS1\\\": 100.0, \\\"ZNF469\\\": 100.0, \\\"ZNF513\\\": 100.0, \\\"ZNF526\\\": 100.0, \\\"ZNF592\\\": 100.0,\\\"ZSWIM6\\\": 96.84}}\"\r\n}",
+					"raw": "{\r\n  \"SampleSerialNumber\": \"string\",\r\n  \"SampleQcData\": \"string\"\r\n}",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -699,7 +656,7 @@
 			"response": []
 		},
 		{
-			"name": "UploadAdvanceAnalysisToSample (REVIEW)",
+			"name": "UploadAdvanceAnalysisToSample",
 			"request": {
 				"method": "POST",
 				"header": [
@@ -720,13 +677,20 @@
 					}
 				],
 				"body": {
-					"mode": "raw",
-					"raw": "{\r\n    \"sampleSn\": \"GT test.vcf.gz\",\r\n    \"sampleAdvAnalysis\": \"{\\\"CYP2D6\\\": {\\\"data\\\": {\\\"genotype\\\": \\\"*1x2/*35\\\", \\\"genotypeFilter\\\": \\\"PASS\\\", \\\"pharmcatDescription\\\": null, \\\"pharmcatMetabolismStatus\\\": \\\"Ultrarapid Metabolizer\\\"}}}\"\r\n}",
-					"options": {
-						"raw": {
-							"language": "json"
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "file",
+							"description": "jsonFile",
+							"type": "file",
+							"src": []
+						},
+						{
+							"key": "SampleSn",
+							"value": "",
+							"type": "text"
 						}
-					}
+					]
 				},
 				"url": {
 					"raw": "{{baseURL}}/UploadAdvanceAnalysisToSample",
@@ -742,7 +706,7 @@
 			"response": []
 		},
 		{
-			"name": "UploadFilesToSample (REVIEW)",
+			"name": "UploadFilesToSample",
 			"request": {
 				"method": "POST",
 				"header": [
@@ -763,13 +727,41 @@
 					}
 				],
 				"body": {
-					"mode": "raw",
-					"raw": "{\r\n  \"SampleSn\": \"string\",\r\n  \"SnvFile\": \"string\",\r\n  \"SvFile\": \"string\",\r\n  \"SkipAnnotation\": true\r\n}",
-					"options": {
-						"raw": {
-							"language": "json"
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "SampleSn",
+							"value": "",
+							"type": "text"
+						},
+						{
+							"key": "SnvFile",
+							"value": "",
+							"description": "Value is name of file",
+							"type": "text"
+						},
+						{
+							"key": "SvFile",
+							"value": "",
+							"description": "Value is name of file",
+							"type": "text"
+						},
+						{
+							"key": "SkipAnnotation",
+							"value": "",
+							"type": "text"
+						},
+						{
+							"key": "File1",
+							"type": "file",
+							"src": []
+						},
+						{
+							"key": "File2",
+							"type": "file",
+							"src": []
 						}
-					}
+					]
 				},
 				"url": {
 					"raw": "{{baseURL}}/UploadFilesToSample",
@@ -807,7 +799,7 @@
 				],
 				"body": {
 					"mode": "raw",
-					"raw": "{\r\n  \"SerialNumber\": \"GT test.vcf.gz\",\r\n  \"TakenDate\": \"2025-08-06T18:36:47.991Z\",\r\n  \"SequenceDate\": \"2025-08-06T18:36:47.991Z\",\r\n  \"ReceivedDate\": \"2025-08-06T18:36:47.991Z\",\r\n  \"Type\": \"string\",\r\n  \"Target\": \"string\",\r\n  \"Source\": \"string\",\r\n  \"SequenceMachineId\": \"string\",\r\n  \"EnrichmentKitId\": \"string\",\r\n  \"Notes\": \"string\",\r\n  \"Relation\": \"string\",\r\n  \"GenomeBuild\": \"string\",\r\n  \"BamUrl\": null,\r\n  \"MethylationUrl\": null,\r\n  \"LocalBamUrl\": \"string\",\r\n  \"LocalMethylationUrl\": \"string\"\r\n}",
+					"raw": "{\r\n  \"SerialNumber\": \"string\",\r\n  \"TakenDate\": \"2025-08-06T18:36:47.991Z\",\r\n  \"SequenceDate\": \"2025-08-06T18:36:47.991Z\",\r\n  \"ReceivedDate\": \"2025-08-06T18:36:47.991Z\",\r\n  \"Type\": \"string\",\r\n  \"Target\": \"string\",\r\n  \"Source\": \"string\",\r\n  \"SequenceMachineId\": \"string\",\r\n  \"EnrichmentKitId\": \"string\",\r\n  \"Notes\": \"string\",\r\n  \"Relation\": \"string\",\r\n  \"GenomeBuild\": \"string\",\r\n  \"BamUrl\": null,\r\n  \"MethylationUrl\": null,\r\n  \"LocalBamUrl\": \"string\",\r\n  \"LocalMethylationUrl\": \"string\"\r\n}",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -828,7 +820,7 @@
 			"response": []
 		},
 		{
-			"name": "CreateSample (Review)",
+			"name": "CreateSample",
 			"request": {
 				"method": "POST",
 				"header": [
@@ -893,7 +885,7 @@
 				],
 				"body": {
 					"mode": "raw",
-					"raw": "{\r\n  \"PatientSn\": \"Familial62\"\r\n}",
+					"raw": "{\r\n  \"PatientSn\": \"string\"\r\n}",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -936,7 +928,7 @@
 				],
 				"body": {
 					"mode": "raw",
-					"raw": "{\r\n  \"CaseSn\": \"ENE250720130654\"\r\n}",
+					"raw": "{\r\n  \"CaseSn\": \"string\"\r\n}",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -979,7 +971,7 @@
 				],
 				"body": {
 					"mode": "raw",
-					"raw": "{\r\n  \"BatchName\": \"1.Txt-20250724-174435\"\r\n}",
+					"raw": "{\r\n  \"BatchName\": \"string\"\r\n}",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -1022,7 +1014,7 @@
 				],
 				"body": {
 					"mode": "raw",
-					"raw": "{\r\n    \"fileName\": \"ENE250803100220 - PGXv2TestCPICD - 250803_0933.pdf\"\r\n}",
+					"raw": "{\r\n    \"fileName\": \"string\"\r\n}",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -1151,7 +1143,7 @@
 				],
 				"body": {
 					"mode": "raw",
-					"raw": "{\r\n  \"SubjectId\": \"5.9testPavel\",\r\n  \"RecordDate\": \"2025-08-07T18:36:47.961Z\",\r\n  \"Description\": \"string\",\r\n  \"PhenotypeCodes\": [\r\n    \"string new\"\r\n  ]\r\n}",
+					"raw": "{\r\n  \"SubjectId\": \"string\",\r\n  \"RecordDate\": \"2025-08-07T18:36:47.961Z\",\r\n  \"Description\": \"string\",\r\n  \"PhenotypeCodes\": [\r\n    \"string new\"\r\n  ]\r\n}",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -1254,49 +1246,6 @@
 					]
 				},
 				"description": "## Endpoint: Create or Retrieve Patients\n\nThis endpoint allows you to retrieve patient records. It accepts a JSON payload and returns a structured response indicating the status of the operation.\n\n### Request\n\n**Method:** POST  \n**URL:** `{{baseURL}}/Patients`\n\n**Request Body:**\n\n``` json\n{\n  \"Query\": null,       // Optional: A search query to filter patient records. Can be left null for all records.\n  \"Page\": 0,          // Optional: The page number for pagination. Default is 0.\n  \"PageSize\": 0       // Optional: The number of records per page. Default is 0 for no limit.\n}\n\n ```\n\n### Response\n\n**Status Code:** 200  \n**Content-Type:** application/json\n\n**Response Body:**\n\n``` json\n{\n  \"Code\": \"\",          // A code indicating the result of the operation.\n  \"Data\": [\"\"],       // An array containing patient data or messages.\n  \"Info\": null,       // Additional information about the operation, if any.\n  \"MoreInfo\": null,   // Further details, if available.\n  \"NeedEval\": true    // Indicates if further evaluation is required.\n}\n\n ```\n\n### Notes\n\n- Ensure to provide appropriate values for `Page` and `PageSize` to manage the data returned effectively.\n    \n- If `Query` is used, it should be formatted correctly to filter the patient records as needed.\n    \n- The `NeedEval` flag in the response can be used to determine if further action is required after the request."
-			},
-			"response": []
-		},
-		{
-			"name": "CaseAssignment",
-			"request": {
-				"method": "POST",
-				"header": [
-					{
-						"key": "ApiUserId",
-						"value": "{{ApiUserId}}",
-						"type": "text"
-					},
-					{
-						"key": "ApiUserKey",
-						"value": "{{ApiUserKey}}",
-						"type": "text"
-					},
-					{
-						"key": "CustomerAccountKey",
-						"value": "{{CustomerAccountKey}}",
-						"type": "text"
-					}
-				],
-				"body": {
-					"mode": "raw",
-					"raw": "{\r\n  \"SerialNumber\": \"string\",\r\n  \"AssignedToUserId\": \"string\",\r\n  \"AssignedToFullName\": \"string\"\r\n}",
-					"options": {
-						"raw": {
-							"language": "json"
-						}
-					}
-				},
-				"url": {
-					"raw": "{{baseURL}}/CaseAssignment",
-					"host": [
-						"{{baseURL}}"
-					],
-					"path": [
-						"CaseAssignment"
-					]
-				},
-				"description": "### Case Assignment API\n\nThis endpoint allows you to assign a case to a specific user within the system.\n\n#### HTTP Method\n\n`POST`\n\n#### Endpoint\n\n`{{baseURL}}/CaseAssignment`\n\n#### Request Body\n\nThe request must include a JSON object with the following parameters:\n\n- **SerialNumber** (string): A unique identifier for the case being assigned.\n    \n- **AssignedToUserId** (string): The ID of the user to whom the case is assigned.\n    \n- **AssignedToFullName** (string): The full name of the user to whom the case is assigned.\n    \n\nExample Payload:\n\n``` json\n{\n  \"SerialNumber\": \"62436756_S6.dragen.wes.hg38.20...\",\n  \"AssignedToUserId\": \"string\",\n  \"AssignedToFullName\": \"Geneyx Support\"\n}\n\n ```\n\n#### Response\n\nOn a successful request, the API will return a response with the following structure:\n\n- **Code** (string): A code indicating the result of the operation (empty string indicates success).\n    \n- **Data** (null): This field is reserved for future data and will currently return null.\n    \n- **Info** (string): Additional information about the request (empty string indicates no additional info).\n    \n- **MoreInfo** (null): This field is reserved for additional information and will currently return null.\n    \n- **NeedEval** (boolean): Indicates if further evaluation is needed (true means further evaluation is required).\n    \n\nExample Response:\n\n``` json\n{\n  \"Code\": \"\",\n  \"Data\": null,\n  \"Info\": \"\",\n  \"MoreInfo\": null,\n  \"NeedEval\": true\n}\n\n ```\n\n#### Status Code\n\n- **200 OK**: Indicates that the case was successfully assigned."
 			},
 			"response": []
 		},
@@ -1516,49 +1465,6 @@
 			"response": []
 		},
 		{
-			"name": "ReprocessBatchQcData",
-			"request": {
-				"method": "POST",
-				"header": [
-					{
-						"key": "ApiUserId",
-						"value": "{{ApiUserId}}",
-						"type": "text"
-					},
-					{
-						"key": "ApiUserKey",
-						"value": "{{ApiUserKey}}",
-						"type": "text"
-					},
-					{
-						"key": "CustomerAccountKey",
-						"value": "{{CustomerAccountKey}}",
-						"type": "text"
-					}
-				],
-				"body": {
-					"mode": "raw",
-					"raw": "{\r\n  \"BatchName\": \"string\"\r\n}",
-					"options": {
-						"raw": {
-							"language": "json"
-						}
-					}
-				},
-				"url": {
-					"raw": "{{baseURL}}/ReprocessBatchQcData",
-					"host": [
-						"{{baseURL}}"
-					],
-					"path": [
-						"ReprocessBatchQcData"
-					]
-				},
-				"description": "## Reprocess Batch QC Data\n\nThis endpoint allows users to reprocess batch quality control data by submitting a specific batch name.\n\n### Request\n\n- **Method**: `POST`\n    \n- **Endpoint**: `{{baseURL}}/ReprocessBatchQcData`\n    \n- **Request Body**: The request must include a JSON object with the following parameter:\n    \n    - `BatchName` (string): The name of the batch file that needs to be reprocessed.\n        \n\n### Example Request Body\n\n``` json\n{\n  \"BatchName\": \"Testingfile1_upload_first.Txt- ...\"\n}\n\n ```\n\n### Response\n\nUpon successful execution, the endpoint returns a response with the following structure:\n\n- **Status Code**: `200 OK`\n    \n- **Content-Type**: `application/json`\n    \n- **Response Body**:\n    \n    - `Code` (string): A code indicating the status of the request.\n        \n    - `Data` (string): Additional data related to the request, if applicable.\n        \n    - `Info` (null or any additional information): May contain further details or be null.\n        \n    - `MoreInfo` (null or any additional information): Optional field for more details or null.\n        \n    - `NeedEval` (boolean): Indicates whether further evaluation is needed (true or false).\n        \n\n### Example Response\n\n``` json\n{\n  \"Code\": \"\",\n  \"Data\": \"\",\n  \"Info\": null,\n  \"MoreInfo\": null,\n  \"NeedEval\": true\n}\n\n ```\n\nThis endpoint is useful for managing and re-evaluating batch quality control processes by allowing users to specify which batch to reprocess."
-			},
-			"response": []
-		},
-		{
 			"name": "CreateBatch",
 			"request": {
 				"method": "POST",
@@ -1580,13 +1486,15 @@
 					}
 				],
 				"body": {
-					"mode": "raw",
-					"raw": "",
-					"options": {
-						"raw": {
-							"language": "json"
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "File",
+							"description": "Batch TSV file",
+							"type": "file",
+							"src": []
 						}
-					}
+					]
 				},
 				"url": {
 					"raw": "{{baseURL}}/CreateBatch",
@@ -1989,7 +1897,7 @@
 			"response": []
 		},
 		{
-			"name": "GetSampleMetricsFile (ISSUE)",
+			"name": "GetSampleMetricsFile",
 			"request": {
 				"method": "POST",
 				"header": [
@@ -2011,7 +1919,7 @@
 				],
 				"body": {
 					"mode": "raw",
-					"raw": "",
+					"raw": "{\r\n    \"SampleSn\":\"string\"\r\n}",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -2019,12 +1927,12 @@
 					}
 				},
 				"url": {
-					"raw": "{{baseURL}}/",
+					"raw": "{{baseURL}}/GetSampleMetricsFile",
 					"host": [
 						"{{baseURL}}"
 					],
 					"path": [
-						""
+						"GetSampleMetricsFile"
 					]
 				}
 			},
@@ -2314,22 +2222,22 @@
 	"variable": [
 		{
 			"key": "ApiUserId",
-			"value": "",
+			"value": "userID",
 			"type": "string"
 		},
 		{
 			"key": "ApiUserKey",
-			"value": "",
+			"value": "userKey",
 			"type": "string"
 		},
 		{
 			"key": "CustomerAccountKey",
-			"value": "",
+			"value": "accountkey",
 			"type": "string"
 		},
 		{
 			"key": "baseURL",
-			"value": "https://analysis-qa.geneyx.com/api",
+			"value": "https://analysis.geneyx.com/api",
 			"type": "string"
 		}
 	]
