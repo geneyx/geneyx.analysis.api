@@ -1,0 +1,2293 @@
+{
+	"info": {
+		"_postman_id": "5bf0e49d-8e10-456e-9f63-d4b8bb381a1b",
+		"name": "Geneyx Analysis API Collection",
+		"description": "## **Geneyx Analysis API Collection**\n\nThis collection provides programmatic access to Geneyx Analysis, enabling automation and integration with external systems such as LIMS, EHR, and internal bioinformatics tools.\n\nIt supports a wide range of functions, including:\n\n- Sample creation, deletion, and annotation\n    \n- Metadata retrieval (samples, enrichment kits, sequencing machines, protocols)\n    \n- Case creation and management\n    \n- File handling and analysis triggering\n    \n\n### 🔐 **Authentication**\n\nTo use this collection:\n\n- Set the following variables in the **collection-level \"Variables\" tab**:\n    \n    - `ApiUserId`\n        \n    - `ApiUserKey`\n        \n    - `CustomerAccountKey` (if required)\n        \n- These credentials will automatically populate the headers of all requests.\n    \n\n### 🌍 **Supported Server URLs**\n\nUpdate the `baseURL` variable to match your regional deployment:\n\n- **Global**: `https://analysis.geneyx.com/`\n    \n- **US**: `https://ga-us.geneyx.com/`\n    \n- **China**: `https://fa.shanyint.com/`\n    \n\n### 📦 **Collection Structure**\n\nThe collection is organized into logical folders representing key workflows:\n\n- `Samples`: Upload, delete, annotate, and retrieve sample metadata\n    \n- `Cases`: Create and manage analysis cases\n    \n- `Resources`: Fetch supported enrichment kits, protocols, and sequencing machines\n    \n- `Clinical Records`: Add phenotype data to patient records\n    \n\n### 🧪 **Best Practices**\n\n- Use the `Page` and `PageSize` parameters for endpoints returning lists\n    \n- Always validate `SampleSn` and `PatientId` formats before submission\n    \n- For endpoints that trigger actions (e.g., annotation), `Data: true` in the response indicates the action was successfully queued",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "18131911"
+	},
+	"item": [
+		{
+			"name": "Protocols",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "ApiUserId",
+						"value": "{{ApiUserId}}",
+						"type": "text"
+					},
+					{
+						"key": "ApiUserKey",
+						"value": "{{ApiUserKey}}",
+						"type": "text"
+					},
+					{
+						"key": "CustomerAccountKey",
+						"value": "{{CustomerAccountKey}}",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"Query\": null,\r\n  \"Page\": 0,\r\n  \"PageSize\": 0\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{baseURL}}/Protocols",
+					"host": [
+						"{{baseURL}}"
+					],
+					"path": [
+						"Protocols"
+					]
+				},
+				"description": "### **Endpoint Description**\n\nThis endpoint retrieves a list of available protocols configured in the Geneyx platform. Protocols typically define analysis workflows, pipelines, or interpretation settings associated with uploaded samples or cases.\n\n---\n\n### **Request Parameters**\n\nThe request body should be formatted as a JSON object with the following parameters:\n\n- **Query** (string or null, optional): A string to filter protocol names or identifiers. If `null`, all available protocols are returned.\n    \n- **Page** (integer, optional): Page number for pagination. A value of `0` returns the first page.\n    \n- **PageSize** (integer, optional): Number of items per page. A value of `0` disables pagination and returns the full list.\n    \n\n**Example Request:**\n\n```\njsonCopy code{\n  \"Query\": null,\n  \"Page\": 0,\n  \"PageSize\": 0\n}\n\n ```\n\n---\n\n### **Expected Response**\n\nUpon a successful request, the server will return a JSON object with the following fields:\n\n- **Code** (string): `\"success\"` if the request completed successfully.\n    \n- **Data** (array of objects): Each object represents a protocol with attributes like `SerialNumber`, `Name`, and metadata.\n    \n- **Info** (nullable): Additional metadata if relevant; typically `null`.\n    \n- **MoreInfo** (nullable): Extended context; typically `null`.\n    \n- **NeedEval** (boolean): Indicates whether further evaluation is required; usually `false`.\n    \n\n**Example Response:**\n\n```\njsonCopy code{\n  \"Code\": \"success\",\n  \"Data\": [\n    {\n      \"SerialNumber\": \"P12345\",\n      \"Name\": \"Rare Disease Trio Analysis v2\",\n      \"Description\": \"High-confidence trio workflow for clinical cases\",\n      \"CreatedBy\": \"Eli W.\",\n      \"CreatedDate\": \"2025-07-01T10:15:30\"\n    },\n    {\n      \"SerialNumber\": \"P67890\",\n      \"Name\": \"Cancer Somatic Panel\",\n      \"Description\": \"Somatic variant detection for solid tumors\",\n      \"CreatedBy\": \"LabAdmin\",\n      \"CreatedDate\": \"2025-03-15T09:00:00\"\n    }\n  ],\n  \"Info\": null,\n  \"MoreInfo\": null,\n  \"NeedEval\": false\n}\n\n ```\n\n---\n\n### **Notes**\n\n- Protocol `SerialNumber` values are required when assigning a protocol to a case or analysis run.\n    \n- Protocols may be shared across users in the same organization or defined per account.\n    \n- To retrieve a complete list of protocols for selection, use `PageSize: 0`."
+			},
+			"response": []
+		},
+		{
+			"name": "EnrichmentKits",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "ApiUserId",
+						"value": "{{ApiUserId}}",
+						"type": "text"
+					},
+					{
+						"key": "ApiUserKey",
+						"value": "{{ApiUserKey}}",
+						"type": "text"
+					},
+					{
+						"key": "CustomerAccountKey",
+						"value": "{{CustomerAccountKey}}",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"Query\": null,\r\n  \"Page\": 0,\r\n  \"PageSize\": 0\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{baseURL}}/EnrichmentKits",
+					"host": [
+						"{{baseURL}}"
+					],
+					"path": [
+						"EnrichmentKits"
+					]
+				},
+				"description": "### **Endpoint Description**\n\nThis endpoint retrieves a list of available enrichment kits configured for the user's account. These kits are used to define targeted genomic regions during sequencing and analysis. The returned names can be used when uploading or annotating samples.\n\n---\n\n### **Request Parameters**\n\nThe request body should be formatted as a JSON object with the following parameters:\n\n- **Query** (string or null, optional): A string to filter enrichment kit names. If `null`, all available kits are returned.\n    \n- **Page** (integer, optional): Page number for pagination. A value of `0` returns the first page.\n    \n- **PageSize** (integer, optional): Number of items per page. A value of `0` disables pagination and returns the full list.\n    \n\n**Example Request:**\n\n```\n{\n  \"Query\": null,\n  \"Page\": 0,\n  \"PageSize\": 0\n}\n\n ```\n\n---\n\n### **Expected Response**\n\nUpon a successful request, the server will return a JSON object with the following fields:\n\n- **Code** (string): `\"success\"` if the request completed successfully.\n    \n- **Data** (array of strings): A list of enrichment kit names available to the user or organization.\n    \n- **Info** (nullable): Additional metadata if applicable; typically `null`.\n    \n- **MoreInfo** (nullable): Additional context; typically `null`.\n    \n- **NeedEval** (boolean): Indicates whether further evaluation is needed; usually `false`.\n    \n\n**Example Response:**\n\n```\n{\n  \"Code\": \"success\",\n  \"Data\": [\n    \"All Genes + PGx 1\",\n    \"All Genes + PGx 2\",\n    \"Clinically Relevant Exons\",\n    \"Cardio Panel v2\",\n    \"Neurology Panel\"\n  ],\n  \"Info\": null,\n  \"MoreInfo\": null,\n  \"NeedEval\": false\n}\n\n ```\n\n---\n\n### **Notes**\n\n- The kit names returned should be used exactly as provided when assigning an enrichment kit to a sample.\n    \n- If no kits are returned, ensure that your account is properly configured with at least one active enrichment kit.\n    \n- Pagination is optional. To retrieve all kits in a single response, set `PageSize` to `0`."
+			},
+			"response": []
+		},
+		{
+			"name": "SequenceMachines",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "ApiUserId",
+						"value": "{{ApiUserId}}",
+						"type": "text"
+					},
+					{
+						"key": "ApiUserKey",
+						"value": "{{ApiUserKey}}",
+						"type": "text"
+					},
+					{
+						"key": "CustomerAccountKey",
+						"value": "{{CustomerAccountKey}}",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"Query\": null,\r\n  \"Page\": 0,\r\n  \"PageSize\": 0\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{baseURL}}/SequenceMachines",
+					"host": [
+						"{{baseURL}}"
+					],
+					"path": [
+						"SequenceMachines"
+					]
+				},
+				"description": "### **Endpoint Description**\n\nThis endpoint retrieves a list of supported sequencing machines available in the Geneyx platform. It can be used to populate dropdowns, validate machine names, or associate samples with sequencing hardware.\n\n---\n\n### **Request Parameters**\n\nThe request body should be formatted as a JSON object with the following parameters:\n\n- **Query** (string or null, optional): A string to filter sequencing machine names. If `null`, all machines are returned.\n    \n- **Page** (integer, optional): Page number for pagination. A value of `0` returns the first page.\n    \n- **PageSize** (integer, optional): Number of items per page. A value of `0` disables pagination and returns the full list.\n    \n\n**Example Request:**\n\n```\n{\n  \"Query\": null,\n  \"Page\": 0,\n  \"PageSize\": 0\n}\n\n ```\n\n---\n\n### **Expected Response**\n\nUpon a successful request, the server will return a JSON object containing the following fields:\n\n- **Code** (string): `\"success\"` if the request completed successfully.\n    \n- **Data** (array of strings): A list of supported sequencing machine names.\n    \n- **Info** (nullable): May contain additional metadata; typically `null`.\n    \n- **MoreInfo** (nullable): Extended context; typically `null`.\n    \n- **NeedEval** (boolean): Indicates whether follow-up evaluation is needed; usually `false`.\n    \n\n**Example Response:**\n\n```\n{\n  \"Code\": \"success\",\n  \"Data\": [\n    \"400\",\n    \"HiSeq 2500\",\n    \"HiSeq 4000\",\n    \"Ion GeneStudio S5\",\n    \"Ion Torrent Genexus\",\n    \"iSeq\",\n    \"MiniSeq\",\n    \"MiSeq\",\n    \"MiSeq DX\",\n    \"NextSeq 1000\",\n    \"NextSeq 2000\",\n    \"NextSeq 500\",\n    \"NextSeq 550\",\n    \"NextSeq DX 550\",\n    \"NovaSeq 6000\",\n    \"ONSO SYSTEM\",\n    \"PacBio Sequel IIe\",\n    \"REVIO SYSTEM\",\n    \"SEQUEL IIe SYSTEM\",\n    \"x\"\n  ],\n  \"Info\": null,\n  \"MoreInfo\": null,\n  \"NeedEval\": false\n}\n\n ```\n\n---\n\n### **Notes**\n\n- Use this endpoint to validate sequencing machine names before assigning them to a sample or protocol.\n    \n- Pagination is supported but optional. Setting `PageSize: 0` returns the entire list.\n    \n- Some machine names may include identifiers used internally; ensure you reference them exactly as returned."
+			},
+			"response": []
+		},
+		{
+			"name": "DeleteSample",
+			"request": {
+				"method": "DELETE",
+				"header": [
+					{
+						"key": "ApiUserId",
+						"value": "{{ApiUserId}}",
+						"type": "text"
+					},
+					{
+						"key": "ApiUserKey",
+						"value": "{{ApiUserKey}}",
+						"type": "text"
+					},
+					{
+						"key": "CustomerAccountKey",
+						"value": "{{CustomerAccountKey}}",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"SampleSn\": \"string\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{baseURL}}/Sample",
+					"host": [
+						"{{baseURL}}"
+					],
+					"path": [
+						"Sample"
+					]
+				},
+				"description": "**Endpoint Description**\n\nThis endpoint allows users to **delete a sample** from the Geneyx platform by specifying its `SampleSn` (sample serial number). Deletion is irreversible and will remove the sample and associated data from the account.\n\n---\n\n### **Request Parameters**\n\nThe request body should be formatted as a JSON object with the following parameter:\n\n- **SampleSn** (string, required): The serial number of the sample to be deleted.\n    \n\n**Example Request:**\n\n```\n{\n  \"SampleSn\": \"62436756_S6.dragen.wes.hg38.20241217-103119 - All Genes + PGx 2\"\n}\n\n ```\n\n---\n\n### **Expected Response**\n\nUpon a successful request, the server will return a JSON object with the following fields:\n\n- **Code** (string): A status message, typically `\"success\"` if the deletion completed without errors.\n    \n- **Data** (boolean): `true` if the sample was successfully deleted; `false` otherwise.\n    \n- **Info** (nullable): Additional context if relevant; often `null`.\n    \n- **MoreInfo** (nullable): Supplementary information; typically `null`.\n    \n- **NeedEval** (boolean): Indicates whether further evaluation is required; usually `false`.\n    \n\n**Example Response:**\n\n```\n{\n  \"Code\": \"success\",\n  \"Data\": true,\n  \"Info\": null,\n  \"MoreInfo\": null,\n  \"NeedEval\": false\n}\n\n ```\n\n---\n\n### **Notes**\n\n- Deleting a sample will also remove associated files (VCF, BAM, QC metrics, etc.).\n    \n- Ensure that the `SampleSn` is correct and that deletion is intended — **this action cannot be undone**.\n    \n- If the sample is part of a case, the case may also need to be updated or deleted separately.\n    \n- You must have the appropriate permissions to perform a delete operation."
+			},
+			"response": []
+		},
+		{
+			"name": "Sample",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "ApiUserId",
+						"value": "{{ApiUserId}}",
+						"type": "text"
+					},
+					{
+						"key": "ApiUserKey",
+						"value": "{{ApiUserKey}}",
+						"type": "text"
+					},
+					{
+						"key": "CustomerAccountKey",
+						"value": "{{CustomerAccountKey}}",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"SampleSn\": \"string\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{baseURL}}/Sample",
+					"host": [
+						"{{baseURL}}"
+					],
+					"path": [
+						"Sample"
+					]
+				},
+				"description": "**Endpoint Description**\n\nThis endpoint retrieves detailed metadata for a specific sample, identified by its `SampleSn` (sample serial number). The response includes clinical context, file availability, sequencing platform metadata, QC links, assignment status, and associated uploaded files.\n\n---\n\n### **Request Parameters**\n\nThe request body should be formatted as a JSON object with the following parameter:\n\n- **SampleSn** (string, required): The serial number of the sample for which metadata is being requested.\n    \n\n**Example Request:**\n\n```\n{\n  \"SampleSn\": \"62436756_S6.dragen.wes.hg38.20241217-103119 - All Genes + PGx 2\"\n}\n\n ```\n\n---\n\n### **Expected Response**\n\nUpon a successful request, the server will respond with a status code of `200` and a JSON object containing the following fields:\n\n- **Code** (string): `\"success\"` if the request succeeded.\n    \n- **Data** (object): Contains detailed sample metadata including:\n    \n    - **PatientId** / **Patient**: Patient identifiers\n        \n    - **SerialNumber**: The sample’s unique name\n        \n    - **EnrichmentKitId**, **EnrichmentKit**, **EnrichmentKitDescription**: Details about the kit used\n        \n    - **Target**, **TargetName**: Sequencing target (e.g., Exome)\n        \n    - **GenomeBuild** / **GenomeBuildName**: Reference genome used (e.g., hg38)\n        \n    - **File URLs and statuses** (e.g., `BamUrl`, `QcMetricsUrl`, `BamFileExists`, etc.)\n        \n    - **Files**: An array of associated uploaded files, each with:\n        \n        - `FileTypeName`, `FileName`, `CreateDate`, and `TotalVariants` (if applicable)\n            \n    - **Assignment**: Metadata about who is assigned to the sample\n        \n    - **CreateDate**, **CreatedByUser**, **ModifyDate**, **ModifiedByUser**\n        \n- **Info** / **MoreInfo** (nullable): May contain additional or diagnostic information\n    \n- **NeedEval** (boolean): Indicates if further evaluation is needed (typically `false`)\n    \n\n**Example Response (partial):**\n\n```\n{\n  \"Code\": \"success\",\n  \"Data\": {\n    \"PatientId\": \"6f44db3c-66e2-4b91-8cdc-6856228bdf47\",\n    \"SerialNumber\": \"62436756_S6.dragen.wes.hg38.20241217-103119 - All Genes + PGx 2\",\n    \"EnrichmentKit\": \"All Genes + PGx 2\",\n    \"TargetName\": \"Exome\",\n    \"GenomeBuildName\": \"hg38\",\n    \"BamFileExists\": true,\n    \"QcMetricsFileExists\": true,\n    \"Files\": [\n      {\n        \"FileTypeName\": \"BAM\",\n        \"FileName\": \"62436756_S6.dragen.wes.hg38.20241217-103119.bam\",\n        \"TotalVariants\": null\n      },\n      {\n        \"FileTypeName\": \"SNV\",\n        \"FileName\": \"62436756_S6.dragen.wes.hg38.20241217-103119.vcf.gz\",\n        \"TotalVariants\": 4934353\n      }\n    ],\n    \"Assignment\": {\n      \"AssignedBy\": \"Geneyx Support\",\n      \"AssignDate\": \"2025-08-07T04:36:14.017\"\n    }\n  },\n  \"Info\": null,\n  \"MoreInfo\": null,\n  \"NeedEval\": false\n}\n\n ```\n\n---\n\n### **Notes**\n\n- Ensure the sample serial number matches exactly with one stored in your Geneyx account.\n    \n- The `Files` array includes all uploaded and processed files tied to the sample, such as VCFs, BAMs, and QC reports.\n    \n- Null fields indicate that data is either not yet available or was not provided during sample upload.\n    \n- File URLs (e.g., `BamUrl`, `QcMetricsUrl`) may be used to programmatically download files, if permissions allow."
+			},
+			"response": []
+		},
+		{
+			"name": "AnnotateSample",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "ApiUserId",
+						"value": "{{ApiUserId}}",
+						"type": "text"
+					},
+					{
+						"key": "ApiUserKey",
+						"value": "{{ApiUserKey}}",
+						"type": "text"
+					},
+					{
+						"key": "CustomerAccountKey",
+						"value": "{{CustomerAccountKey}}",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"SampleSn\": \"string\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{baseURL}}/AnnotateSample",
+					"host": [
+						"{{baseURL}}"
+					],
+					"path": [
+						"AnnotateSample"
+					]
+				},
+				"description": "### **Endpoint Description**\n\nThis endpoint triggers annotation for a sample based on the provided `SampleSn` (sample serial number). It will annotate the sample using the most up-to-date version of the Geneyx platform.\n\n---\n\n### **Request Parameters**\n\nThe request body should be formatted as a JSON object with the following parameter:\n\n- **SampleSn** (string, required): The unique serial number of the sample to be annotated.\n    \n\n**Example Request:**\n\n```\n{\n  \"SampleSn\": \"GT_test_001.vcf.gz\"\n}\n\n ```\n\n---\n\n### **Expected Response**\n\nUpon successful execution, the server will return a JSON object with the following fields:\n\n- **Code** (string): A status string, typically `\"success\"` when annotation is initiated successfully.\n    \n- **Data** (boolean): `true` if the annotation task was successfully queued or initiated.\n    \n- **Info** (nullable): May include additional information; `null` in standard responses.\n    \n- **MoreInfo** (nullable): Additional optional context; typically `null`.\n    \n- **NeedEval** (boolean): Indicates whether further evaluation is needed. Usually `false`.\n    \n\n**Example Response:**\n\n```\n{\n  \"Code\": \"success\",\n  \"Data\": true,\n  \"Info\": null,\n  \"MoreInfo\": null,\n  \"NeedEval\": false\n}\n\n ```\n\n---\n\n### **Notes**\n\n- Ensure the `SampleSn` is valid and corresponds to an uploaded sample.\n    \n- A response with `Data: true` confirms that annotation has been successfully initiated, not that it has completed.\n    \n- The fields `Info` and `MoreInfo` may contain diagnostic messages or warnings in error cases."
+			},
+			"response": []
+		},
+		{
+			"name": "GetExistSamples",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "ApiUserId",
+						"value": "{{ApiUserId}}",
+						"type": "text"
+					},
+					{
+						"key": "ApiUserKey",
+						"value": "{{ApiUserKey}}",
+						"type": "text"
+					},
+					{
+						"key": "CustomerAccountKey",
+						"value": "{{CustomerAccountKey}}",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"sampleSerialNumbers\": [\r\n    \"GT test3.vcf.gz\",\r\n    \"62436756_S6.dragen.wes.hg38.20241217-103119 - All Genes + PGx 2\"\r\n  ]\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{baseURL}}/GetExistSamples",
+					"host": [
+						"{{baseURL}}"
+					],
+					"path": [
+						"GetExistSamples"
+					]
+				},
+				"description": "## GetExistSamples Endpoint\n\nThis endpoint allows users to check the existence of samples based on their serial numbers. It accepts a list of sample serial numbers and returns information regarding their existence.\n\n### Request\n\n- **Method**: POST\n    \n- **URL**: `{{baseURL}}/GetExistSamples`\n    \n- **Content-Type**: application/json\n    \n\n#### Request Body\n\nThe request body must be in JSON format and should include the following parameter:\n\n- `sampleSerialNumbers` (Array of Strings): A list of sample serial numbers to check for existence. Each serial number should be a valid string.\n    \n\n**Example Request Body:**\n\n``` json\n{\n  \"sampleSerialNumbers\": [\"sample1.vcf.gz\", \"sample2.vcf.gz\"]\n}\n\n ```\n\n### Response\n\n- **Status Code**: 200\n    \n- **Content-Type**: application/json\n    \n\n#### Response Body\n\nThe response will be in JSON format and contains the following fields:\n\n- `Code` (String): A code indicating the status of the request.\n    \n- `Data` (Array of Strings): An array containing information about the existence of the requested samples.\n    \n- `Info` (Nullable): Additional information, if any.\n    \n- `MoreInfo` (Nullable): Further details, if available.\n    \n- `NeedEval` (Boolean): A flag indicating whether further evaluation is needed.\n    \n\n**Example Response:**\n\n``` json\n{\n  \"Code\": \"\",\n  \"Data\": [\"\"],\n  \"Info\": null,\n  \"MoreInfo\": null,\n  \"NeedEval\": true\n}\n\n ```\n\nThis endpoint is useful for validating the presence of specific samples in the system, allowing users to manage their data effectively."
+			},
+			"response": []
+		},
+		{
+			"name": "Samples",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "ApiUserId",
+						"value": "{{ApiUserId}}",
+						"type": "text"
+					},
+					{
+						"key": "ApiUserKey",
+						"value": "{{ApiUserKey}}",
+						"type": "text"
+					},
+					{
+						"key": "CustomerAccountKey",
+						"value": "{{CustomerAccountKey}}",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"Query\": null,\r\n  \"Page\": 0,\r\n  \"PageSize\": 0\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{baseURL}}/Samples",
+					"host": [
+						"{{baseURL}}"
+					],
+					"path": [
+						"Samples"
+					]
+				},
+				"description": "## Endpoint Description\n\nThis endpoint allows users to retrieve samples based on the provided query parameters. It is a POST request that processes the input to return relevant sample information.\n\n### Request Parameters\n\nThe request body should be formatted as a JSON object with the following parameters:\n\n- **Query** (nullable): A string parameter that can be used to filter the samples. If set to `null`, no filtering will be applied.\n    \n- **Page** (integer): An integer indicating the page number for pagination. A value of `0` typically represents the first page.\n    \n- **PageSize** (integer): An integer that specifies the number of items to return per page. A value of `0` indicates that no specific limit is set on the number of items returned.\n    \n\n### Expected Response\n\nUpon a successful request, the server will respond with a status code of `200` and a JSON object containing the following fields:\n\n- **Code**: A string that may contain error codes or status messages. In this case, it is empty.\n    \n- **Data**: An array of strings containing the sample data. In this instance, it returns an array with an empty string, indicating no samples were found or returned.\n    \n- **Info**: A nullable field that may provide additional information; it is `null` in this response.\n    \n- **MoreInfo**: A nullable field for extra details; it is `null` in this response.\n    \n- **NeedEval**: A boolean indicating whether further evaluation is needed; it is set to `true`.\n    \n\n### Notes\n\n- Ensure that the parameters are correctly formatted to receive the desired output.\n    \n- The pagination parameters (`Page` and `PageSize`) are essential for managing large datasets effectively.\n    \n- If no data is returned, check the `Query` parameter for accuracy or adjust pagination settings."
+			},
+			"response": []
+		},
+		{
+			"name": "SampleAssignment (REVIEW)",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "ApiUserId",
+						"value": "{{ApiUserId}}",
+						"type": "text"
+					},
+					{
+						"key": "ApiUserKey",
+						"value": "{{ApiUserKey}}",
+						"type": "text"
+					},
+					{
+						"key": "CustomerAccountKey",
+						"value": "{{CustomerAccountKey}}",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"SerialNumber\": \"string\",\r\n  \"GroupAssignment\": [\r\n    {\r\n      \"Code\": \"string\",\r\n      \"Name\": \"string\"\r\n    }\r\n  ],\r\n  \"AssignedToUserId\": \"string\",\r\n  \"AssignedToFullName\": \"string\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{baseURL}}/SampleAssignment",
+					"host": [
+						"{{baseURL}}"
+					],
+					"path": [
+						"SampleAssignment"
+					]
+				},
+				"description": "### Endpoint Description\n\nThis endpoint allows users to create a new assignment by submitting relevant details through a POST request. The request includes information about the assignment's serial number, the group assignment details, and the user to whom the assignment is assigned.\n\n### Request Body Format\n\nThe request body must be in JSON format and should include the following parameters:\n\n- **SerialNumber** (string): A unique identifier for the assignment.\n    \n- **GroupAssignment** (array of objects): An array containing group assignment details, where each object includes:\n    \n    - **Code** (string): The code associated with the group.\n        \n    - **Name** (string): The name of the group.\n        \n- **AssignedToUserId** (string): The unique identifier of the user to whom the assignment is assigned.\n    \n- **AssignedToFullName** (string): The full name of the user assigned.\n    \n\n**Example Request Body:**\n\n``` json\n{\n  \"SerialNumber\": \"string\",\n  \"GroupAssignment\": [\n    {\n      \"Code\": \"string\",\n      \"Name\": \"string\"\n    }\n  ],\n  \"AssignedToUserId\": \"string\",\n  \"AssignedToFullName\": \"string\"\n}\n\n ```\n\n### Response Format\n\nUpon successful execution, the response will return a status code of `200` and will include the following JSON structure:\n\n- **Code** (string): A code indicating the result of the operation.\n    \n- **Data** (object): Contains details about the assignment, including:\n    \n    - **UserId** (null): The ID of the user assigned (if applicable).\n        \n    - **FullName** (null): The full name of the assigned user (if applicable).\n        \n    - **Name** (null): The name of the assignment (if applicable).\n        \n    - **Email** (null): The email of the assigned user (if applicable).\n        \n    - **AssignedBy** (string): The identifier of the user who assigned the task.\n        \n    - **AssignDate** (string): The date when the assignment was made.\n        \n    - **GroupCodes** (array): An array of group codes associated with the assignment.\n        \n    - **Groups** (array): An array of group details associated with the assignment.\n        \n- **Info** (null): Additional information (if any).\n    \n- **MoreInfo** (null): Further information (if any).\n    \n- **NeedEval** (boolean): Indicates whether evaluation is needed for the assignment.\n    \n\n**Example Response:**\n\n``` json\n{\n  \"Code\": \"\",\n  \"Data\": {\n    \"UserId\": null,\n    \"FullName\": null,\n    \"Name\": null,\n    \"Email\": null,\n    \"AssignedBy\": \"\",\n    \"AssignDate\": \"\",\n    \"GroupCodes\": [],\n    \"Groups\": []\n  },\n  \"Info\": null,\n  \"MoreInfo\": null,\n  \"NeedEval\": true\n}\n\n ```"
+			},
+			"response": []
+		},
+		{
+			"name": "UpdateSampleSequencingQc",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "ApiUserId",
+						"value": "{{ApiUserId}}",
+						"type": "text"
+					},
+					{
+						"key": "ApiUserKey",
+						"value": "{{ApiUserKey}}",
+						"type": "text"
+					},
+					{
+						"key": "CustomerAccountKey",
+						"value": "{{CustomerAccountKey}}",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"sampleSn\": \"GT test3.vcf.gz\",  \r\n  \"PassedReadsNum\": 1,\r\n  \"FailedReadsNum\": 2,\r\n  \"MappedReadsNum\": 30,\r\n  \"PairedReadsNum\": 4,\r\n  \"MeanCoverage\": 5.1,\r\n  \"Percent5x\": 6.1,\r\n  \"Percent20x\": 7.1,\r\n  \"Percent50x\": 8.1,\r\n  \"BedFilePosNum\": 9,\r\n  \"AvrAlignCoverage\": 10,\r\n  \"AlignedReads\": 11,\r\n  \"BiallelicCount\": 4816423,\r\n  \"BiallelicPercentage\": 18.6,\r\n  \"ChrXSnpsCount\": 15,\r\n  \"TotalVariants\": 4909967,\r\n  \"MultiallelicCount\": 93544,\r\n  \"MultiallelicPercentage\": 6.3,\r\n  \"SnpCount\": 3949368,\r\n  \"SnpPercentage\": 5.4,\r\n  \"TotalHeteroCount\": 2964732,\r\n  \"TotalHeterPercentage\": 7.3,\r\n  \"TotalHomoCount\": 1835495,\r\n  \"TotalHomoPercentage\": 5.1,\r\n  \"HetHomRatio\": 1.62,\r\n  \"ChrXSnpsPercentage\": 31.35,\r\n  \"ChrYSnpsCount\": 88295,\r\n  \"ChrYSnpsPercentage\": 10.1,\r\n  \"XySnpsRatio\": 22.48\r\n  }",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{baseURL}}/UpdateSampleSequencingQc",
+					"host": [
+						"{{baseURL}}"
+					],
+					"path": [
+						"UpdateSampleSequencingQc"
+					]
+				},
+				"description": "### Update Sample Sequencing QC\n\nThis endpoint is used to update the quality control metrics for a specific sample sequencing analysis. It processes the provided metrics and returns a status indicating whether the update was successful.\n\n#### Request\n\n**Method:** POST  \n**Endpoint:** `{{baseURL}}/UpdateSampleSequencingQc`\n\n**Request Body (JSON):**  \nThe request body must be a JSON object containing the following parameters:\n\n- `sampleSn` (string): The sample identifier (e.g., filename of the sequencing data).\n    \n- `PassedReadsNum` (integer): The number of reads that passed quality control.\n    \n- `FailedReadsNum` (integer): The number of reads that failed quality control.\n    \n- `MappedReadsNum` (integer): The number of reads that were successfully mapped.\n    \n- `PairedReadsNum` (integer): The number of paired-end reads.\n    \n- `MeanCoverage` (float): The average coverage across the sample.\n    \n- `Percent5x` (float): Percentage of the genome covered at least 5x.\n    \n- `Percent20x` (float): Percentage of the genome covered at least 20x.\n    \n- `Percent50x` (float): Percentage of the genome covered at least 50x.\n    \n- `BedFilePosNum` (integer): The number of positions in the BED file.\n    \n- `AvrAlignCoverage` (integer): The average alignment coverage.\n    \n- `AlignedReads` (integer): The total number of aligned reads.\n    \n- `BiallelicCount` (integer): The count of biallelic variants.\n    \n- `BiallelicPercentage` (float): The percentage of biallelic variants.\n    \n- `ChrXSnpsCount` (integer): The count of SNPs on chromosome X.\n    \n- `TotalVariants` (integer): The total number of variants detected.\n    \n- `MultiallelicCount` (integer): The count of multiallelic variants.\n    \n- `MultiallelicPercentage` (float): The percentage of multiallelic variants.\n    \n- `SnpCount` (integer): The total number of SNPs.\n    \n- `SnpPercentage` (float): The percentage of SNPs.\n    \n- `TotalHeteroCount` (integer): The total count of heterozygous variants.\n    \n- `TotalHeterPercentage` (float): The percentage of heterozygous variants.\n    \n- `TotalHomoCount` (integer): The total count of homozygous variants.\n    \n- `TotalHomoPercentage` (float): The percentage of homozygous variants.\n    \n- `HetHomRatio` (float): The ratio of heterozygous to homozygous variants.\n    \n- `ChrXSnpsPercentage` (float): The percentage of SNPs on chromosome X.\n    \n- `ChrYSnpsCount` (integer): The count of SNPs on chromosome Y.\n    \n- `ChrYSnpsPercentage` (float): The percentage of SNPs on chromosome Y.\n    \n- `XySnpsRatio` (float): The ratio of SNPs between chromosome X and Y.\n    \n\n#### Response\n\n**Status Code:** 200  \n**Content-Type:** application/json\n\n**Response Structure:**  \nThe response will be a JSON object containing the following fields:\n\n- `Code` (string): A code representing the status of the request (empty if successful).\n    \n- `Data` (string): Additional data related to the request (empty if not applicable).\n    \n- `Info` (null or object): Information about the request status (null if not applicable).\n    \n- `MoreInfo` (null or object): Additional information (null if not applicable).\n    \n- `NeedEval` (boolean): Indicates whether further evaluation is needed (true if evaluation is required).\n    \n\nThis endpoint is crucial for maintaining the integrity and accuracy of sequencing data by ensuring that quality metrics are accurately recorded and updated."
+			},
+			"response": []
+		},
+		{
+			"name": "UpdateSampleSequencingQcRaw (REVIEW)",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "ApiUserId",
+						"value": "{{ApiUserId}}",
+						"type": "text"
+					},
+					{
+						"key": "ApiUserKey",
+						"value": "{{ApiUserKey}}",
+						"type": "text"
+					},
+					{
+						"key": "CustomerAccountKey",
+						"value": "{{CustomerAccountKey}}",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"sampleSn\": \"GT test3.vcf.gz\",  \r\n  \"PassedReadsNum\": 1,\r\n  \"FailedReadsNum\": 2,\r\n  \"MappedReadsNum\": 30,\r\n  \"PairedReadsNum\": 4,\r\n  \"MeanCoverage\": 5.1,\r\n  \"Percent5x\": 6.1,\r\n  \"Percent20x\": 7.1,\r\n  \"Percent50x\": 8.1,\r\n  \"BedFilePosNum\": 9,\r\n  \"AvrAlignCoverage\": 10,\r\n  \"AlignedReads\": 11,\r\n  \"BiallelicCount\": 4816423,\r\n  \"BiallelicPercentage\": 18.6,\r\n  \"ChrXSnpsCount\": 15,\r\n  \"TotalVariants\": 4909967,\r\n  \"MultiallelicCount\": 93544,\r\n  \"MultiallelicPercentage\": 6.3,\r\n  \"SnpCount\": 3949368,\r\n  \"SnpPercentage\": 5.4,\r\n  \"TotalHeteroCount\": 2964732,\r\n  \"TotalHeterPercentage\": 7.3,\r\n  \"TotalHomoCount\": 1835495,\r\n  \"TotalHomoPercentage\": 5.1,\r\n  \"HetHomRatio\": 1.62,\r\n  \"ChrXSnpsPercentage\": 31.35,\r\n  \"ChrYSnpsCount\": 88295,\r\n  \"ChrYSnpsPercentage\": 10.1,\r\n  \"XySnpsRatio\": 22.48\r\n  }",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{baseURL}}/UpdateSampleSequencingQc",
+					"host": [
+						"{{baseURL}}"
+					],
+					"path": [
+						"UpdateSampleSequencingQc"
+					]
+				},
+				"description": "### Update Sample Sequencing QC Raw\n\nThis endpoint is used to update the quality control metrics for a specific sample sequencing analysis. It processes the provided metrics and returns a status indicating whether the update was successful.\n\n#### Request\n\n**Method:** POST  \n**Endpoint:** `{{baseURL}}/UpdateSampleSequencingQc`\n\n**Request Body (JSON):**  \nThe request body must be a JSON object containing the following parameters:\n\n- `sampleSn` (string): The sample identifier (e.g., filename of the sequencing data).\n    \n- `PassedReadsNum` (integer): The number of reads that passed quality control.\n    \n- `FailedReadsNum` (integer): The number of reads that failed quality control.\n    \n- `MappedReadsNum` (integer): The number of reads that were successfully mapped.\n    \n- `PairedReadsNum` (integer): The number of paired-end reads.\n    \n- `MeanCoverage` (float): The average coverage across the sample.\n    \n- `Percent5x` (float): Percentage of the genome covered at least 5x.\n    \n- `Percent20x` (float): Percentage of the genome covered at least 20x.\n    \n- `Percent50x` (float): Percentage of the genome covered at least 50x.\n    \n- `BedFilePosNum` (integer): The number of positions in the BED file.\n    \n- `AvrAlignCoverage` (integer): The average alignment coverage.\n    \n- `AlignedReads` (integer): The total number of aligned reads.\n    \n- `BiallelicCount` (integer): The count of biallelic variants.\n    \n- `BiallelicPercentage` (float): The percentage of biallelic variants.\n    \n- `ChrXSnpsCount` (integer): The count of SNPs on chromosome X.\n    \n- `TotalVariants` (integer): The total number of variants detected.\n    \n- `MultiallelicCount` (integer): The count of multiallelic variants.\n    \n- `MultiallelicPercentage` (float): The percentage of multiallelic variants.\n    \n- `SnpCount` (integer): The total number of SNPs.\n    \n- `SnpPercentage` (float): The percentage of SNPs.\n    \n- `TotalHeteroCount` (integer): The total count of heterozygous variants.\n    \n- `TotalHeterPercentage` (float): The percentage of heterozygous variants.\n    \n- `TotalHomoCount` (integer): The total count of homozygous variants.\n    \n- `TotalHomoPercentage` (float): The percentage of homozygous variants.\n    \n- `HetHomRatio` (float): The ratio of heterozygous to homozygous variants.\n    \n- `ChrXSnpsPercentage` (float): The percentage of SNPs on chromosome X.\n    \n- `ChrYSnpsCount` (integer): The count of SNPs on chromosome Y.\n    \n- `ChrYSnpsPercentage` (float): The percentage of SNPs on chromosome Y.\n    \n- `XySnpsRatio` (float): The ratio of SNPs between chromosome X and Y.\n    \n\n#### Response\n\n**Status Code:** 200  \n**Content-Type:** application/json\n\n**Response Structure:**  \nThe response will be a JSON object containing the following fields:\n\n- `Code` (string): A code representing the status of the request (empty if successful).\n    \n- `Data` (string): Additional data related to the request (empty if not applicable).\n    \n- `Info` (null or object): Information about the request status (null if not applicable).\n    \n- `MoreInfo` (null or object): Additional information (null if not applicable).\n    \n- `NeedEval` (boolean): Indicates whether further evaluation is needed (true if evaluation is required).\n    \n\nThis endpoint is crucial for maintaining the integrity and accuracy of sequencing data by ensuring that quality metrics are accurately recorded and updated."
+			},
+			"response": []
+		},
+		{
+			"name": "UpdateSampleQc",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "ApiUserId",
+						"value": "{{ApiUserId}}",
+						"type": "text"
+					},
+					{
+						"key": "ApiUserKey",
+						"value": "{{ApiUserKey}}",
+						"type": "text"
+					},
+					{
+						"key": "CustomerAccountKey",
+						"value": "{{CustomerAccountKey}}",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"SampleSerialNumber\": \"GT test.vcf.gz\",\r\n  \"SampleQcData\": \"{\\\"genes\\\": {\\\"AARS1\\\": 100.0, \\\"ZNF469\\\": 100.0, \\\"ZNF513\\\": 100.0, \\\"ZNF526\\\": 100.0, \\\"ZNF592\\\": 100.0,\\\"ZSWIM6\\\": 96.84}}\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{baseURL}}/UpdateSampleQc",
+					"host": [
+						"{{baseURL}}"
+					],
+					"path": [
+						"UpdateSampleQc"
+					]
+				},
+				"description": "### Update Sample Quality Control\n\nThis endpoint allows you to update the quality control data for a specific sample identified by its serial number.\n\n#### Request Method\n\n- **POST**\n    \n\n#### Endpoint\n\n- `{{baseURL}}/UpdateSampleQc`\n    \n\n#### Request Body\n\nThe request must include a JSON payload with the following parameters:\n\n- **SampleSerialNumber** (string): The unique identifier for the sample. This should be the serial number of the sample you want to update.\n    \n- **SampleQcData** (string): A JSON string containing quality control data for the sample. This includes various metrics and values associated with the quality assessment.\n    \n\nExample of a request body:\n\n``` json\n{\n  \"SampleSerialNumber\": \"GT test.vcf.gz\",\n  \"SampleQcData\": \"{\\\"genes\\\": {\\\"AARS1\\\": 100.0, \\\"ZN ... }}\"\n}\n\n ```\n\n#### Response\n\nUpon a successful request, the server will respond with a status code of **200** and a JSON object containing the following fields:\n\n- **Code** (string): A code indicating the result of the operation (empty string if no error).\n    \n- **Data** (string): Additional data returned from the operation (empty string if not applicable).\n    \n- **Info** (null): Additional information (null if not applicable).\n    \n- **MoreInfo** (null): Extended information (null if not applicable).\n    \n- **NeedEval** (boolean): A flag indicating whether further evaluation is required (true or false).\n    \n\nExample of a successful response:\n\n``` json\n{\n  \"Code\": \"\",\n  \"Data\": \"\",\n  \"Info\": null,\n  \"MoreInfo\": null,\n  \"NeedEval\": true\n}\n\n ```\n\nThis endpoint is designed for updating sample quality control data, and it is important to ensure that the request body is correctly formatted to avoid errors."
+			},
+			"response": []
+		},
+		{
+			"name": "UploadAdvanceAnalysisToSample (REVIEW)",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "ApiUserId",
+						"value": "{{ApiUserId}}",
+						"type": "text"
+					},
+					{
+						"key": "ApiUserKey",
+						"value": "{{ApiUserKey}}",
+						"type": "text"
+					},
+					{
+						"key": "CustomerAccountKey",
+						"value": "{{CustomerAccountKey}}",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"sampleSn\": \"GT test.vcf.gz\",\r\n    \"sampleAdvAnalysis\": \"{\\\"CYP2D6\\\": {\\\"data\\\": {\\\"genotype\\\": \\\"*1x2/*35\\\", \\\"genotypeFilter\\\": \\\"PASS\\\", \\\"pharmcatDescription\\\": null, \\\"pharmcatMetabolismStatus\\\": \\\"Ultrarapid Metabolizer\\\"}}}\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{baseURL}}/UploadAdvanceAnalysisToSample",
+					"host": [
+						"{{baseURL}}"
+					],
+					"path": [
+						"UploadAdvanceAnalysisToSample"
+					]
+				},
+				"description": "### Upload Advance Analysis to Sample\n\nThis endpoint allows users to upload advanced analysis data to a specific sample.\n\n#### Request Method\n\n- **POST**\n    \n\n#### Endpoint\n\n- `{{baseURL}}/UploadAdvanceAnalysisToSample`\n    \n\n#### Request Body\n\nThe request body must be in JSON format and should include the following parameters:\n\n- **sampleSn** (string): The identifier for the sample, typically including the file name (e.g., \"GT test.vcf.gz\").\n    \n- **sampleAdvAnalysis** (string): A JSON string containing advanced analysis data for the sample. This should include various keys representing different genetic data analyses (e.g., \"CYP2D6\").\n    \n\n#### Expected Response\n\nUpon a successful request, the API returns a JSON response with the following structure:\n\n- **Code** (string): An empty string indicating no error codes.\n    \n- **Data** (null): This field is null in the current response.\n    \n- **Info** (string): An empty string providing no additional information.\n    \n- **MoreInfo** (null): This field is null in the current response.\n    \n- **NeedEval** (boolean): A boolean value indicating whether further evaluation is needed (true in this case).\n    \n\n#### Status Code\n\n- **200 OK**: Indicates that the request was processed successfully.\n    \n\nEnsure that the request body adheres to the specified structure to avoid errors and receive the expected response."
+			},
+			"response": []
+		},
+		{
+			"name": "UploadFilesToSample (REVIEW)",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "ApiUserId",
+						"value": "{{ApiUserId}}",
+						"type": "text"
+					},
+					{
+						"key": "ApiUserKey",
+						"value": "{{ApiUserKey}}",
+						"type": "text"
+					},
+					{
+						"key": "CustomerAccountKey",
+						"value": "{{CustomerAccountKey}}",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"SampleSn\": \"string\",\r\n  \"SnvFile\": \"string\",\r\n  \"SvFile\": \"string\",\r\n  \"SkipAnnotation\": true\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{baseURL}}/UploadFilesToSample",
+					"host": [
+						"{{baseURL}}"
+					],
+					"path": [
+						"UploadFilesToSample"
+					]
+				},
+				"description": "### Upload Files to Sample\n\nThis endpoint allows users to upload files associated with a specific sample. It is designed to handle the submission of various file types and parameters necessary for processing the sample data.\n\n#### Request\n\n**Method:** POST  \n**Endpoint:** `{{baseURL}}/UploadFilesToSample`\n\n**Request Body (JSON):**\n\n- `SampleSn` (string): A unique identifier for the sample.\n    \n- `SnvFile` (string): The file path or identifier for the SNV file associated with the sample.\n    \n- `SvFile` (string): The file path or identifier for the SV file associated with the sample.\n    \n- `SkipAnnotation` (boolean): A flag indicating whether to skip the annotation process during file upload.\n    \n\n#### Response\n\n**Status Code:** 200  \n**Content-Type:** application/json\n\n**Response Structure:**\n\n- `Code` (string): A code indicating the status of the request (empty if successful).\n    \n- `Data` (null): Placeholder for any additional data returned (null in this case).\n    \n- `Info` (string): A message providing additional information about the request (empty if no additional info).\n    \n- `MoreInfo` (null): Placeholder for any further details (null in this case).\n    \n- `NeedEval` (boolean): Indicates whether further evaluation is needed after the upload (true in this case).\n    \n\nThis endpoint is essential for managing sample data uploads and ensuring that the necessary files are processed correctly."
+			},
+			"response": []
+		},
+		{
+			"name": "UpdateSample",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "ApiUserId",
+						"value": "{{ApiUserId}}",
+						"type": "text"
+					},
+					{
+						"key": "ApiUserKey",
+						"value": "{{ApiUserKey}}",
+						"type": "text"
+					},
+					{
+						"key": "CustomerAccountKey",
+						"value": "{{CustomerAccountKey}}",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"SerialNumber\": \"GT test.vcf.gz\",\r\n  \"TakenDate\": \"2025-08-06T18:36:47.991Z\",\r\n  \"SequenceDate\": \"2025-08-06T18:36:47.991Z\",\r\n  \"ReceivedDate\": \"2025-08-06T18:36:47.991Z\",\r\n  \"Type\": \"string\",\r\n  \"Target\": \"string\",\r\n  \"Source\": \"string\",\r\n  \"SequenceMachineId\": \"string\",\r\n  \"EnrichmentKitId\": \"string\",\r\n  \"Notes\": \"string\",\r\n  \"Relation\": \"string\",\r\n  \"GenomeBuild\": \"string\",\r\n  \"BamUrl\": null,\r\n  \"MethylationUrl\": null,\r\n  \"LocalBamUrl\": \"string\",\r\n  \"LocalMethylationUrl\": \"string\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{baseURL}}/UpdateSample",
+					"host": [
+						"{{baseURL}}"
+					],
+					"path": [
+						"UpdateSample"
+					]
+				},
+				"description": "### Update Sample Endpoint\n\nThis endpoint allows users to update sample information in the system. It accepts a POST request with a JSON payload containing various parameters related to the sample.\n\n#### Request\n\n- **Method**: POST\n    \n- **Endpoint**: `{{baseURL}}/UpdateSample`\n    \n- **Content-Type**: application/json\n    \n\n#### Request Body Parameters\n\nThe request body should be a JSON object with the following parameters:\n\n- **SerialNumber** (string): The serial number of the sample.\n    \n- **TakenDate** (string): The date the sample was taken, in ISO 8601 format.\n    \n- **SequenceDate** (string): The date the sequencing was performed, in ISO 8601 format.\n    \n- **ReceivedDate** (string): The date the sample was received, in ISO 8601 format.\n    \n- **Type** (string): The type of the sample.\n    \n- **Target** (string): The target information for the sample.\n    \n- **Source** (string): The source of the sample.\n    \n- **SequenceMachineId** (string): The ID of the sequencing machine used.\n    \n- **EnrichmentKitId** (string): The ID of the enrichment kit used.\n    \n- **Notes** (string): Additional notes regarding the sample.\n    \n- **Relation** (string): The relation type of the sample.\n    \n- **GenomeBuild** (string): The genome build version.\n    \n- **BamUrl** (null): The URL for the BAM file (currently null).\n    \n- **MethylationUrl** (null): The URL for the methylation file (currently null).\n    \n- **LocalBamUrl** (string): The local URL for the BAM file.\n    \n- **LocalMethylationUrl** (string): The local URL for the methylation file.\n    \n\n#### Response\n\nUpon a successful request, the server will respond with a status code of **200** and a JSON object containing the following fields:\n\n- **Code** (string): A code indicating the status of the operation.\n    \n- **Data** (object): Contains detailed information about the updated sample, including:\n    \n    - **PatientId** (string): The ID of the patient associated with the sample.\n        \n    - **Patient** (string): The name of the patient.\n        \n    - **SerialNumber** (string): The serial number of the sample.\n        \n    - **BamFileExists** (boolean): Indicates if the BAM file exists.\n        \n    - **MethylationFileExists** (boolean): Indicates if the methylation file exists.\n        \n    - **LocalBamUrl** (string): The local URL for the BAM file.\n        \n    - **LocalMethylationUrl** (string): The local URL for the methylation file.\n        \n    - **ErrorDescription** (null): Any error description if applicable.\n        \n    - **Files** (array): An array of file objects related to the sample.\n        \n    - **ExcludeFromLAF** (boolean): Indicates if the sample is excluded from LAF.\n        \n    - **NeedEval** (boolean): Indicates if evaluation is needed for the sample.\n        \n\nThis endpoint is essential for managing and updating sample data effectively within the system."
+			},
+			"response": []
+		},
+		{
+			"name": "CreateSample (Review)",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "ApiUserId",
+						"value": "{{ApiUserId}}",
+						"type": "text"
+					},
+					{
+						"key": "ApiUserKey",
+						"value": "{{ApiUserKey}}",
+						"type": "text"
+					},
+					{
+						"key": "CustomerAccountKey",
+						"value": "{{CustomerAccountKey}}",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"SampleSerialNumber\": \"string\",\r\n  \"SampleTakenDate\": \"2025-08-06T18:36:47.985Z\",\r\n  \"SampleSequenceDate\": \"2025-08-06T18:36:47.985Z\",\r\n  \"SampleReceivedDate\": \"2025-08-06T18:36:47.985Z\",\r\n  \"SampleType\": \"string\",\r\n  \"SampleTarget\": \"string\",\r\n  \"SampleSource\": \"string\",\r\n  \"SampleSequenceMachineId\": \"string\",\r\n  \"SampleEnrichmentKitId\": \"string\",\r\n  \"SampleNotes\": \"string\",\r\n  \"SampleRelation\": \"string\",\r\n  \"SampleGenomeBuild\": \"string\",\r\n  \"BamUrl\": \"string\",\r\n  \"MethylationUrl\": \"string\",\r\n  \"LocalBamUrl\": \"string\",\r\n  \"LocalMethylationUrl\": \"string\",\r\n  \"ExcludeFromLAF\": true,\r\n  \"SnvFile\": \"string\",\r\n  \"StructFile\": \"string\",\r\n  \"SampleQcData\": \"string\",\r\n  \"SampleAdvAnalysis\": \"string\",\r\n  \"SubjectId\": \"string\",\r\n  \"SubjectName\": \"string\",\r\n  \"SubjectGender\": \"string\",\r\n  \"SubjectDateOfBirth\": \"2025-08-06T18:36:47.986Z\",\r\n  \"SubjectConsanguinity\": \"string\",\r\n  \"SubjectPopulationType\": \"string\",\r\n  \"SubjectPaternalAncestry\": \"string\",\r\n  \"SubjectMaternalAncestry\": \"string\",\r\n  \"SubjectFamilyHistory\": \"string\",\r\n  \"SubjectHasBioSample\": true,\r\n  \"SubjectUseConsentPersonal\": true,\r\n  \"SubjectUseConsentClinical\": true,\r\n  \"GroupAssignment\": [\r\n    {\r\n      \"Code\": \"string\",\r\n      \"Name\": \"string\"\r\n    }\r\n  ],\r\n  \"AssignedToUserId\": \"00000000-0000-0000-0000-000000000000\",\r\n  \"AssignedToFullName\": \"string\",\r\n  \"SkipAnnotation\": true\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{baseURL}}/CreateSample",
+					"host": [
+						"{{baseURL}}"
+					],
+					"path": [
+						"CreateSample"
+					]
+				},
+				"description": "### Create Sample Endpoint\n\nThis endpoint allows users to create a new sample entry in the system. It accepts various parameters related to the sample and the subject associated with it, which are essential for tracking and managing samples effectively.\n\n#### Request Format\n\n- **HTTP Method**: POST\n    \n- **Endpoint**: `{{baseURL}}/CreateSample`\n    \n- **Request Body**: The request body should be in JSON format and must include the following fields:\n    \n\n``` json\n{\n  \"SampleSerialNumber\": \"string\",              // Unique identifier for the sample\n  \"SampleTakenDate\": \"2025-08-06T18:36:47.985Z\", // Date when the sample was taken\n  \"SampleSequenceDate\": \"2025-08-06T18:36:47.985Z\", // Date of sample sequencing\n  \"SampleReceivedDate\": \"2025-08-06T18:36:47.985Z\", // Date when the sample was received\n  \"SampleType\": \"string\",                       // Type of the sample\n  \"SampleTarget\": \"string\",                     // Target of the sample\n  \"SampleSource\": \"string\",                     // Source from which the sample was obtained\n  \"SampleSequenceMachineId\": \"string\",         // ID of the machine used for sequencing\n  \"SampleEnrichmentKitId\": \"string\",           // ID of the enrichment kit used\n  \"SampleNotes\": \"string\",                      // Additional notes about the sample\n  \"SampleRelation\": \"string\",                   // Relation of the sample to other data\n  \"SampleGenomeBuild\": \"string\",                // Genome build reference\n  \"BamUrl\": \"string\",                           // URL for BAM file\n  \"MethylationUrl\": \"string\",                   // URL for Methylation file\n  \"LocalBamUrl\": \"string\",                      // Local URL for BAM file\n  \"LocalMethylationUrl\": \"string\",              // Local URL for Methylation file\n  \"ExcludeFromLAF\": true,                       // Flag to exclude from LAF\n  \"SnvFile\": \"string\",                          // File related to SNV data\n  \"StructFile\": \"string\",                       // File related to structural data\n  \"SampleQcData\": \"string\",                     // Quality control data for the sample\n  \"SampleAdvAnalysis\": \"string\",                // Advanced analysis data for the sample\n  \"SubjectId\": \"string\",                        // Unique identifier for the subject\n  \"SubjectName\": \"string\",                      // Name of the subject\n  \"SubjectGender\": \"string\",                    // Gender of the subject\n  \"SubjectDateOfBirth\": \"2025-08-06T18:36:47.986Z\", // Date of birth of the subject\n  \"SubjectConsanguinity\": \"string\",             // Consanguinity status of the subject\n  \"SubjectPopulationType\": \"string\",            // Population type of the subject\n  \"SubjectPaternalAncestry\": \"string\",         // Paternal ancestry information\n  \"SubjectMaternalAncestry\": \"string\",         // Maternal ancestry information\n  \"SubjectFamilyHistory\": \"string\",             // Family history related to the subject\n  \"SubjectHasBioSample\": true,                  // Indicates if the subject has a biological sample\n  \"SubjectUseConsentPersonal\": true,            // Indicates if personal consent is given\n  \"SubjectUseConsentClinical\": true,            // Indicates if clinical consent is given\n  \"GroupAssignment\": [                          // Array of group assignments\n    {\n      \"Code\": \"string\",                         // Group code\n      \"Name\": \"string\"                          // Group name\n    }\n  ],\n  \"AssignedToUserId\": \"00000000-0000-0000-0000-00000000\", // ID of the user assigned to the sample\n  \"AssignedToFullName\": \"string\",               // Full name of the user assigned to the sample\n  \"SkipAnnotation\": true                        // Flag to skip annotation\n}\n\n ```\n\n#### Response Structure\n\nUpon successful execution, the API will respond with a status code of `200` and the following JSON structure:\n\n``` json\n{\n  \"Code\": \"\",          // Status code indicating the result of the request\n  \"Data\": null,       // Data returned from the server (if any)\n  \"Info\": \"\",         // Additional information about the request\n  \"MoreInfo\": null,   // Further details (if any)\n  \"NeedEval\": true    // Indicates if further evaluation is needed\n}\n\n ```\n\nThis response structure provides essential information about the result of the sample creation request, including any necessary follow-up actions."
+			},
+			"response": []
+		},
+		{
+			"name": "PatientReports",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "ApiUserId",
+						"value": "{{ApiUserId}}",
+						"type": "text"
+					},
+					{
+						"key": "ApiUserKey",
+						"value": "{{ApiUserKey}}",
+						"type": "text"
+					},
+					{
+						"key": "CustomerAccountKey",
+						"value": "{{CustomerAccountKey}}",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"PatientSn\": \"Familial62\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{baseURL}}/PatientReports",
+					"host": [
+						"{{baseURL}}"
+					],
+					"path": [
+						"PatientReports"
+					]
+				},
+				"description": "## Endpoint Description: Create Patient Report\n\nThis endpoint allows the user to view patient reports by submitting the patient's serial number (PatientSn). The request is made using the HTTP POST method to the specified URL.\n\n### Request Format\n\n- **URL**: `{{baseURL}}/PatientReports`\n    \n- **Method**: POST\n    \n- **Content-Type**: application/json\n    \n\n### Request Body\n\nThe request body must be in JSON format and should include the following parameter:\n\n- **PatientSn** (string): The serial number of the patient for whom the report is being created.\n    \n\n**Example Request Body:**\n\n``` json\n{\n  \"PatientSn\": \"Familial62\"\n}\n\n ```\n\n### Response Structure\n\nUpon a successful request, the server will respond with a status code of `200` and a JSON object containing the following fields:\n\n- **Code** (string): A code indicating the status of the request (empty if successful).\n    \n- **Data** (array): An array of report objects containing:\n    \n    - **ID** (string): The identifier of the report.\n        \n    - **ReportFileUrl** (string): URL of the generated report file.\n        \n    - **ReportFileUrl1** (string|null): An additional URL for the report file, if applicable.\n        \n    - **DataFileUrl** (string): URL for the data file associated with the report.\n        \n    - **ModelFileUrl** (string): URL for the model file related to the report.\n        \n    - **Notes** (string|null): Any additional notes related to the report.\n        \n    - **CreatedByUser** (string): The user who created the report.\n        \n    - **CreateDate** (string): The date the report was created.\n        \n    - **PatientSn** (string): The serial number of the patient.\n        \n    - **PatientName** (string|null): The name of the patient, if available.\n        \n    - **CaseSn** (string): The serial number of the case.\n        \n    - **CaseName** (string): The name of the case.\n        \n    - **CaseStatus** (string): The current status of the case.\n        \n    - **CaseSubStatus** (string): The sub-status of the case.\n        \n    - **CaseAssignedToUser** (string|null): The user to whom the case is assigned.\n        \n    - **CaseModifyDate** (string): The date the case was last modified.\n        \n    - **SampleSn** (string): The sample serial number.\n        \n    - **SampleVcfUrl** (string|null): URL for the sample VCF file, if applicable.\n        \n- **Info** (object|null): Additional information, if any.\n    \n- **MoreInfo** (object|null): Further details, if necessary.\n    \n- **NeedEval** (boolean): Indicates whether further evaluation is needed.\n    \n\n**Example Response:**\n\n``` json\n{\n  \"Code\": \"\",\n  \"Data\": [\n    {\n      \"ID\": \"\",\n      \"ReportFileUrl\": \"\",\n      \"ReportFileUrl1\": null,\n      \"DataFileUrl\": \"\",\n      \"ModelFileUrl\": \"\",\n      \"Notes\": null,\n      \"CreatedByUser\": \"\",\n      \"CreateDate\": \"\",\n      \"PatientSn\": \"\",\n      \"PatientName\": null,\n      \"CaseSn\": \"\",\n      \"CaseName\": \"\",\n      \"CaseStatus\": \"\",\n      \"CaseSubStatus\": \"\",\n      \"CaseAssignedToUser\": null,\n      \"CaseModifyDate\": \"\",\n      \"SampleSn\": \"\",\n      \"SampleVcfUrl\": null\n    }\n  ],\n  \"Info\": null,\n  \"MoreInfo\": null,\n  \"NeedEval\": true\n}\n\n ```"
+			},
+			"response": []
+		},
+		{
+			"name": "CaseReports",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "ApiUserId",
+						"value": "{{ApiUserId}}",
+						"type": "text"
+					},
+					{
+						"key": "ApiUserKey",
+						"value": "{{ApiUserKey}}",
+						"type": "text"
+					},
+					{
+						"key": "CustomerAccountKey",
+						"value": "{{CustomerAccountKey}}",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"CaseSn\": \"ENE250720130654\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{baseURL}}/CaseReports",
+					"host": [
+						"{{baseURL}}"
+					],
+					"path": [
+						"CaseReports"
+					]
+				},
+				"description": "## Endpoint: Create Case Report\n\nThis endpoint allows users to view case reports by submitting relevant case information.\n\n### Request\n\n- **Method**: POST\n    \n- **URL**: `{{baseURL}}/CaseReports`\n    \n- **Content-Type**: application/json\n    \n\n#### Request Body\n\nThe request body must be in JSON format and include the following parameter:\n\n- **CaseSn** (string): The unique identifier for the case, which is used to associate the report with a specific case.\n    \n\n**Example Request Body**:\n\n``` json\n{\n  \"CaseSn\": \"ENE250720130654\"\n}\n\n ```\n\n### Response\n\nUpon successful creation of the case report, the API will return a response with the following structure:\n\n- **Status Code**: 200\n    \n- **Content-Type**: application/json\n    \n\n#### Response Body\n\nThe response will contain the following fields:\n\n- **Code** (string): A code indicating the status of the operation (empty if successful).\n    \n- **Data** (array): An array of objects containing details about the created case report, including:\n    \n    - **ID** (string): The unique identifier for the report.\n        \n    - **ReportFileUrl** (string): URL to access the report file.\n        \n    - **ReportFileUrl1** (null): An additional report file URL (if applicable).\n        \n    - **DataFileUrl** (string): URL to access the data file associated with the case.\n        \n    - **ModelFileUrl** (string): URL to access the model file associated with the case.\n        \n    - **Notes** (null): Any notes associated with the case report.\n        \n    - **CreatedByUser** (string): The user who created the case report.\n        \n    - **CreateDate** (string): The date when the case report was created.\n        \n    - **PatientSn** (string): The unique identifier for the patient.\n        \n    - **PatientName** (null): The name of the patient (if applicable).\n        \n    - **CaseSn** (string): The case number associated with the report.\n        \n    - **CaseName** (string): The name of the case.\n        \n    - **CaseStatus** (string): The current status of the case.\n        \n    - **CaseSubStatus** (string): The sub-status of the case.\n        \n    - **CaseAssignedToUser** (null): The user to whom the case is assigned (if applicable).\n        \n    - **CaseModifyDate** (string): The date when the case was last modified.\n        \n    - **SampleSn** (string): The unique identifier for the sample.\n        \n    - **SampleVcfUrl** (null): URL to access the sample VCF file (if applicable).\n        \n- **Info** (null): Additional information (if any).\n    \n- **MoreInfo** (null): More detailed information (if any).\n    \n- **NeedEval** (boolean): Indicates if further evaluation is needed (true or false).\n    \n\nThis structure provides a comprehensive overview of the created case report and its associated details."
+			},
+			"response": []
+		},
+		{
+			"name": "BatchReportList",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "ApiUserId",
+						"value": "{{ApiUserId}}",
+						"type": "text"
+					},
+					{
+						"key": "ApiUserKey",
+						"value": "{{ApiUserKey}}",
+						"type": "text"
+					},
+					{
+						"key": "CustomerAccountKey",
+						"value": "{{CustomerAccountKey}}",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"BatchName\": \"1.Txt-20250724-174435\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{baseURL}}/BatchReportList",
+					"host": [
+						"{{baseURL}}"
+					],
+					"path": [
+						"BatchReportList"
+					]
+				},
+				"description": "### Endpoint Description\n\nThe `POST /BatchReportList` endpoint is designed to retrieve a list of batch reports based on the provided batch name. This request is essential for clients who need to access specific report data associated with a given batch.\n\n### Request Parameters\n\nThe request body must be in JSON format and include the following parameter:\n\n- **BatchName** (string): The name of the batch for which reports are being requested. This is a required field.\n    \n\n**Example Request Body:**\n\n``` json\n{\n  \"BatchName\": \"1.Txt-20250724-174435\"\n}\n\n ```\n\n### Response Structure\n\nUpon a successful request, the server responds with a JSON object containing the following fields:\n\n- **Code** (string): An error or status code. An empty string indicates a successful operation.\n    \n- **Data** (array): An array of report objects, each containing:\n    \n    - **ID** (string): The unique identifier for the report.\n        \n    - **ReportFileUrl** (string): The URL to access the report file.\n        \n    - **ReportFileUrl1** (string or null): An additional URL for the report file, if available.\n        \n    - **DataFileUrl** (string): The URL to access the data file associated with the report.\n        \n    - **ModelFileUrl** (string): The URL to the model file, if applicable.\n        \n    - **Notes** (string or null): Any notes related to the report.\n        \n    - **CreatedByUser** (string): The user who created the report.\n        \n    - **CreateDate** (string): The date when the report was created.\n        \n    - **PatientSn** (string): The serial number of the patient.\n        \n    - **PatientName** (string): The name of the patient.\n        \n    - **CaseSn** (string): The serial number of the case.\n        \n    - **CaseName** (string): The name of the case.\n        \n    - **CaseStatus** (string): The current status of the case.\n        \n    - **CaseSubStatus** (string): The sub-status of the case.\n        \n    - **CaseAssignedToUser** (string or null): The user to whom the case is assigned.\n        \n    - **CaseModifyDate** (string): The date when the case was last modified.\n        \n    - **SampleSn** (string): The serial number of the sample.\n        \n    - **SampleVcfUrl** (string): The URL to access the sample VCF file.\n        \n- **Info** (null): Additional information, if any.\n    \n- **MoreInfo** (null): Further details, if necessary.\n    \n- **NeedEval** (boolean): Indicates whether evaluation is required for the report.\n    \n\n**Example Response:**\n\n``` json\n{\n  \"Code\": \"\",\n  \"Data\": [\n    {\n      \"ID\": \"\",\n      \"ReportFileUrl\": \"\",\n      \"ReportFileUrl1\": null,\n      \"DataFileUrl\": \"\",\n      \"ModelFileUrl\": \"\",\n      \"Notes\": null,\n      \"CreatedByUser\": \"\",\n      \"CreateDate\": \"\",\n      \"PatientSn\": \"\",\n      \"PatientName\": \"\",\n      \"CaseSn\": \"\",\n      \"CaseName\": \"\",\n      \"CaseStatus\": \"\",\n      \"CaseSubStatus\": \"\",\n      \"CaseAssignedToUser\": null,\n      \"CaseModifyDate\": \"\",\n      \"SampleSn\": \"\",\n      \"SampleVcfUrl\": \"\"\n    }\n  ],\n  \"Info\": null,\n  \"MoreInfo\": null,\n  \"NeedEval\": true\n}\n\n ```\n\nThis structure provides a comprehensive overview of the reports associated with the specified batch, allowing clients to process and utilize the report data effectively."
+			},
+			"response": []
+		},
+		{
+			"name": "ReportURL",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "ApiUserId",
+						"value": "{{ApiUserId}}",
+						"type": "text"
+					},
+					{
+						"key": "ApiUserKey",
+						"value": "{{ApiUserKey}}",
+						"type": "text"
+					},
+					{
+						"key": "CustomerAccountKey",
+						"value": "{{CustomerAccountKey}}",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"fileName\": \"ENE250803100220 - PGXv2TestCPICD - 250803_0933.pdf\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{baseURL}}/ReportURL",
+					"host": [
+						"{{baseURL}}"
+					],
+					"path": [
+						"ReportURL"
+					]
+				},
+				"description": "## Endpoint: Create Report URL\n\nThis endpoint allows users to generate a report URL by submitting a request with a specified file name. The service processes the request and responds with a URL that can be used to access the generated report.\n\n### Request\n\n- **Method**: POST\n    \n- **URL**: `{{baseURL}}/ReportURL`\n    \n- ParameterTypeDescriptionfileNamestringThe name of the file for which the report URL is being generated.\n    \n\n### Example Request Body\n\n``` json\n{\n  \"fileName\": \"ENE250803100220 - PGXv2TestCPI ...\"\n}\n\n ```\n\n### Response\n\n- **Status Code**: 200\n    \n- **Content-Type**: application/json\n    \n\nThe response will contain the following structure:\n\n``` json\n{\n  \"Code\": \"\",\n  \"Data\": {\n    \"fileUrl\": \"\"\n  },\n  \"Info\": null,\n  \"MoreInfo\": null,\n  \"NeedEval\": true\n}\n\n ```\n\n#### Response Fields\n\n- **Code**: A string indicating the status code of the operation (empty string if no error).\n    \n- **Data**: An object containing the result of the request.\n    \n    - **fileUrl**: A string that provides the URL to access the generated report.\n        \n- **Info**: Additional information related to the request (null if not applicable).\n    \n- **MoreInfo**: Further details if available (null if not applicable).\n    \n- **NeedEval**: A boolean indicating whether further evaluation is needed.\n    \n\n### Summary\n\nThis endpoint is essential for users who need to generate and retrieve URLs for their reports based on specific file names. Ensure that the `fileName` parameter is correctly formatted to receive a valid response."
+			},
+			"response": []
+		},
+		{
+			"name": "ClosedCasesReportList",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "ApiUserId",
+						"value": "{{ApiUserId}}",
+						"type": "text"
+					},
+					{
+						"key": "ApiUserKey",
+						"value": "{{ApiUserKey}}",
+						"type": "text"
+					},
+					{
+						"key": "CustomerAccountKey",
+						"value": "{{CustomerAccountKey}}",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"StartTime\": \"2024-07-06T18:36:47.970Z\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{baseURL}}/ClosedCasesReportList",
+					"host": [
+						"{{baseURL}}"
+					],
+					"path": [
+						"ClosedCasesReportList"
+					]
+				},
+				"description": "### Endpoint: ClosedCasesReportList\n\nThis endpoint is used to retrieve a list of closed case reports based on a specified start time. It allows clients to query for reports that were closed after the provided timestamp.\n\n#### Request\n\n- **Method**: POST\n    \n- **URL**: `{{baseURL}}/ClosedCasesReportList`\n    \n- **Request Body**: The request must include a JSON object with the following structure:\n    \n\n``` json\n{\n  \"StartTime\": \"string\"\n}\n\n ```\n\n- **Parameters**:\n    \n    - **StartTime** (string): The timestamp from which to retrieve closed case reports. It should be in ISO 8601 format (e.g., \"2024-07-06T18:36:47.970Z\").\n        \n\n#### Response\n\n- **Status Code**: 200 OK\n    \n- **Content-Type**: application/json\n    \n- **Response Structure**: The response will return a JSON object with the following structure:\n    \n\n``` json\n{\n  \"Code\": \"string\",\n  \"Data\": [\n    {\n      \"ID\": \"string\",\n      \"ReportFileUrl\": \"string\",\n      \"ReportFileUrl1\": \"string|null\",\n      \"DataFileUrl\": \"string\",\n      \"ModelFileUrl\": \"string\",\n      \"Notes\": \"string|null\",\n      \"CreatedByUser\": \"string\",\n      \"CreateDate\": \"string\",\n      \"PatientSn\": \"string\",\n      \"PatientName\": \"string|null\",\n      \"CaseSn\": \"string\",\n      \"CaseName\": \"string\",\n      \"CaseStatus\": \"string\",\n      \"CaseSubStatus\": \"string\",\n      \"CaseAssignedToUser\": \"string|null\",\n      \"CaseModifyDate\": \"string\",\n      \"SampleSn\": \"string\",\n      \"SampleVcfUrl\": \"string\"\n    }\n  ],\n  \"Info\": \"string|null\",\n  \"MoreInfo\": \"string|null\",\n  \"NeedEval\": \"boolean\"\n}\n\n ```\n\n- **Fields**:\n    \n    - **Code**: A string indicating the status of the request.\n        \n    - **Data**: An array of objects representing the closed case reports. Each object contains various fields related to the report.\n        \n    - **Info**: Additional information about the request (if any).\n        \n    - **MoreInfo**: Further details that may be relevant (if any).\n        \n    - **NeedEval**: A boolean indicating whether further evaluation is needed.\n        \n\nThis endpoint is essential for users who need to access and analyze closed case reports within a specified timeframe."
+			},
+			"response": []
+		},
+		{
+			"name": "ReportList",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "ApiUserId",
+						"value": "{{ApiUserId}}",
+						"type": "text"
+					},
+					{
+						"key": "ApiUserKey",
+						"value": "{{ApiUserKey}}",
+						"type": "text"
+					},
+					{
+						"key": "CustomerAccountKey",
+						"value": "{{CustomerAccountKey}}",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"StartTime\": \"2025-07-06T18:36:47.966Z\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{baseURL}}/ReportList",
+					"host": [
+						"{{baseURL}}"
+					],
+					"path": [
+						"ReportList"
+					]
+				},
+				"description": "## API Endpoint: Generate Report List\n\n### Method\n\n`POST`\n\n### Endpoint\n\n`{{baseURL}}/ReportList`\n\n### Request Parameters\n\nThe request body must be in JSON format and include the following parameter:\n\n- **StartTime** (string): The start time for the report generation in ISO 8601 format.\n    \n\n### Example Request Body\n\n``` json\n{\n  \"StartTime\": \"2025-07-06T18:36:47.966Z\"\n}\n\n ```\n\n### Response Format\n\nOn a successful request, the API returns a JSON response with a status code of `200`. The response structure is as follows:\n\n- **Code** (string): A code indicating the status of the request.\n    \n- **Data** (array): An array containing report details, where each report object includes:\n    \n    - **ID** (string): The unique identifier for the report.\n        \n    - **ReportFileUrl** (string): URL to access the report file.\n        \n    - **ReportFileUrl1** (string or null): An additional URL for the report file, if available.\n        \n    - **DataFileUrl** (string or null): URL to access the data file, if available.\n        \n    - **ModelFileUrl** (string or null): URL to access the model file, if available.\n        \n    - **Notes** (string or null): Any notes related to the report.\n        \n    - **CreatedByUser** (string): The user who created the report.\n        \n    - **CreateDate** (string): The date the report was created.\n        \n    - **PatientSn** (string): The serial number of the patient.\n        \n    - **PatientName** (string): The name of the patient.\n        \n    - **CaseSn** (string): The serial number of the case.\n        \n    - **CaseName** (string): The name of the case.\n        \n    - **CaseStatus** (string): The current status of the case.\n        \n    - **CaseSubStatus** (string): The sub-status of the case.\n        \n    - **CaseAssignedToUser** (string or null): The user assigned to the case, if applicable.\n        \n    - **CaseModifyDate** (string): The date the case was last modified.\n        \n    - **SampleSn** (string): The serial number of the sample.\n        \n    - **SampleVcfUrl** (string): URL to access the sample VCF file.\n        \n- **Info** (null): Additional information, if any.\n    \n- **MoreInfo** (null): More detailed information, if available.\n    \n- **NeedEval** (boolean): Indicates if further evaluation is needed.\n    \n\n### Example Response\n\n``` json\n{\n  \"Code\": \"\",\n  \"Data\": [\n    {\n      \"ID\": \"\",\n      \"ReportFileUrl\": \"\",\n      \"ReportFileUrl1\": null,\n      \"DataFileUrl\": null,\n      \"ModelFileUrl\": null,\n      \"Notes\": null,\n      \"CreatedByUser\": \"\",\n      \"CreateDate\": \"\",\n      \"PatientSn\": \"\",\n      \"PatientName\": \"\",\n      \"CaseSn\": \"\",\n      \"CaseName\": \"\",\n      \"CaseStatus\": \"\",\n      \"CaseSubStatus\": \"\",\n      \"CaseAssignedToUser\": null,\n      \"CaseModifyDate\": \"\",\n      \"SampleSn\": \"\",\n      \"SampleVcfUrl\": \"\"\n    }\n  ],\n  \"Info\": null,\n  \"MoreInfo\": null,\n  \"NeedEval\": true\n}\n\n ```"
+			},
+			"response": []
+		},
+		{
+			"name": "DeletePatient",
+			"request": {
+				"method": "DELETE",
+				"header": [
+					{
+						"key": "ApiUserId",
+						"value": "{{ApiUserId}}",
+						"type": "text"
+					},
+					{
+						"key": "ApiUserKey",
+						"value": "{{ApiUserKey}}",
+						"type": "text"
+					},
+					{
+						"key": "CustomerAccountKey",
+						"value": "{{CustomerAccountKey}}",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{baseURL}}/patient/{patientSn}",
+					"host": [
+						"{{baseURL}}"
+					],
+					"path": [
+						"patient",
+						"{patientSn}"
+					]
+				},
+				"description": "### Delete Patient Record\n\nThis endpoint allows you to delete a specific patient record from the system.\n\n#### Request Parameters\n\n- **URL Parameter**:\n    \n    - `patientSn` (string): The unique identifier for the patient whose record you wish to delete. This parameter is required.\n        \n\n#### Response\n\nUpon successful deletion, the response will confirm the operation. The structure of the response may include:\n\n- A success message indicating that the patient record has been deleted.\n    \n- An error message if the deletion was unsuccessful, which may include reasons such as the patient not being found.\n    \n\nMake sure to handle the response appropriately to inform the user of the result of their request."
+			},
+			"response": []
+		},
+		{
+			"name": "AddClinicalRecord",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "ApiUserId",
+						"value": "{{ApiUserId}}",
+						"type": "text"
+					},
+					{
+						"key": "ApiUserKey",
+						"value": "{{ApiUserKey}}",
+						"type": "text"
+					},
+					{
+						"key": "CustomerAccountKey",
+						"value": "{{CustomerAccountKey}}",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"SubjectId\": \"5.9testPavel\",\r\n  \"RecordDate\": \"2025-08-07T18:36:47.961Z\",\r\n  \"Description\": \"string\",\r\n  \"PhenotypeCodes\": [\r\n    \"string new\"\r\n  ]\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{baseURL}}/AddClinicalRecord",
+					"host": [
+						"{{baseURL}}"
+					],
+					"path": [
+						"AddClinicalRecord"
+					]
+				},
+				"description": "## Add Clinical Record API\n\nThis endpoint allows you to add a clinical record associated with a specific subject. It requires a POST request to the `/AddClinicalRecord` endpoint.\n\n### Request Method\n\n- **POST**\n    \n\n### Request URL\n\n- `{{baseURL}}/AddClinicalRecord`\n    \n\n### Request Body\n\nThe request body should be in JSON format and include the following parameters:\n\n- **SubjectId** (string): The unique identifier for the subject to whom the clinical record pertains.\n    \n- **RecordDate** (string): The date and time when the record is created, formatted in ISO 8601.\n    \n- **Description** (string): A brief description of the clinical record.\n    \n- **PhenotypeCodes** (array of strings): An array containing phenotype codes relevant to the clinical record.\n    \n\n#### Example Request Body\n\n``` json\n{\n  \"SubjectId\": \"5.9testPavel\",\n  \"RecordDate\": \"2025-08-07T18:36:47.961Z\",\n  \"Description\": \"string\",\n  \"PhenotypeCodes\": [\"string new\"]\n}\n\n ```\n\n### Response Format\n\nUpon a successful request, the API will return a response with a status code of 200 and a JSON object containing the following fields:\n\n- **Code** (string): A code indicating the status of the request (empty string if no error).\n    \n- **Data** (object): An object containing the details of the clinical record:\n    \n    - **ID** (string): The unique identifier for the newly created clinical record.\n        \n    - **Description** (string): The description provided in the request.\n        \n    - **PatientId** (string): The identifier of the patient associated with the record.\n        \n    - **RecordDate** (string): The date of the record as submitted.\n        \n    - **PhenotypeCodes** (array of strings): The phenotype codes submitted with the record.\n        \n- **Info** (null or string): Additional information about the request (if applicable).\n    \n- **MoreInfo** (null or string): Further details if available.\n    \n- **NeedEval** (boolean): A flag indicating whether further evaluation is needed.\n    \n\n#### Example Response\n\n``` json\n{\n  \"Code\": \"\",\n  \"Data\": {\n    \"ID\": \"\",\n    \"Description\": \"\",\n    \"PatientId\": \"\",\n    \"RecordDate\": \"\",\n    \"PhenotypeCodes\": []\n  },\n  \"Info\": null,\n  \"MoreInfo\": null,\n  \"NeedEval\": true\n}\n\n ```"
+			},
+			"response": []
+		},
+		{
+			"name": "Create/UpdatePatient",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "ApiUserId",
+						"value": "{{ApiUserId}}",
+						"type": "text"
+					},
+					{
+						"key": "ApiUserKey",
+						"value": "{{ApiUserKey}}",
+						"type": "text"
+					},
+					{
+						"key": "CustomerAccountKey",
+						"value": "{{CustomerAccountKey}}",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"SerialNumber\": \"string\",\r\n  \"Name\": \"string\",\r\n  \"DateOfBirth\": \"2025-08-06T18:36:47.957Z\",\r\n  \"Gender\": \"string\",\r\n  \"Consang\": \"string\",\r\n  \"PopulationType\": \"string\",\r\n  \"PaternalAncestry\": \"string\",\r\n  \"MaternalAncestry\": \"string\",\r\n  \"FamilyHistory\": \"string\",\r\n  \"UseConsentPersonal\": true,\r\n  \"UseConsentClinical\": true,\r\n  \"HasBioSample\": true,\r\n  \"GenerallyHealthy\": true,\r\n  \"PaternalGrandfather\": \"string\",\r\n  \"PaternalGrandmother\": \"string\",\r\n  \"MaternalGrandfather\": \"string\",\r\n  \"MaternalGrandmother\": \"string\",\r\n  \"ClinicalRecords\": [\r\n    {\r\n      \"SubjectId\": \"string\",\r\n      \"RecordDate\": \"2025-08-06T18:36:47.957Z\",\r\n      \"Description\": \"string\",\r\n      \"PhenotypeCodes\": [\r\n        \"string\"\r\n      ]\r\n    }\r\n  ]\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{baseURL}}/Patient",
+					"host": [
+						"{{baseURL}}"
+					],
+					"path": [
+						"Patient"
+					]
+				},
+				"description": "## Create Patient Endpoint\n\nThis endpoint allows you to create a new patient (subject) record in the system. It accepts a JSON payload containing various details about the patient.\n\n### Request Body Parameters\n\n- **SerialNumber** (string): A unique identifier for the patient.\n    \n- **Name** (string): The name of the patient.\n    \n- **DateOfBirth** (string, ISO 8601 format): The date of birth of the patient.\n    \n- **Gender** (string): The gender of the patient (e.g., 'M' for Male, 'F' for Female).\n    \n- **Consang** (nullable): Indicates consanguinity status.\n    \n- **PopulationType** (nullable): The population type of the patient.\n    \n- **PaternalAncestry** (nullable): Information about paternal ancestry.\n    \n- **MaternalAncestry** (nullable): Information about maternal ancestry.\n    \n- **FamilyHistory** (nullable): Details of the patient's family medical history.\n    \n- **UseConsentPersonal** (boolean): Indicates if personal consent is given.\n    \n- **UseConsentClinical** (boolean): Indicates if clinical consent is given.\n    \n- **HasBioSample** (boolean): Indicates if a biological sample is available.\n    \n- **GenerallyHealthy** (boolean): Indicates the general health status of the patient.\n    \n- **PaternalGrandfather** (nullable): Information about the paternal grandfather.\n    \n- **PaternalGrandmother** (nullable): Information about the paternal grandmother.\n    \n- **MaternalGrandfather** (nullable): Information about the maternal grandfather.\n    \n- **MaternalGrandmother** (nullable): Information about the maternal grandmother.\n    \n- **ClinicalRecords** (array of objects): An array containing clinical records associated with the patient. Each record includes:\n    \n    - **SubjectId** (string): Identifier for the subject.\n        \n    - **RecordDate** (string, ISO 8601 format): The date of the clinical record.\n        \n    - **Description** (string): A description of the clinical record.\n        \n    - **PhenotypeCodes** (array of strings): Codes representing the phenotypes.\n        \n\n### Expected Response\n\nOn a successful request, the API returns a `200 OK` status with a JSON response that includes:\n\n- **Code** (string): A code indicating the status of the operation.\n    \n- **Data** (object): Contains the details of the created patient record, including:\n    \n    - **SerialNumber**, **Name**, **DateOfBirth**, **Gender**: Echoed back from the request.\n        \n    - **Consang** (integer): The consanguinity status.\n        \n    - **UseConsentPersonal**, **UseConsentClinical**, **HasBioSample**, **GenerallyHealthy** (boolean): Echoed back from the request.\n        \n    - **ID** (string): The unique identifier assigned to the patient record.\n        \n    - **CreatedByUser**, **CreateDate**, **ModifiedByUser**, **ModifyDate** (string): Metadata about the record creation and modification.\n        \n- **Info** (nullable): Additional information about the operation.\n    \n- **MoreInfo** (nullable): Any extra information that might be relevant.\n    \n- **NeedEval** (boolean): Indicates if further evaluation is needed.\n    \n\n### Notes\n\n- Ensure that all required fields are provided in the request body.\n    \n- The `ClinicalRecords` array can contain multiple records; each should follow the specified structure.\n    \n- The API will return relevant metadata about the created patient record in the response."
+			},
+			"response": []
+		},
+		{
+			"name": "Patients",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "ApiUserId",
+						"value": "{{ApiUserId}}",
+						"type": "text"
+					},
+					{
+						"key": "ApiUserKey",
+						"value": "{{ApiUserKey}}",
+						"type": "text"
+					},
+					{
+						"key": "CustomerAccountKey",
+						"value": "{{CustomerAccountKey}}",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"Query\": null,\r\n  \"Page\": 0,\r\n  \"PageSize\": 0\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{baseURL}}/Patients",
+					"host": [
+						"{{baseURL}}"
+					],
+					"path": [
+						"Patients"
+					]
+				},
+				"description": "## Endpoint: Create or Retrieve Patients\n\nThis endpoint allows you to retrieve patient records. It accepts a JSON payload and returns a structured response indicating the status of the operation.\n\n### Request\n\n**Method:** POST  \n**URL:** `{{baseURL}}/Patients`\n\n**Request Body:**\n\n``` json\n{\n  \"Query\": null,       // Optional: A search query to filter patient records. Can be left null for all records.\n  \"Page\": 0,          // Optional: The page number for pagination. Default is 0.\n  \"PageSize\": 0       // Optional: The number of records per page. Default is 0 for no limit.\n}\n\n ```\n\n### Response\n\n**Status Code:** 200  \n**Content-Type:** application/json\n\n**Response Body:**\n\n``` json\n{\n  \"Code\": \"\",          // A code indicating the result of the operation.\n  \"Data\": [\"\"],       // An array containing patient data or messages.\n  \"Info\": null,       // Additional information about the operation, if any.\n  \"MoreInfo\": null,   // Further details, if available.\n  \"NeedEval\": true    // Indicates if further evaluation is required.\n}\n\n ```\n\n### Notes\n\n- Ensure to provide appropriate values for `Page` and `PageSize` to manage the data returned effectively.\n    \n- If `Query` is used, it should be formatted correctly to filter the patient records as needed.\n    \n- The `NeedEval` flag in the response can be used to determine if further action is required after the request."
+			},
+			"response": []
+		},
+		{
+			"name": "CaseAssignment",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "ApiUserId",
+						"value": "{{ApiUserId}}",
+						"type": "text"
+					},
+					{
+						"key": "ApiUserKey",
+						"value": "{{ApiUserKey}}",
+						"type": "text"
+					},
+					{
+						"key": "CustomerAccountKey",
+						"value": "{{CustomerAccountKey}}",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"SerialNumber\": \"string\",\r\n  \"AssignedToUserId\": \"string\",\r\n  \"AssignedToFullName\": \"string\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{baseURL}}/CaseAssignment",
+					"host": [
+						"{{baseURL}}"
+					],
+					"path": [
+						"CaseAssignment"
+					]
+				},
+				"description": "### Case Assignment API\n\nThis endpoint allows you to assign a case to a specific user within the system.\n\n#### HTTP Method\n\n`POST`\n\n#### Endpoint\n\n`{{baseURL}}/CaseAssignment`\n\n#### Request Body\n\nThe request must include a JSON object with the following parameters:\n\n- **SerialNumber** (string): A unique identifier for the case being assigned.\n    \n- **AssignedToUserId** (string): The ID of the user to whom the case is assigned.\n    \n- **AssignedToFullName** (string): The full name of the user to whom the case is assigned.\n    \n\nExample Payload:\n\n``` json\n{\n  \"SerialNumber\": \"62436756_S6.dragen.wes.hg38.20...\",\n  \"AssignedToUserId\": \"string\",\n  \"AssignedToFullName\": \"Geneyx Support\"\n}\n\n ```\n\n#### Response\n\nOn a successful request, the API will return a response with the following structure:\n\n- **Code** (string): A code indicating the result of the operation (empty string indicates success).\n    \n- **Data** (null): This field is reserved for future data and will currently return null.\n    \n- **Info** (string): Additional information about the request (empty string indicates no additional info).\n    \n- **MoreInfo** (null): This field is reserved for additional information and will currently return null.\n    \n- **NeedEval** (boolean): Indicates if further evaluation is needed (true means further evaluation is required).\n    \n\nExample Response:\n\n``` json\n{\n  \"Code\": \"\",\n  \"Data\": null,\n  \"Info\": \"\",\n  \"MoreInfo\": null,\n  \"NeedEval\": true\n}\n\n ```\n\n#### Status Code\n\n- **200 OK**: Indicates that the case was successfully assigned."
+			},
+			"response": []
+		},
+		{
+			"name": "CaseNotes",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "ApiUserId",
+						"value": "{{ApiUserId}}",
+						"type": "text"
+					},
+					{
+						"key": "ApiUserKey",
+						"value": "{{ApiUserKey}}",
+						"type": "text"
+					},
+					{
+						"key": "CustomerAccountKey",
+						"value": "{{CustomerAccountKey}}",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"CaseSn\": \"string\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{baseURL}}/CaseNotes",
+					"host": [
+						"{{baseURL}}"
+					],
+					"path": [
+						"CaseNotes"
+					]
+				},
+				"description": "## Add Case Notes\n\nThis endpoint allows you to review case notes associated with a specific case. By sending a POST request to `{{baseURL}}/CaseNotes`, you can submit relevant information for a case.\n\n### Request Parameters\n\nThe request body must be in JSON format and include the following parameter:\n\n- **CaseSn** (string): The case serial number that identifies the case for which the note is being added.\n    \n\n### Example Request\n\n``` json\n{\n  \"CaseSn\": \"string\"\n}\n\n ```\n\n### Response\n\nUpon a successful request, the server will respond with a status code of `200` and a JSON object containing the following fields:\n\n- **Code** (string): A code indicating the status of the operation.\n    \n- **Data** (array): An array of objects representing the notes added, where each object includes:\n    \n    - **ID** (string): The identifier for the note.\n        \n    - **Note** (string): The content of the note.\n        \n    - **User** (string): The user who added the note.\n        \n    - **Timestamp** (string): The time when the note was created.\n        \n    - **CaseId** (string): The identifier for the case associated with the note.\n        \n- **Info** (null): Additional information, if any.\n    \n- **MoreInfo** (null): Further details, if applicable.\n    \n- **NeedEval** (boolean): A flag indicating whether further evaluation is needed.\n    \n\n### Notes\n\n- Ensure that the `CaseSn` provided in the request body corresponds to an existing case in the system.\n    \n- The response will include the details of the notes added, which can be used for verification or further processing."
+			},
+			"response": []
+		},
+		{
+			"name": "CaseHistory",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "ApiUserId",
+						"value": "{{ApiUserId}}",
+						"type": "text"
+					},
+					{
+						"key": "ApiUserKey",
+						"value": "{{ApiUserKey}}",
+						"type": "text"
+					},
+					{
+						"key": "CustomerAccountKey",
+						"value": "{{CustomerAccountKey}}",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"CaseSn\": \"string\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{baseURL}}/CaseHistory",
+					"host": [
+						"{{baseURL}}"
+					],
+					"path": [
+						"CaseHistory"
+					]
+				},
+				"description": "## Add Case History\n\nThis endpoint allows you to reviwe case history information associated with a specific case number. The request is made using the HTTP POST method to the endpoint `{{baseURL}}/CaseHistory`.\n\n### Request\n\n#### Method\n\n`POST`\n\n#### Endpoint\n\n`{{baseURL}}/CaseHistory`\n\n#### Request Body\n\nThe request body must be in JSON format and should include the following parameter:\n\n- **CaseSn** (string): The unique identifier for the case. This parameter is mandatory and should be provided in the request payload.\n    \n\n**Example Request Body:**\n\n``` json\n{\n  \"CaseSn\": \"62436756_S6.dragen.wes.hg38.20 ...\"\n}\n\n ```\n\n### Response\n\nUpon a successful request, the server will respond with a status code of `200` and the response will be in JSON format. The structure of the response is as follows:\n\n- **Code** (string): A code representing the status of the operation.\n    \n- **Data** (array): An array containing details about the case history. Each item in the array includes:\n    \n    - **Type** (integer): An identifier for the type of data.\n        \n    - **TypeName** (string): The name associated with the type.\n        \n    - **Data** (object): An object containing additional data, which may include:\n        \n        - **Comment** (string or null): Any comments related to the case.\n            \n    - **ID** (string): The unique identifier for the entry.\n        \n    - **CreatedByUser** (string): The user who created the entry.\n        \n    - **CreateDate** (string): The date when the entry was created.\n        \n    - **ModifiedByUser** (string): The user who last modified the entry.\n        \n    - **ModifyDate** (string): The date when the entry was last modified.\n        \n- **Info** (null or object): Additional information related to the request.\n    \n- **MoreInfo** (null or object): Any extra information that may be useful.\n    \n- **NeedEval** (boolean): Indicates whether further evaluation is required.\n    \n\n**Example Response:**\n\n``` json\n{\n  \"Code\": \"\",\n  \"Data\": [\n    {\n      \"Type\": 0,\n      \"TypeName\": \"\",\n      \"Data\": {\n        \"Comment\": null\n      },\n      \"ID\": \"\",\n      \"CreatedByUser\": \"\",\n      \"CreateDate\": \"\",\n      \"ModifiedByUser\": \"\",\n      \"ModifyDate\": \"\"\n    }\n  ],\n  \"Info\": null,\n  \"MoreInfo\": null,\n  \"NeedEval\": true\n}\n\n ```\n\n### Summary\n\nThis API is essential for adding case history data and retrieving confirmation of the operation's success, along with any relevant details about the case history entries."
+			},
+			"response": []
+		},
+		{
+			"name": "DeleteCase",
+			"request": {
+				"method": "DELETE",
+				"header": [
+					{
+						"key": "ApiUserId",
+						"value": "{{ApiUserId}}",
+						"type": "text"
+					},
+					{
+						"key": "ApiUserKey",
+						"value": "{{ApiUserKey}}",
+						"type": "text"
+					},
+					{
+						"key": "CustomerAccountKey",
+						"value": "{{CustomerAccountKey}}",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{baseURL}}/case/{62436756_S6.dragen.wes.hg38.20241217-103119 - All Genes + PGx 2 - Exons + PGx}",
+					"host": [
+						"{{baseURL}}"
+					],
+					"path": [
+						"case",
+						"{62436756_S6.dragen.wes.hg38.20241217-103119 - All Genes + PGx 2 - Exons + PGx}"
+					]
+				},
+				"description": "## Delete Case Endpoint\n\nThis endpoint allows users to delete a specific case identified by its unique serial number (`caseSn`).\n\n### Request\n\n- **Method**: `DELETE`\n    \n- **Endpoint**: `{{baseURL}}/case/{caseSn}`\n    \n- **Path Parameter**:\n    \n    - `caseSn` (string): The unique serial number of the case that you want to delete.\n        \n\n### Response\n\nUpon a successful deletion, the API will return a response indicating the status of the operation. The expected response format is typically a confirmation message or status code indicating that the case has been successfully deleted.\n\n### Notes\n\n- Ensure that the `caseSn` provided in the request is valid and corresponds to an existing case in the system.\n    \n- Deleting a case is irreversible; once deleted, the case cannot be recovered."
+			},
+			"response": []
+		},
+		{
+			"name": "Case",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "ApiUserId",
+						"value": "{{ApiUserId}}",
+						"type": "text"
+					},
+					{
+						"key": "ApiUserKey",
+						"value": "{{ApiUserKey}}",
+						"type": "text"
+					},
+					{
+						"key": "CustomerAccountKey",
+						"value": "{{CustomerAccountKey}}",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"CaseSn\": \"string\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{baseURL}}/Case",
+					"host": [
+						"{{baseURL}}"
+					],
+					"path": [
+						"Case"
+					]
+				},
+				"description": "## Endpoint Description\n\nThis endpoint allows the user to view a created case by submitting a POST request to `{{baseURL}}/Case`. The request requires a JSON payload containing the `CaseSn` parameter, which is a unique identifier for the caseId.\n\n### Request Parameters\n\n- **CaseSn** (string): A unique identifier for the case.\n    \n\n### Example Request Body\n\n``` json\n{\n  \"CaseSn\": \"62436756_S6.dragen.wes.hg38.20 ...\"\n}\n\n ```\n\n### Expected Response\n\nUpon a successful request, the API will return a response with a status code of `200` and a content type of `application/json`. The response body contains detailed information about the created case, including:\n\n- **Code**: A string that may hold error codes or status indicators.\n    \n- **Data**: An object containing various attributes related to the case, such as:\n    \n    - **PatientId**: Identifier for the patient associated with the case.\n        \n    - **SerialNumber**: Serial number of the case.\n        \n    - **Name**: Name of the case.\n        \n    - **Description**: A description of the case.\n        \n    - **VersionSetId**: Identifier for the version set.\n        \n    - **Status**: Status code of the case.\n        \n    - **IsAdvancedPhenotypes**: Boolean indicating if advanced phenotypes are available.\n        \n    - **Recommendations**: Any recommendations related to the case.\n        \n    - **ReadyForAnalysis**: Boolean indicating if the case is ready for analysis.\n        \n    - **HasAnalysis**: Boolean indicating if an analysis has been performed.\n        \n    - **IsTrio**: Boolean indicating if the case involves trio analysis.\n        \n\n### Notes\n\n- Ensure that the `CaseSn` is unique to avoid conflicts with existing cases.\n    \n- The response may include additional fields that provide insights into the case's status and associated data.\n    \n- Users should handle the response appropriately, especially checking the `NeedEval` field to determine if further evaluation is required.\n    \n\nThis endpoint is crucial for managing cases within the system and allows users to initiate case processing effectively."
+			},
+			"response": []
+		},
+		{
+			"name": "Cases",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "ApiUserId",
+						"value": "{{ApiUserId}}",
+						"type": "text"
+					},
+					{
+						"key": "ApiUserKey",
+						"value": "{{ApiUserKey}}",
+						"type": "text"
+					},
+					{
+						"key": "CustomerAccountKey",
+						"value": "{{CustomerAccountKey}}",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"Query\": null,\r\n  \"Page\": 0,\r\n  \"PageSize\": 0\r\n  }",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{baseURL}}/Cases",
+					"host": [
+						"{{baseURL}}"
+					],
+					"path": [
+						"Cases"
+					]
+				},
+				"description": "## Case Request\n\nThis endpoint allows users to views cases in account by submitting specific parameters. The request is made using the HTTP POST method.\n\n### Request Parameters\n\n- **Query** (string, optional): A search query to filter cases. If not specified, it defaults to `null`.\n    \n- **Page** (integer, optional): The page number for pagination. It defaults to `0`.\n    \n- **PageSize** (integer, optional): The number of cases to return per page. It defaults to `0`, which may indicate no limit.\n    \n\n### Request Body Example\n\n``` json\n{\n  \"Query\": null,\n  \"Page\": 0,\n  \"PageSize\": 0\n}\n\n ```\n\n### Response\n\nUpon a successful request, the server will respond with a status code of `200` and a JSON object containing the following fields:\n\n- **Code** (string): A code indicating the status of the request, typically an empty string for successful operations.\n    \n- **Data** (array): An array containing the data returned by the request. In this case, it contains an empty string.\n    \n- **Info** (string or null): Additional information about the request, which may be `null`.\n    \n- **MoreInfo** (string or null): Further details, if available; otherwise, it is `null`.\n    \n- **NeedEval** (boolean): A flag indicating whether further evaluation is needed, which is `true` in this response.\n    \n\n### Notes\n\n- Ensure that the parameters are correctly formatted to avoid errors.\n    \n- The `Page` and `PageSize` parameters are essential for managing large datasets effectively."
+			},
+			"response": []
+		},
+		{
+			"name": "CreateCase",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "ApiUserId",
+						"value": "{{ApiUserId}}",
+						"type": "text"
+					},
+					{
+						"key": "ApiUserKey",
+						"value": "{{ApiUserKey}}",
+						"type": "text"
+					},
+					{
+						"key": "CustomerAccountKey",
+						"value": "{{CustomerAccountKey}}",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"SerialNumber\": \"string\",\r\n  \"Name\": \"string\",\r\n  \"Description\": \"string\",\r\n  \"PhenAlleleFreq\": 0,\r\n  \"Phenotypes\": \"string\",\r\n  \"Owner\": \"string\",\r\n  \"OwnerDepartment\": \"string\",\r\n  \"GeneList\": \"string\",\r\n  \"ProtocolId\": \"string\",\r\n  \"SubjectId\": \"string\",\r\n  \"ProbandSampleId\": \"string\",\r\n  \"AssociatedSamples\": [\r\n    {\r\n      \"Relation\": 0,\r\n      \"SampleId\": \"string\",\r\n      \"Affected\": 0\r\n    }\r\n  ],\r\n  \"AssignedToUserId\": \"00000000-0000-0000-0000-000000000000\",\r\n  \"AssignedToFullName\": \"string\",\r\n  \"AssignedToUser\": \"string\",\r\n  \"ApiUserId\": \"enter_apiId\",\r\n  \"ApiUserKey\": \"enter_apiKey\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{baseURL}}/CreateCase",
+					"host": [
+						"{{baseURL}}"
+					],
+					"path": [
+						"CreateCase"
+					]
+				},
+				"description": "## Create Case API\n\nThis endpoint allows users to create a new case in the system. The request must include detailed information about the case, including patient details, genetic information, and associated samples. Subject must be present prior to upload.\n\n### Request Format\n\nThe request should be sent as a JSON object in the body of the POST request. Below are the required fields and their descriptions:\n\n- **SerialNumber** (string): A unique identifier for the case.\n    \n- **Name** (string): The name associated with the case.\n    \n- **Description** (string): A brief description of the case.\n    \n- **PhenAlleleFreq** (number): The frequency of the phenotype allele.\n    \n- **Phenotypes** (string): A list of phenotypes associated with the case, formatted as a string.\n    \n- **Owner** (string): The name of the individual responsible for the case.\n    \n- **OwnerDepartment** (string): The department of the owner.\n    \n- **GeneList** (string): A list of genes relevant to the case.\n    \n- **ProtocolId** (string): The identifier for the protocol being used.\n    \n- **SubjectId** (string): The identifier for the subject of the case.\n    \n- **ProbandSampleId** (string): The identifier for the proband sample.\n    \n- **AssociatedSamples** (array|null): An array of associated sample identifiers, or null if none.\n    \n- **AssignedToUserId** (string|null): The user ID of the person assigned to the case, or null if unassigned.\n    \n- **AssignedToFullName** (string|null): The full name of the assigned user, or null if unassigned.\n    \n- **AssignedToUser** (string|null): The username of the assigned user, or null if unassigned.\n    \n\n### Response Structure\n\nUpon successful creation of a case, the API will respond with a JSON object containing the following fields:\n\n- **Code** (string): A code indicating the status of the request.\n    \n- **Data** (object): Contains detailed information about the created case, including:\n    \n    - **PatientId** (string): The identifier for the patient.\n        \n    - **SerialNumber** (string): The serial number of the case.\n        \n    - **Name** (string): The name associated with the case.\n        \n    - **Description** (string): The description of the case.\n        \n    - **VersionSetId** (string): The ID for the version set.\n        \n    - **Status** (number): The status code of the case.\n        \n    - **MainSample** (object): An object containing details about the main sample associated with the case.\n        \n    - **PhenAlleleFreq** (number): The frequency of the phenotype allele.\n        \n    - **Owner** (string): The owner of the case.\n        \n    - **IsAdvancedPhenotypes** (boolean): Indicates if advanced phenotypes are used.\n        \n    - **SamplesReady** (boolean): Indicates if the samples are ready for analysis.\n        \n    - **AssociatedSamples** (array): An array of any associated samples.\n        \n\nThe response will also include additional metadata related to the case and its processing status.\n\n### Status Codes\n\n- **200 OK**: The case was successfully created.\n    \n- Other status codes may indicate errors or issues with the request.\n    \n\nEnsure that all required fields are included in the request body to avoid errors during case creation."
+			},
+			"response": []
+		},
+		{
+			"name": "ReprocessBatchQcData",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "ApiUserId",
+						"value": "{{ApiUserId}}",
+						"type": "text"
+					},
+					{
+						"key": "ApiUserKey",
+						"value": "{{ApiUserKey}}",
+						"type": "text"
+					},
+					{
+						"key": "CustomerAccountKey",
+						"value": "{{CustomerAccountKey}}",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"BatchName\": \"string\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{baseURL}}/ReprocessBatchQcData",
+					"host": [
+						"{{baseURL}}"
+					],
+					"path": [
+						"ReprocessBatchQcData"
+					]
+				},
+				"description": "## Reprocess Batch QC Data\n\nThis endpoint allows users to reprocess batch quality control data by submitting a specific batch name.\n\n### Request\n\n- **Method**: `POST`\n    \n- **Endpoint**: `{{baseURL}}/ReprocessBatchQcData`\n    \n- **Request Body**: The request must include a JSON object with the following parameter:\n    \n    - `BatchName` (string): The name of the batch file that needs to be reprocessed.\n        \n\n### Example Request Body\n\n``` json\n{\n  \"BatchName\": \"Testingfile1_upload_first.Txt- ...\"\n}\n\n ```\n\n### Response\n\nUpon successful execution, the endpoint returns a response with the following structure:\n\n- **Status Code**: `200 OK`\n    \n- **Content-Type**: `application/json`\n    \n- **Response Body**:\n    \n    - `Code` (string): A code indicating the status of the request.\n        \n    - `Data` (string): Additional data related to the request, if applicable.\n        \n    - `Info` (null or any additional information): May contain further details or be null.\n        \n    - `MoreInfo` (null or any additional information): Optional field for more details or null.\n        \n    - `NeedEval` (boolean): Indicates whether further evaluation is needed (true or false).\n        \n\n### Example Response\n\n``` json\n{\n  \"Code\": \"\",\n  \"Data\": \"\",\n  \"Info\": null,\n  \"MoreInfo\": null,\n  \"NeedEval\": true\n}\n\n ```\n\nThis endpoint is useful for managing and re-evaluating batch quality control processes by allowing users to specify which batch to reprocess."
+			},
+			"response": []
+		},
+		{
+			"name": "CreateBatch",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "ApiUserId",
+						"value": "{{ApiUserId}}",
+						"type": "text"
+					},
+					{
+						"key": "ApiUserKey",
+						"value": "{{ApiUserKey}}",
+						"type": "text"
+					},
+					{
+						"key": "CustomerAccountKey",
+						"value": "{{CustomerAccountKey}}",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{baseURL}}/CreateBatch",
+					"host": [
+						"{{baseURL}}"
+					],
+					"path": [
+						"CreateBatch"
+					]
+				},
+				"description": "### CreateBatch Endpoint\n\nThis endpoint is used to create a new batch in the system. It processes the provided data and returns a confirmation of the operation's success.\n\n#### Request Format\n\n- **Method**: POST\n    \n- **URL**: `{{baseURL}}/CreateBatch`\n    \n- **Content-Type**: application/json\n    \n\n**Request Body**: The request body must be in JSON format and should include the necessary parameters required to create a batch. Each parameter should be clearly defined based on the specific requirements of your application.\n\n#### Response Structure\n\nUpon a successful request, the server will respond with a JSON object containing the following fields:\n\n- **Code**: A string indicating the status code of the operation.\n    \n- **Data**: This field may contain additional data related to the batch creation, but in this case, it is `null`.\n    \n- **Info**: A string providing any relevant information about the operation.\n    \n- **MoreInfo**: This field may provide further details, but it is `null` in this response.\n    \n- **NeedEval**: A boolean indicating whether further evaluation is required after the batch creation.\n    \n\n#### Example Response\n\n``` json\n{\n    \"Code\": \"\",\n    \"Data\": null,\n    \"Info\": \"\",\n    \"MoreInfo\": null,\n    \"NeedEval\": true\n}\n\n ```\n\nThis response indicates that the batch creation was processed, and the `NeedEval` field suggests that further evaluation may be necessary."
+			},
+			"response": []
+		},
+		{
+			"name": "BatchCases",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "ApiUserId",
+						"value": "{{ApiUserId}}",
+						"type": "text"
+					},
+					{
+						"key": "ApiUserKey",
+						"value": "{{ApiUserKey}}",
+						"type": "text"
+					},
+					{
+						"key": "CustomerAccountKey",
+						"value": "{{CustomerAccountKey}}",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"BatchName\": \"1.Txt-20250724-174435\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{baseURL}}/BatchCases",
+					"host": [
+						"{{baseURL}}"
+					],
+					"path": [
+						"BatchCases"
+					]
+				},
+				"description": "## Endpoint Overview\n\nThe `POST /BatchCases` endpoint is used to create a new batch case in the system. This allows users to submit batch-related data for processing, typically involving patient information and associated metadata.\n\n## Request Format\n\nThe request must be sent as a JSON object in the body. The expected format for the request body is as follows:\n\n``` json\n{\n  \"BatchName\": \"string\"\n}\n\n ```\n\n### Request Parameters\n\n- **BatchName** (string): A unique identifier for the batch case being created. This should be a descriptive name that helps in identifying the batch.\n    \n\n## Response Structure\n\nUpon a successful request, the API will return a JSON response with a status code of `200`. The response structure is as follows:\n\n``` json\n{\n  \"Code\": \"string\",\n  \"Data\": [\n    {\n      \"PatientId\": \"string\",\n      \"Patient\": \"string\",\n      \"SerialNumber\": \"string\",\n      \"Name\": \"string\",\n      \"Description\": \"string or null\",\n      \"VersionSetId\": \"string\",\n      \"VersionSetName\": \"string\",\n      \"VersionSetNumber\": \"integer\",\n      \"VersionSetArchived\": \"boolean\",\n      \"VersionSetLatest\": \"boolean\",\n      \"Status\": \"integer\",\n      \"StatusName\": \"string\",\n      \"SubStatusId\": \"string\",\n      \"SubStatusName\": \"string\",\n      \"MainSampleId\": \"string\",\n      \"MainSampleSerialNumber\": \"string\",\n      \"MainSample\": \"string or null\",\n      \"MainSampleStats\": \"string or null\",\n      \"PhenAlleleFreq\": \"number\",\n      \"Phenotypes\": \"string\",\n      \"IsAdvancedPhenotypes\": \"boolean\",\n      \"Owner\": \"string or null\",\n      \"OwnerDepartment\": \"string or null\",\n      \"GeneticModels\": [\"integer\"],\n      \"GeneticModelNames\": [\"string\"],\n      \"AnalysisModeName\": \"string\",\n      \"ProtocolTat\": \"integer\",\n      \"AnalysisWaitTime\": \"integer\",\n      \"TAT\": \"string or null\",\n      \"DefaultGeneticModel\": \"string or null\",\n      \"DefaultGeneticModelName\": \"string or null\",\n      \"ProtocolId\": \"string\",\n      \"ProtocolName\": \"string\",\n      \"ProtocolTypeName\": \"string\",\n      \"ProtocolSerialNumber\": \"string\",\n      \"SingleGenModelVariantSelection\": \"boolean\",\n      \"Recommendations\": \"string\",\n      \"Introduction\": \"string\",\n      \"Methods\": \"string\",\n      \"Signature\": \"string\",\n      \"AutoAnalyze\": \"boolean\",\n      \"AutoReport\": \"boolean\",\n      \"VariantNoteTemplate\": \"string or null\",\n      \"CalcLocalFreq\": \"boolean\",\n      \"LocalFreqDate\": \"string\",\n      \"LocalFreqSamples\": \"integer\",\n      \"LocalFreqSvSamples\": \"integer\",\n      \"AccountGroupFreqSamples\": \"integer\",\n      \"AlwaysShowPathogenicVariants\": \"boolean\",\n      \"AlwaysShowInHousePathogenicVariants\": \"boolean\",\n      \"GeneList\": \"string or null\",\n      \"Disease\": \"string or null\",\n      \"ReadyForAnalysis\": \"boolean\",\n      \"SamplesReady\": \"boolean\",\n      \"HasAnalysis\": \"boolean\",\n      \"HasReport\": \"boolean\",\n      \"VariantMapId\": \"string or null\",\n      \"VariantMapName\": \"string or null\",\n      \"GenomeBuild\": \"integer\",\n      \"AcmgCalcDate\": \"string\",\n      \"IbdParentsCalcStatus\": \"string\",\n      \"AssociatedSamples\": \"string or null\",\n      \"Assignment\": \"string or null\",\n      \"IsTrio\": \"boolean\",\n      \"Preparing\": \"boolean\",\n      \"InBgProcess\": \"boolean\",\n      \"ID\": \"string\",\n      \"CreatedByUser\": \"string\",\n      \"CreateDate\": \"string\",\n      \"ModifiedByUser\": \"string\",\n      \"ModifyDate\": \"string\"\n    }\n  ],\n  \"Info\": \"string or null\",\n  \"MoreInfo\": \"string or null\",\n  \"NeedEval\": \"boolean\"\n}\n\n ```\n\n### Response Parameters\n\n- **Code** (string): A code indicating the result of the operation (e.g., success or error).\n    \n- **Data** (array): An array of objects containing detailed information about the batch case created.\n    \n- **Info** (string or null): Additional information regarding the request.\n    \n- **MoreInfo** (string or null): Further details if available.\n    \n- **NeedEval** (boolean): Indicates if further evaluation is needed.\n    \n\nThis endpoint is essential for managing batch cases effectively and provides structured data for further analysis and reporting."
+			},
+			"response": []
+		},
+		{
+			"name": "BatchVcfSamples",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "ApiUserId",
+						"value": "{{ApiUserId}}",
+						"type": "text"
+					},
+					{
+						"key": "ApiUserKey",
+						"value": "{{ApiUserKey}}",
+						"type": "text"
+					},
+					{
+						"key": "CustomerAccountKey",
+						"value": "{{CustomerAccountKey}}",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"BatchName\": \"string\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{baseURL}}/BatchVcfSamples",
+					"host": [
+						"{{baseURL}}"
+					],
+					"path": [
+						"BatchVcfSamples"
+					]
+				},
+				"description": "### Endpoint Description\n\nThe `POST /BatchVcfSamples` endpoint is designed to submit a batch of VCF (Variant Call Format) samples for processing. This request allows users to upload sample data associated with a specific batch name, enabling the backend to handle and store the provided sample information.\n\n### Request Body\n\nThe request body must be in JSON format and should contain the following key:\n\n- **BatchName** (string): The name identifier for the batch of samples being submitted. This is a required field.\n    \n\n**Example Request Body:**\n\n``` json\n{\n  \"BatchName\": \"1.Txt-20250724-174435\"\n}\n\n ```\n\n### Response Structure\n\nUpon successful execution of the request, the server will respond with a status code of `200` and a JSON object containing the following structure:\n\n- **Code** (string): An empty string indicating no error codes.\n    \n- **Data** (array): An array of objects, each representing a sample with the following fields:\n    \n    - **PatientId** (string): Identifier for the patient (if applicable).\n        \n    - **Patient** (string): Name of the patient (if applicable).\n        \n    - **SerialNumber** (string): Serial number associated with the sample.\n        \n    - **SequenceMachineId** (null or string): Identifier for the sequencing machine.\n        \n    - **EnrichmentKitId** (string): Identifier for the enrichment kit used.\n        \n    - **TakenDate** (string): Date when the sample was taken.\n        \n    - **SeqDate** (string): Date of sequencing.\n        \n    - **ReceivedDate** (string): Date when the sample was received.\n        \n    - **StatusName** (null or string): Current status of the sample.\n        \n    - **Type** (integer): Numeric type identifier for the sample.\n        \n    - **Target** (integer): Target identifier related to the sample.\n        \n    - **Source** (integer): Source identifier for the sample.\n        \n    - **BamFileExists** (boolean): Indicates if the BAM file exists.\n        \n    - **MethylationFileExists** (boolean): Indicates if the methylation file exists.\n        \n    - **QcMetricsFileExists** (boolean): Indicates if the QC metrics file exists.\n        \n    - **ExcludeFromLAF** (boolean): Indicates if the sample is excluded from LAF (Local Analysis Framework).\n        \n    - **RunPgx** (boolean): Indicates if pharmacogenomics analysis should be run.\n        \n    - **Files** (array): An array of file objects associated with the sample, each containing:\n        \n        - **ID** (string): Identifier for the file.\n            \n        - **FileTypeName** (string): Name of the file type.\n            \n        - **FileType** (integer): Numeric type identifier for the file.\n            \n        - **FileName** (string): Name of the file.\n            \n        - **CreateDate** (string): Date when the file was created.\n            \n        - **TotalVariants** (null or integer): Total number of variants in the file.\n            \n- **Info** (null): Additional information if applicable.\n    \n- **MoreInfo** (null): Further details if applicable.\n    \n- **NeedEval** (boolean): Indicates if evaluation is needed for the samples.\n    \n\n**Example Response:**\n\n``` json\n{\n  \"Code\": \"\",\n  \"Data\": [\n    {\n      \"PatientId\": \"\",\n      \"Patient\": \"\",\n      \"SerialNumber\": \"\",\n      \"SequenceMachineId\": null,\n      \"EnrichmentKitId\": \"\",\n      \"TakenDate\": \"\",\n      \"SeqDate\": \"\",\n      \"ReceivedDate\": \"\",\n      \"StatusName\": null,\n      \"Type\": 0,\n      \"Target\": 0,\n      \"Source\": 0,\n      \"BamFileExists\": true,\n      \"MethylationFileExists\": true,\n      \"QcMetricsFileExists\": true,\n      \"ExcludeFromLAF\": true,\n      \"RunPgx\": true,\n      \"Files\": [\n        {\n          \"ID\": \"\",\n          \"FileTypeName\": \"\",\n          \"FileType\": 0,\n          \"FileName\": \"\",\n          \"CreateDate\": \"\",\n          \"TotalVariants\": null\n        }\n      ]\n    }\n  ],\n  \"Info\": null,\n  \"MoreInfo\": null,\n  \"NeedEval\": true\n}\n\n ```\n\nThis response structure provides a comprehensive overview of the submitted samples, including their statuses and associated files."
+			},
+			"response": []
+		},
+		{
+			"name": "BatchSeqSamples",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "ApiUserId",
+						"value": "{{ApiUserId}}",
+						"type": "text"
+					},
+					{
+						"key": "ApiUserKey",
+						"value": "{{ApiUserKey}}",
+						"type": "text"
+					},
+					{
+						"key": "CustomerAccountKey",
+						"value": "{{CustomerAccountKey}}",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "\t\r\n{\r\n  \"BatchName\": \"string\"\r\n}\r\n",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{baseURL}}/BatchSeqSamples",
+					"host": [
+						"{{baseURL}}"
+					],
+					"path": [
+						"BatchSeqSamples"
+					]
+				},
+				"description": "### Endpoint Description\n\nThe `POST /BatchSeqSamples` endpoint is used to submit batch sequence sample data to the server. This operation allows clients to upload and process multiple sequence samples in a single request.\n\n### Request Body\n\nThe request must include a JSON object with the following key:\n\n- **BatchName** (string): The name of the batch being uploaded. This is a required field that identifies the batch of sequence samples.\n    \n\n#### Example Request Body\n\n``` json\n{\n  \"BatchName\": \"testingfile1_upload_first.txt- ...\"\n}\n\n ```\n\n### Response Structure\n\nUpon a successful request, the server will respond with a JSON object containing the following structure:\n\n- **Code** (string): An empty string indicating the success of the operation.\n    \n- **Data** (array): An array of objects, each representing a sequence sample with the following properties:\n    \n    - **PatientId** (string): Identifier for the patient.\n        \n    - **Patient** (string): Name of the patient.\n        \n    - **SerialNumber** (string): Serial number associated with the sample.\n        \n    - **SequenceMachineId** (nullable): ID of the sequencing machine used.\n        \n    - **SequenceMachine** (nullable): Name of the sequencing machine.\n        \n    - **EnrichmentKitId** (string): ID of the enrichment kit used.\n        \n    - **EnrichmentKit** (string): Name of the enrichment kit.\n        \n    - **EnrichmentKitDescription** (string): Description of the enrichment kit.\n        \n    - **TakenDate** (nullable): Date when the sample was taken.\n        \n    - **SeqDate** (nullable): Date when sequencing was performed.\n        \n    - **ReceivedDate** (nullable): Date when the sample was received.\n        \n    - **StatusName** (nullable): Current status of the sample.\n        \n    - **Type** (nullable): Type of the sample.\n        \n    - **TypeName** (nullable): Name of the sample type.\n        \n    - **Target** (integer): Target value associated with the sample.\n        \n    - **TargetName** (string): Name of the target.\n        \n    - **Source** (nullable): Source of the sample.\n        \n    - **SourceName** (nullable): Name of the source.\n        \n    - **Notes** (nullable): Additional notes related to the sample.\n        \n    - **Relation** (integer): Relation value.\n        \n    - **RelationName** (string): Name of the relation.\n        \n    - **UseConsent** (nullable): Indicates if consent was used.\n        \n    - **CollectionSampleId** (nullable): ID of the collection sample.\n        \n    - **FastqFilesCount** (integer): Count of FASTQ files associated with the sample.\n        \n    - **DataSourceId** (string): ID of the data source.\n        \n    - **DataSource** (string): Name of the data source.\n        \n    - **Files** (array): An array of file objects associated with the sample, each containing:\n        \n        - **ID** (string): Identifier for the file.\n            \n        - **SeqSampleId** (string): ID of the sequence sample.\n            \n        - **FileTypeName** (string): Name of the file type.\n            \n        - **FileType** (integer): Type of the file.\n            \n        - **FileSubType** (integer): Subtype of the file.\n            \n        - **FileName** (string): Name of the file.\n            \n        - **Ordinal** (integer): Ordinal number of the file.\n            \n        - **Status** (integer): Status code of the file.\n            \n        - **StatusName** (string): Name of the file status.\n            \n        - **CreateDate** (string): Date the file was created.\n            \n        - **FileSize** (integer): Size of the file in bytes.\n            \n        - **DownloadedSize** (integer): Size of the file that has been downloaded.\n            \n        - **Retries** (integer): Number of retry attempts for the file upload.\n            \n        - **ErrorMessage** (nullable): Error message if any issue occurred during the file upload.\n            \n    - **ExcludeFromLAF** (boolean): Indicates if the sample should be excluded from LAF processing.\n        \n    - **PcrFree** (nullable): Indicates if the sample is PCR-free.\n        \n    - **ID** (string): Identifier for the batch sequence sample.\n        \n    - **CreatedByUser** (string): User who created the batch.\n        \n    - **CreateDate** (string): Date when the batch was created.\n        \n    - **ModifiedByUser** (string): User who last modified the batch.\n        \n    - **ModifyDate** (string): Date when the batch was last modified.\n        \n- **Info** (nullable): Additional information about the response.\n    \n- **MoreInfo** (nullable): Further details if available.\n    \n- **NeedEval** (boolean): Indicates if evaluation is needed for the samples.\n    \n\n### Response Example\n\n``` json\n{\n  \"Code\": \"\",\n  \"Data\": [\n    {\n      \"PatientId\": \"\",\n      \"Patient\": \"\",\n      \"SerialNumber\": \"\",\n      \"SequenceMachineId\": null,\n      \"SequenceMachine\": null,\n      \"EnrichmentKitId\": \"\",\n      \"EnrichmentKit\": \"\",\n      \"EnrichmentKitDescription\": \"\",\n      \"TakenDate\": null,\n      \"SeqDate\": null,\n      \"ReceivedDate\": null,\n      \"StatusName\": null,\n      \"Type\": null,\n      \"TypeName\": null,\n      \"Target\": 0,\n      \"TargetName\": \"\",\n      \"Source\": null,\n      \"SourceName\": null,\n      \"Notes\": null,\n      \"Relation\": 0,\n      \"RelationName\": \"\",\n      \"UseConsent\": null,\n      \"CollectionSampleId\": null,\n      \"FastqFilesCount\": 0,\n      \"DataSourceId\": \"\",\n      \"DataSource\": \"\",\n      \"Files\": [\n        {\n          \"ID\": \"\",\n          \"SeqSampleId\": \"\",\n          \"FileTypeName\": \"\",\n          \"FileType\": 0,\n          \"FileSubType\": 0,\n          \"FileName\": \"\",\n          \"Ordinal\": 0,\n          \"Status\": 0,\n          \"StatusName\": \"\",\n          \"CreateDate\": \"\",\n          \"FileSize\": 0,\n          \"DownloadedSize\": 0,\n          \"Retries\": 0,\n          \"ErrorMessage\": null\n        }\n      ],\n      \"ExcludeFromLAF\": true,\n      \"PcrFree\": null,\n      \"ID\": \"\",\n      \"CreatedByUser\": \"\",\n      \"CreateDate\": \"\",\n      \"ModifiedByUser\": \"\",\n      \"ModifyDate\": \"\"\n    }\n  ],\n  \"Info\": null,\n  \"MoreInfo\": null,\n  \"NeedEval\": true\n}\n\n ```"
+			},
+			"response": []
+		},
+		{
+			"name": "DataEntryBatches",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "ApiUserId",
+						"value": "{{ApiUserId}}",
+						"type": "text"
+					},
+					{
+						"key": "ApiUserKey",
+						"value": "{{ApiUserKey}}",
+						"type": "text"
+					},
+					{
+						"key": "CustomerAccountKey",
+						"value": "{{CustomerAccountKey}}",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"Query\": null,\r\n  \"Page\": 0,\r\n  \"PageSize\": 0\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{baseURL}}/DataEntryBatches",
+					"host": [
+						"{{baseURL}}"
+					],
+					"path": [
+						"DataEntryBatches"
+					]
+				},
+				"description": "## Endpoint Description\n\nThis endpoint is used to submit data entry batches for processing. It allows clients to send a request to create or update data batches in the system.\n\n### Request\n\n- **Method**: POST\n    \n- **URL**: `{{baseURL}}/DataEntryBatches`\n    \n- **Content-Type**: application/json\n    \n\n#### Request Body\n\nThe request body must be in JSON format and contains the following parameters:\n\n- **Query** (nullable, string): This parameter can be used to specify a search query. If not needed, it can be set to `null`.\n    \n- **Page** (integer): Indicates the page number for pagination. Default is `0`.\n    \n- **PageSize** (integer): Specifies the number of records to return per page. Default is `0`, which may indicate no limit.\n    \n\n**Example Request Body:**\n\n``` json\n{\n  \"Query\": null,\n  \"Page\": 0,\n  \"PageSize\": 0\n}\n\n ```\n\n### Response\n\nUpon a successful request, the server responds with a 200 status code and a JSON object containing the following structure:\n\n- **Code** (string): A code representing the status of the request, typically empty if successful.\n    \n- **Data** (array): An array containing objects with the following fields:\n    \n    - **FileName** (string): The name of the file associated with the data entry.\n        \n    - **ErrorResult** (nullable): Any error results encountered during processing, if applicable.\n        \n    - **Status** (integer): A numeric status code indicating the processing status.\n        \n    - **StatusName** (string): A human-readable name for the status.\n        \n    - **Name** (string): The name associated with the data entry.\n        \n    - **ID** (string): A unique identifier for the data entry.\n        \n    - **CreatedByUser** (string): The user who created the entry.\n        \n    - **CreateDate** (string): The date when the entry was created.\n        \n    - **ModifiedByUser** (string): The user who last modified the entry.\n        \n    - **ModifyDate** (string): The date when the entry was last modified.\n        \n- **Info** (nullable): Additional information about the request, if available.\n    \n- **MoreInfo** (nullable): Further details that may be relevant.\n    \n- **NeedEval** (boolean): Indicates if further evaluation is required for the request.\n    \n\n**Example Response:**\n\n``` json\n{\n  \"Code\": \"\",\n  \"Data\": [\n    {\n      \"FileName\": \"\",\n      \"ErrorResult\": null,\n      \"Status\": 0,\n      \"StatusName\": \"\",\n      \"Name\": \"\",\n      \"ID\": \"\",\n      \"CreatedByUser\": \"\",\n      \"CreateDate\": \"\",\n      \"ModifiedByUser\": \"\",\n      \"ModifyDate\": \"\"\n    }\n  ],\n  \"Info\": null,\n  \"MoreInfo\": null,\n  \"NeedEval\": true\n}\n\n ```"
+			},
+			"response": []
+		},
+		{
+			"name": "GetCoverageForGenes",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "ApiUserId",
+						"value": "{{ApiUserId}}",
+						"type": "text"
+					},
+					{
+						"key": "ApiUserKey",
+						"value": "{{ApiUserKey}}",
+						"type": "text"
+					},
+					{
+						"key": "CustomerAccountKey",
+						"value": "{{CustomerAccountKey}}",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"sampleSn\": \"string\",\r\n    \"genes\": \"string\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{baseURL}}/GetCoverageForGenes",
+					"host": [
+						"{{baseURL}}"
+					],
+					"path": [
+						"GetCoverageForGenes"
+					]
+				},
+				"description": "## GetCoverageForGenes\n\nThis endpoint is used to retrieve coverage information for specific genes based on a provided sample identifier.\n\n### Request\n\n- **Method**: POST\n    \n- **URL**: `{{baseURL}}/GetCoverageForGenes`\n    \n- **Request Body** (JSON):\n    \n    - `sampleSn` (string): The sample identifier for which the coverage information is requested. This should be a unique identifier representing the specific genomic sample.\n        \n    - `genes` (string): A comma-separated list of gene symbols for which the coverage data is requested. In this case, \"BRCA1\" is specified.\n        \n\n### Response\n\n- **Status Code**: 200 (OK)\n    \n- **Content-Type**: application/json\n    \n- **Response Body** (JSON):\n    \n    - `Code` (string): A code indicating the status of the request. An empty string typically indicates success.\n        \n    - `Data` (null): This field contains the coverage data, which may be null if no data is available.\n        \n    - `Info` (string): Additional information about the request status. An empty string typically indicates no additional information.\n        \n    - `MoreInfo` (null): A field that may provide more detailed information if necessary, often null if not applicable.\n        \n    - `NeedEval` (boolean): A flag indicating whether further evaluation is needed for the request. A value of true suggests that additional processing may be required.\n        \n\n### Notes\n\n- Ensure that the `sampleSn` and `genes` parameters are correctly formatted to avoid errors in the request.\n    \n- The response will primarily indicate whether further evaluation is required and may not always return coverage data."
+			},
+			"response": []
+		},
+		{
+			"name": "GetCoverageForGenePanel",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "ApiUserId",
+						"value": "{{ApiUserId}}",
+						"type": "text"
+					},
+					{
+						"key": "ApiUserKey",
+						"value": "{{ApiUserKey}}",
+						"type": "text"
+					},
+					{
+						"key": "CustomerAccountKey",
+						"value": "{{CustomerAccountKey}}",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"sampleSn\": \"string\",\r\n  \"genePanelSn\": \"string\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{baseURL}}/GetCoverageForGenePanel",
+					"host": [
+						"{{baseURL}}"
+					],
+					"path": [
+						"GetCoverageForGenePanel"
+					]
+				},
+				"description": "## Get Coverage For Gene Panel\n\nThis endpoint allows users to retrieve coverage information for a specified gene panel based on a sample identifier.\n\n### Request\n\n**Method:** POST  \n**URL:** `{{baseURL}}/GetCoverageForGenePanel`\n\n#### Request Body\n\nThe request body must be sent in JSON format and includes the following parameters:\n\n- **sampleSn** (string): The unique identifier for the sample. This should be formatted as a string that represents the specific sample being queried.\n    \n- **genePanelSn** (string): The identifier for the gene panel. This specifies which gene panel's coverage information is being requested.\n    \n\n**Example Request Body:**\n\n``` json\n{\n  \"sampleSn\": \"62436756_S6.dragen.wes.hg38.20\",\n  \"genePanelSn\": \"BRCA1\"\n}\n\n ```\n\n### Response\n\n**Status Code:** 200  \n**Content-Type:** application/json\n\n#### Response Body\n\nThe response will contain the following fields:\n\n- **Code** (string): A code indicating the status of the request. An empty string typically indicates success.\n    \n- **Data** (null): This field will return null, indicating that no additional data is provided in the response.\n    \n- **Info** (string): Additional information regarding the request status. An empty string typically indicates no further information is available.\n    \n- **MoreInfo** (null): This field will return null, indicating that no further details are available.\n    \n- **NeedEval** (boolean): A flag indicating whether further evaluation is needed based on the request.\n    \n\n**Example Response Body:**\n\n``` json\n{\n  \"Code\": \"\",\n  \"Data\": null,\n  \"Info\": \"\",\n  \"MoreInfo\": null,\n  \"NeedEval\": true\n}\n\n ```\n\n### Notes\n\n- Ensure that the sample and gene panel identifiers are correct to receive accurate coverage information.\n    \n- The response indicates whether further evaluation is required based on the request parameters."
+			},
+			"response": []
+		},
+		{
+			"name": "GetVcfSampleCoverage",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "ApiUserId",
+						"value": "{{ApiUserId}}",
+						"type": "text"
+					},
+					{
+						"key": "ApiUserKey",
+						"value": "{{ApiUserKey}}",
+						"type": "text"
+					},
+					{
+						"key": "CustomerAccountKey",
+						"value": "{{CustomerAccountKey}}",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"SampleSn\": \"string\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{baseURL}}/GetVcfSampleCoverage",
+					"host": [
+						"{{baseURL}}"
+					],
+					"path": [
+						"GetVcfSampleCoverage"
+					]
+				},
+				"description": "## GetVcfSampleCoverage\n\nThis endpoint allows you to retrieve the coverage information for a specific sample based on its serial number.\n\n### Request Method\n\n`POST`\n\n### Endpoint\n\n`{{baseURL}}/GetVcfSampleCoverage`\n\n### Request Parameters\n\nThe request body must be in JSON format and should include the following parameter:\n\n- **SampleSn** (string): The serial number of the sample for which the coverage information is being requested.\n    \n\n### Expected Response Format\n\nThe response will typically include details regarding the coverage of the specified sample. The exact structure of the response will depend on the internal implementation but is expected to provide relevant coverage metrics based on the provided sample serial number.\n\nEnsure that the `SampleSn` is correctly formatted to retrieve accurate coverage information."
+			},
+			"response": []
+		},
+		{
+			"name": "GetSampleTsv",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "ApiUserId",
+						"value": "{{ApiUserId}}",
+						"type": "text"
+					},
+					{
+						"key": "ApiUserKey",
+						"value": "{{ApiUserKey}}",
+						"type": "text"
+					},
+					{
+						"key": "CustomerAccountKey",
+						"value": "{{CustomerAccountKey}}",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"VersionSetName\": \"v6.2\",\r\n  \"PipelineType\": \"SNV or SV\",\r\n  \"SampleSn\": \"string\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{baseURL}}/GetSampleTsv",
+					"host": [
+						"{{baseURL}}"
+					],
+					"path": [
+						"GetSampleTsv"
+					]
+				},
+				"description": "## GetSampleTsv\n\nThis endpoint is used to retrieve a sample TSV (Tab-Separated Values) file based on the specified parameters. It processes a request containing details about the version set, pipeline type, and sample identifier, and returns the corresponding TSV file in a compressed format.\n\n### Request\n\n- **Method:** POST\n    \n- **URL:** `{{baseURL}}/GetSampleTsv`\n    \n- **Content-Type:** application/json\n    \n\n#### Request Body\n\nThe request body must be a JSON object with the following parameters:\n\n- **VersionSetName** (string): The name of the version set to be used, e.g., \"v6.2\".\n    \n- **PipelineType** (string): The type of pipeline to be executed, e.g., \"SNV\".\n    \n- **SampleSn** (string): The sample serial number, which uniquely identifies the sample, e.g., \"62436756_S6.dragen.wes.hg38.20 ...\".\n    \n\n**Example Request Body:**\n\n``` json\n{\n  \"VersionSetName\": \"v6.2\",\n  \"PipelineType\": \"SNV\",\n  \"SampleSn\": \"62436756_S6.dragen.wes.hg38.20 ...\"\n}\n\n ```\n\n### Response\n\n- **Status Code:** 200 OK\n    \n- **Content-Type:** application/gzip\n    \n\nThe response will be a gzipped file containing the TSV data corresponding to the requested sample. The actual content of the TSV file will not be displayed in the response body but will be served as a downloadable file.\n\n### Notes\n\n- Ensure that the parameters provided in the request body are correct and properly formatted to avoid errors in processing.\n    \n- The response will be in a compressed format, so appropriate handling for decompression will be required on the client side."
+			},
+			"response": []
+		},
+		{
+			"name": "GetSampleTsvUrl",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "ApiUserId",
+						"value": "{{ApiUserId}}",
+						"type": "text"
+					},
+					{
+						"key": "ApiUserKey",
+						"value": "{{ApiUserKey}}",
+						"type": "text"
+					},
+					{
+						"key": "CustomerAccountKey",
+						"value": "{{CustomerAccountKey}}",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"VersionSetName\": \"v6.2\",\r\n  \"PipelineType\": \"SNV or SV\",\r\n  \"SampleSn\": \"string\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{baseURL}}/GetSampleTsvUrl",
+					"host": [
+						"{{baseURL}}"
+					],
+					"path": [
+						"GetSampleTsvUrl"
+					]
+				},
+				"description": "## GetSampleTsvUrl\n\nThis endpoint allows users to request a sample TSV (Tab-Separated Values) URL, that contains annotation data, based on the specified parameters. It is primarily used in genomic data processing pipelines.\n\n### Request Parameters\n\nThe request is sent as a JSON object in the body with the following parameters:\n\n- **VersionSetName** (string): Specifies the version set for the request. In this case, the value is \"v6.2\".\n    \n- **PipelineType** (string): Indicates the type of pipeline being used. For this request, the value is \"SNV\" (Single Nucleotide Variant).\n    \n- **SampleSn** (string): Represents the sample identifier. An example value is \"62436756_S6.dragen.wes.hg38.20 ...\".\n    \n\n### Expected Response\n\nUpon successful execution, the API returns a JSON response with the following structure:\n\n- **Code** (string): A code indicating the status of the request. An empty string implies success without specific error codes.\n    \n- **Data** (string): The main data returned by the API. In this case, it is an empty string.\n    \n- **Info** (null): Additional information, which is null in this response.\n    \n- **MoreInfo** (null): Further details, which is also null in this response.\n    \n- **NeedEval** (boolean): A flag indicating whether further evaluation is required. In this case, it is set to true.\n    \n\n### Notes\n\n- The response status is 200, indicating that the request was processed successfully.\n    \n- Ensure that the parameters are correctly formatted and valid to avoid errors in the response."
+			},
+			"response": []
+		},
+		{
+			"name": "GetSampleMetricsFile (ISSUE)",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "ApiUserId",
+						"value": "{{ApiUserId}}",
+						"type": "text"
+					},
+					{
+						"key": "ApiUserKey",
+						"value": "{{ApiUserKey}}",
+						"type": "text"
+					},
+					{
+						"key": "CustomerAccountKey",
+						"value": "{{CustomerAccountKey}}",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{baseURL}}/",
+					"host": [
+						"{{baseURL}}"
+					],
+					"path": [
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "GetSampleMetricsFileUrl",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "ApiUserId",
+						"value": "{{ApiUserId}}",
+						"type": "text"
+					},
+					{
+						"key": "ApiUserKey",
+						"value": "{{ApiUserKey}}",
+						"type": "text"
+					},
+					{
+						"key": "CustomerAccountKey",
+						"value": "{{CustomerAccountKey}}",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"SampleSn\": \"string\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{baseURL}}/GetSampleMetricsFileUrl",
+					"host": [
+						"{{baseURL}}"
+					],
+					"path": [
+						"GetSampleMetricsFileUrl"
+					]
+				},
+				"description": "### Get Sample Metrics File URL\n\nThis endpoint allows users to retrieve the URL for a sample metrics file based on the provided sample serial number.\n\n#### Request\n\n- **Method**: POST\n    \n- **Endpoint**: `{{baseURL}}/GetSampleMetricsFileUrl`\n    \n- **Request Body**: The request should include a JSON object with the following parameter:\n    \n    - `SampleSn` (string): The serial number of the sample for which the metrics file URL is being requested.\n        \n\n**Example Request Body**:\n\n``` json\n{\n  \"SampleSn\": \"62436756_S6.dragen.wes.hg38.20 ...\"\n}\n\n ```\n\n#### Response\n\n- **Status Code**: 200\n    \n- **Content-Type**: application/json\n    \n- **Response Body**: The response will return a JSON object with the following fields:\n    \n    - `Code` (string): A code indicating the status of the request.\n        \n    - `Data` (string): The URL for the sample metrics file, if available.\n        \n    - `Info` (null): Additional information, if any.\n        \n    - `MoreInfo` (null): Further details, if applicable.\n        \n    - `NeedEval` (boolean): Indicates whether further evaluation is needed.\n        \n\n**Example Response**:\n\n``` json\n{\n  \"Code\": \"\",\n  \"Data\": \"\",\n  \"Info\": null,\n  \"MoreInfo\": null,\n  \"NeedEval\": true\n}\n\n ```\n\n#### Notes\n\n- Ensure that the `SampleSn` parameter is correctly formatted to avoid errors in retrieving the metrics file URL.\n    \n- The `NeedEval` field in the response indicates whether further evaluation or action is required based on the request."
+			},
+			"response": []
+		},
+		{
+			"name": "GetVcfSampleArtifact",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "ApiUserId",
+						"value": "{{ApiUserId}}",
+						"type": "text"
+					},
+					{
+						"key": "ApiUserKey",
+						"value": "{{ApiUserKey}}",
+						"type": "text"
+					},
+					{
+						"key": "CustomerAccountKey",
+						"value": "{{CustomerAccountKey}}",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"PipelineType\": \"SNV or SV\",\r\n  \"SampleSn\": \"string\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{baseURL}}/GetVcfSampleArtifact",
+					"host": [
+						"{{baseURL}}"
+					],
+					"path": [
+						"GetVcfSampleArtifact"
+					]
+				},
+				"description": "\n## GetVcfSampleArtifact\n\nThis endpoint is used to retrieve VCF sample artifacts based on the specified pipeline type and sample serial number.\n\n### Request Parameters\n\nThe request body must be in JSON format and include the following parameters:\n\n- **PipelineType** (string): Specifies the type of pipeline to be used. Acceptable values include \"SNV\" (Single Nucleotide Variation) or \"SV\" (Structural Variation).\n  \n- **SampleSn** (string): Represents the sample serial number that uniquely identifies the sample for which the VCF artifact is requested.\n\n### Example Request Body\n```json\n{\n  \"PipelineType\": \"SNV or SV\",\n  \"SampleSn\": \"string\"\n}\n```\n\n### Expected Response\n\nThe response will contain the VCF sample artifact corresponding to the provided parameters. The structure of the response may vary depending on the pipeline type and the sample requested.\n\n### Notes\n- Ensure that the `PipelineType` is correctly specified as either \"SNV\" or \"SV\" to avoid errors.\n- The `SampleSn` should be a valid identifier for the sample; otherwise, the request may return an error or an empty response.\n"
+			},
+			"response": []
+		},
+		{
+			"name": "GetVcfSampleFile",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "ApiUserId",
+						"value": "{{ApiUserId}}",
+						"type": "text"
+					},
+					{
+						"key": "ApiUserKey",
+						"value": "{{ApiUserKey}}",
+						"type": "text"
+					},
+					{
+						"key": "CustomerAccountKey",
+						"value": "{{CustomerAccountKey}}",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"FileType\": \"SNV, SV,or CNV\",\r\n  \"SampleSn\": \"string\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{baseURL}}/GetVcfSampleFile",
+					"host": [
+						"{{baseURL}}"
+					],
+					"path": [
+						"GetVcfSampleFile"
+					]
+				},
+				"description": "### GetVcfSampleFile API\n\nThis endpoint allows users to retrieve a VCF sample file based on the specified parameters. It is designed to handle requests for different types of variant files including SNV, SV, or CNV.\n\n#### Request Method\n\n- **POST**\n    \n\n#### Endpoint\n\n- `{{baseURL}}/GetVcfSampleFile`\n    \n\n#### Request Body\n\nThe request body must be in JSON format and include the following parameters:\n\n- **FileType** (string): Specifies the type of file requested. Acceptable values include \"SNV\", \"SV\", or \"CNV\".\n    \n- **SampleSn** (string): Represents the sample identifier for which the VCF file is being requested.\n    \n\n#### Expected Response\n\nThe response will contain the requested VCF sample file data. The exact structure of the response will depend on the implementation and the requested file type. Ensure to handle the response appropriately based on the expected format.\n\nMake sure to validate the input parameters to ensure they meet the required criteria for successful processing."
+			},
+			"response": []
+		},
+		{
+			"name": "GetSampleFileUrl",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "ApiUserId",
+						"value": "{{ApiUserId}}",
+						"type": "text"
+					},
+					{
+						"key": "ApiUserKey",
+						"value": "{{ApiUserKey}}",
+						"type": "text"
+					},
+					{
+						"key": "CustomerAccountKey",
+						"value": "{{CustomerAccountKey}}",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"FileType\": \"Undefined\",\r\n  \"SampleSn\": \"string\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{baseURL}}/GetSampleFileUrl",
+					"host": [
+						"{{baseURL}}"
+					],
+					"path": [
+						"GetSampleFileUrl"
+					]
+				},
+				"description": "### GetSampleFileUrl\n\nThis endpoint is used to retrieve a URL for a sample file based on the specified parameters. It allows users to request a sample file by providing the type of file they are interested in and a sample identifier.\n\n#### Request\n\n- **Method**: POST\n    \n- **URL**: `{{baseURL}}/GetSampleFileUrl`\n    \n- **Request Body**: The request body must be in JSON format and should include the following parameters:\n    \n    - `FileType` (string): Indicates the type of file being requested. This parameter can be set to various predefined types, BAM, BAI, or QcMetrics.\n        \n    - `SampleSn` (string): A sample serial number that uniquely identifies the requested sample. In this instance, it is provided as a placeholder string.\n        \n\n**Example Request Body**:\n\n``` json\n{\n  \"FileType\": \"Undefined\",\n  \"SampleSn\": \"string\"\n}\n\n ```\n\n#### Response\n\nThe response from this endpoint will typically include a URL pointing to the requested sample file. The exact structure of the response may vary, but it generally contains the following key:\n\n- `FileUrl` (string): The URL where the sample file can be accessed.\n    \n\nThis endpoint is essential for applications that require dynamic access to sample files based on user-defined criteria."
+			},
+			"response": []
+		},
+		{
+			"name": "CreateGenePanel",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "ApiUserId",
+						"value": "{{ApiUserId}}",
+						"type": "text"
+					},
+					{
+						"key": "ApiUserKey",
+						"value": "{{ApiUserKey}}",
+						"type": "text"
+					},
+					{
+						"key": "CustomerAccountKey",
+						"value": "{{CustomerAccountKey}}",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"Name\": \"string\",\r\n  \"Description\": \"string\",\r\n  \"Category\": \"string\",\r\n  \"Symbols\": \"string\",\r\n  \"GeneticModelNames\": [\r\n    \"string\"\r\n  ],\r\n  \"Disabled\": true\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{baseURL}}/CreateGenePanel",
+					"host": [
+						"{{baseURL}}"
+					],
+					"path": [
+						"CreateGenePanel"
+					]
+				},
+				"description": "## Create Gene Panel\n\nThis endpoint allows you to create a new gene panel by providing specific details about the panel.\n\n### Request\n\n**Method:** POST  \n**URL:** `{{baseURL}}/CreateGenePanel`\n\n#### Request Body\n\nThe request body must be in JSON format and include the following parameters:\n\n- **Name** (string): The name of the gene panel.\n    \n- **Description** (string): A brief description of the gene panel.\n    \n- **Category** (string): The category under which the gene panel falls.\n    \n- **Symbols** (string): A string representing the symbols associated with the gene panel.\n    \n- **GeneticModelNames** (array of strings): An array containing the names of genetic models related to the gene panel.\n    \n- **Disabled** (boolean): A flag indicating whether the gene panel is disabled (true) or active (false).\n    \n\n### Response\n\nUpon successful creation of the gene panel, the server will respond with a confirmation message and relevant details about the created gene panel. The exact structure of the response will depend on the implementation but typically includes the ID of the newly created panel and a status message.\n\n### Notes\n\n- Ensure that all input parameters are provided in the correct format.\n    \n- The `Disabled` parameter is optional but can be used to deactivate the gene panel upon creation.\n    \n- This endpoint is critical for managing gene panels in the application and should be used with appropriate permissions."
+			},
+			"response": []
+		},
+		{
+			"name": "GenePanels",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "ApiUserId",
+						"value": "{{ApiUserId}}",
+						"type": "text"
+					},
+					{
+						"key": "ApiUserKey",
+						"value": "{{ApiUserKey}}",
+						"type": "text"
+					},
+					{
+						"key": "CustomerAccountKey",
+						"value": "{{CustomerAccountKey}}",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"Query\": null,\r\n  \"Page\": 0,\r\n  \"PageSize\": 0\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{baseURL}}/GenePanels",
+					"host": [
+						"{{baseURL}}"
+					],
+					"path": [
+						"GenePanels"
+					]
+				},
+				"description": "## Gene Panels API Endpoint\n\nThis endpoint allows you to retrieve gene panel information based on the provided query parameters.\n\n### Request\n\n- **Method:** POST\n    \n- **Endpoint:** `{{baseURL}}/GenePanels`\n    \n- **Request Body:**\n    \n    - `Query` (string, optional): A search query for filtering the gene panels. Currently, it can be set to `null`.\n        \n    - `Page` (integer): The page number for pagination. This should be set to `0` for the first page.\n        \n    - `PageSize` (integer): The number of items to return per page. This should be set to `0` to indicate no specific size.\n        \n\n### Response\n\n- **Status Code:** 200 OK\n    \n- **Content-Type:** application/json\n    \n- **Response Body:**\n    \n    - `Code` (string): A code indicating the status of the request.\n        \n    - `Data` (array of strings): An array containing the gene panel data. In this case, it may return an empty string if no data is found.\n        \n    - `Info` (string or null): Additional information about the request, if any.\n        \n    - `MoreInfo` (string or null): Further details related to the request, if available.\n        \n    - `NeedEval` (boolean): Indicates whether further evaluation is needed for the request.\n        \n\nThis endpoint is useful for querying gene panels with pagination support."
+			},
+			"response": []
+		},
+		{
+			"name": "DeleteSeqSample",
+			"request": {
+				"method": "DELETE",
+				"header": [
+					{
+						"key": "ApiUserId",
+						"value": "{{ApiUserId}}",
+						"type": "text"
+					},
+					{
+						"key": "ApiUserKey",
+						"value": "{{ApiUserKey}}",
+						"type": "text"
+					},
+					{
+						"key": "CustomerAccountKey",
+						"value": "{{CustomerAccountKey}}",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{baseURL}}/seqSample/{seqSampleSn}",
+					"host": [
+						"{{baseURL}}"
+					],
+					"path": [
+						"seqSample",
+						"{seqSampleSn}"
+					]
+				},
+				"description": "### DELETE Request to Remove a Sequence Sample\n\nThis endpoint allows you to delete a specific sequence sample identified by its unique serial number (`seqSampleSn`).\n\n#### Request Parameters\n\n- **seqSampleSn** (path parameter): The unique identifier for the sequence sample that you wish to delete. This parameter is required.\n    \n\n#### Expected Response\n\nUpon a successful deletion, the API responds with a JSON object containing the following fields:\n\n- **Code**: A string that may contain error codes or messages (empty in this case).\n    \n- **Data**: A boolean indicating the success of the operation. A value of `true` confirms that the sequence sample was successfully deleted.\n    \n- **Info**: Additional information about the request (null in this case).\n    \n- **MoreInfo**: Further details if available (null in this case).\n    \n- **NeedEval**: A boolean indicating whether further evaluation is needed after the deletion (true in this case).\n    \n\n#### Notes\n\n- A successful response status of `200` indicates that the deletion was processed correctly.\n    \n- Ensure that the `seqSampleSn` provided is valid and corresponds to an existing sequence sample to avoid errors."
+			},
+			"response": []
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"packages": {},
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"packages": {},
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "ApiUserId",
+			"value": "vPvzva7TKs2ywINyzv8AUQ==",
+			"type": "string"
+		},
+		{
+			"key": "ApiUserKey",
+			"value": "paFIeBfc6d2HA9b5SdVzxEHeY0P2gL4YJnysGKJBhGEFs5vvWWyDuw==",
+			"type": "string"
+		},
+		{
+			"key": "CustomerAccountKey",
+			"value": "qb+COENGBWPNJq1DfS6ZJ8wZfQmerllyp/dpc9ECiRM19qsZ5+IeZA==",
+			"type": "string"
+		},
+		{
+			"key": "baseURL",
+			"value": "https://analysis-qa.geneyx.com/api",
+			"type": "string"
+		}
+	]
+}
