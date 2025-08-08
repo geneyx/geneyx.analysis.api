@@ -1,84 +1,130 @@
-# Geneyx Sample Upload and Unification Workflow
+# ga.config.yml
+This configuration file needs to be placed in the directory with the other python scripts. It serves as a reference to the account configuration. This configuration file specifies:
+1.	Server: 'https://analysis.geneyx.com'
+2.	apiUserId
+3.	apiUserKey
 
-This document provides an overview of the process for unifying multiple VCF files (CNV, SV, Repeat) and uploading samples in bulk to Geneyx using the provided scripts and configurations. It outlines the necessary steps to ensure that your data is correctly formatted and uploaded.
+The apiUserId and apiUserKey can be provided by contacting support@geneyx.com. 
 
----
+# ga_CreateCase.py
+This script allows a user to create an analysis using existing VCF files in an account. The CreateCase_Data.json file is located in the templates directory and contains the data fields that can be used with this python script. Descriptions of the available fields can be found here: 
 
-## 1. **Unification of VCF Files**
+https://github.com/geneyx/geneyx.analysis.api/wiki/Create-Case. 
 
-### Overview:
-The unification process streamlines the consolidation of multiple VCF files related to **Copy Number Variations (CNV)**, **Structural Variations (SV)**, and **repeats**. The goal is to merge and adjust these files so that they meet Geneyx's requirements for sample uploads.
+Below is an example of this script that is run from command line:
 
-### Steps:
-1. **Unify CNV, SV, TRGT/STR Files**: 
-   - **UnifyVcf Script**: The `UnifyVcf` script is designed to combine the VCF files from different providers. Due to slight variations in file formats, this script adjusts the files to ensure they contain the necessary fields for Geneyx to read and process them correctly.
-   - It’s essential to run the **UnifyVcf Script** that matches the pipeline used to create your original VCF files.
-   
-2. **Tutorial and Resources**:
-   - A detailed video tutorial is available to guide you through the unification process. You can watch it [here](https://geneyx.com/?s=unification).
-   - The script is hosted on GitHub and can be accessed at: [Geneyx UnifyVcf Scripts](https://github.com/geneyx/geneyx.analysis.api/tree/main/scripts/UnifyVcf).
+C:\geneyx.analysis.api-main\scripts>python ga_CreateCase.py --data "C:\CreateCase_Data.json"
 
-### Important Notes:
-- Ensure that you unify the **CNV**, **SV**, and **TRGT/STR** files using the unification script before proceeding with the upload.
-  
----
+This would create a create a case in the account with the information derived from the json file. 
 
-## 2. **Batch Upload of Samples**
 
-### Overview:
-Once your VCF files are unified, the next step is to upload your samples in batch using the **JSON file** and associated **Python script**.
+# ga_addClinicalRecord.py
 
-### Files:
-- **BatchSampleJSON.json**: This file contains the sample information needed for the batch upload.
-  - For a full list of API fields, refer to this [link](https://geneyx.com/?s=unification).
-- **JSON_Sample_Upload.py**: The Python script that processes the **BatchSampleJSON.json** file and uploads the samples.
+This python script allows the user to add a clinical record to an existing subject. The clinicalRecord.json file can be modified with the specific information and executed with the script. For the phenotypic codes, only "HP:" terms can be entered. Descripton of the fields can be found here: 
 
-### Steps to Upload Samples:
-1. **Ensure Files are in the Same Directory**:
-   - Place the following files in the same directory as `JSON_Sample_Upload.py`:
-     - `ga.config.yml`
-     - `ga_helperFunctions.py`
-   
-2. **Run the Upload Command**:
-   Open your terminal or command prompt and run the following command:
-   
-   ```bash```
-   `python3 ga_uploadSample.py --jsonFile /path/to/your/sample_info.json --config /path/to/your/ga.config.yml`
+https://github.com/geneyx/geneyx.analysis.api/wiki/AddClinicalRecord
 
-## Configuration File
+Here is an example of the script being executed in command line:
 
-- **ga.config.yml**: This configuration file includes your Geneyx credentials and other setup details.
+C:\geneyx.analysis.api-main\scripts>python ga_addClinicalRecord.py --data "C:\clinicalRecord.json"
 
-If you do not have access to the credentials, contact [support@geneyx.com](mailto:support@geneyx.com) or your local **Geneyx FAS** representative.
+# ga_createPatient.py
+This python script is used to create a new subject. The patient.json file contains the available fields and the description for the fields can be found here:
 
----
+https://github.com/geneyx/geneyx.analysis.api/wiki/CreatePatient
 
-## 3. **Creating Cases in Geneyx**
+Below is an example of this script that is run from command line:
 
-### Overview:
-Once the samples are uploaded, you can create cases manually in the Geneyx environment or use the **Batch Case Upload Script** to create cases in bulk.
+C: \geneyx.analysis.api-main\scripts>python ga_CreateCase.py --data "C:\ Patient.json"
 
-### Steps:
+# ga_uploadSample_json.py
+This python script enables a user to upload a VCF sample into a new or existing Subject with associated patient information. The data file is the sample.json file located in the template directory. Descriptions of the fields can be found here:
 
-#### **Manual Case Creation**:
-- Cases can be manually created in the Geneyx interface once the samples are uploaded.
+[https://github.com/geneyx/geneyx.analysis.api/wiki/Create-Sample](https://github.com/geneyx/geneyx.analysis.api/wiki/Upload-Sample)
 
-#### **Batch Case Upload Script**:
-You can use the batch case upload script and the associated JSON file to automate case creation:
+To run this command the following fields need to be specified:
+--snvVCF
+--svVCF
+--cnvVCF
 
-- [Batch Create Cases Script](https://github.com/geneyx/geneyx.analysis.api/blob/main/scripts/BatchCreateCases_json.py)
-- [Batch Case JSON Template](https://github.com/geneyx/geneyx.analysis.api/blob/main/scripts/templates/BatchCaseList.json)
+An example of this command would be:
 
-### Resources:
-For further details, you can explore the full documentation and examples provided in the GitHub repository: [Geneyx Analysis API Scripts](https://github.com/geneyx/geneyx.analysis.api).
+C:\geneyx.analysis.api-main\scripts>python ga_uploadSample_json.py --data "C:\sample.json" --snvVcf "C:\UpNew.vcf.gz"
 
----
+# ga_uploadBatch.py
+This script allows a user to initiate a batch upload via command line into a secondary pipeline of Geneyx using the BatchImportTemplate.txt file, located in the template directory (https://github.com/geneyx/geneyx.analysis.api/blob/main/scripts/templates/BatchImportTemplate.txt). To run this, a Data Source must be configured in your Geneyx account, which can be accessed in the Settings dialog of the application. 
+Below is an example of this script that is run from command line:
 
-## Conclusion
+C:\geneyx.analysis.api-main\scripts>python ga_uploadBatch.py --batchFile "C:\Geneyx\geneyx.analysis.api-main\scripts\BatchImportTemplate.txt"
 
-By following these steps, you can successfully unify your CNV/SV/repeat VCF files, upload your samples in batch, and create cases within the Geneyx platform. If you have any issues or need assistance, please reach out to [support@geneyx.com](mailto:support@geneyx.com) or your local **Geneyx FAS** representative.
+This would iniate a batch upload of fastq files into the secondary pipeline of Geneyx following the data specified in BatchImportTemplate.txt. 
 
----
 
-### **Additional Help & Support**:
-For any troubleshooting or questions, feel free to contact [support@geneyx.com](mailto:support@geneyx.com).
+# gVcfMod.sh: VCF File Processing Script
+
+## Overview
+The `gVcfMod.sh` script is designed to process **VCF (Variant Call Format)** files by removing the `<REF>` and `<NON_REF>` entries from the **ALT field** in the VCF file. The script works with both **gzipped** (`.vcf.gz`) and **uncompressed** `.vcf` files, preserving the header lines and modifying the variant data.
+
+## Prerequisites
+To run the script, you need the following:
+- **Bash**: A Unix-like environment (Linux, macOS, or **WSL** on Windows).
+- **AWK**: For processing the VCF data.
+- **zcat** or **gzip**: For decompressing gzipped files on the fly.
+- **dos2unix**: If you're on **Windows** (via WSL or Cygwin), you may need to convert line endings from Windows to Unix style.
+
+### Install `dos2unix` (Windows Users)
+If you're using Windows and encounter issues with line endings (e.g., `^M` errors), you can install and use `dos2unix` to convert the script's line endings to Unix-style.
+
+To install `dos2unix` on WSL:
+
+```bash```
+sudo apt-get install dos2unix
+
+Once installed, you can convert the script file:
+```bash```
+dos2unix gVcfMod.sh
+
+This command will convert the line endings from Windows-style (CRLF) to Unix-style (LF).
+
+###  Usage
+Step 1: Prepare the Files
+Ensure you have the following:
+
+Input VCF file (either gzipped or uncompressed).
+
+Output file where the processed VCF data will be saved.
+
+Step 2: Run the Script
+To use the script, execute the following command in your Bash terminal:
+
+```bash```
+./gVcfMod.sh <input_vcf_file> <output_vcf_file>
+
+Where:
+
+<input_vcf_file> is the path to your input VCF file (either .vcf or .vcf.gz).
+
+<output_vcf_file> is the path to the output file that will contain the processed VCF data.
+
+Step 3: Check the Output
+After the script finishes running, the modified VCF file will be saved to the specified output file (modified.vcf in the example).
+
+### Script Details
+What the Script Does:
+Preserves header lines: Lines starting with # are preserved as-is (they contain metadata and column names).
+
+Removes <REF> and <NON_REF> from the ALT field: If these entries exist in the ALT field (column 5), they will be removed.
+
+Skips variants with no alternate alleles left: If the ALT field becomes empty after removing <REF> and <NON_REF>, that variant is skipped.
+
+Supports gzipped VCF files: The script can process gzipped (.vcf.gz) files using zcat or gzip.
+
+What to Expect After Running:
+The script will produce a new VCF file where:
+
+The <REF> and <NON_REF> values are removed from the ALT field.
+
+The header lines are retained.
+
+Variants with no remaining alternate alleles are skipped.
+
