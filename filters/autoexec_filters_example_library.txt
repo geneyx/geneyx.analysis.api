@@ -1,0 +1,140 @@
+Auto Exec Filters — Helper + Field Fallback Library (ClinVar Labels Fixed)
+=========================================================================
+
+SNV Filters
+-----------
+
+Rare + Impacting + Good QC
+--------------------------
+# Helper-style (same as field here)
+it.FILTER == "PASS" && it.GQ >= 20 && it.Depth >= 10 && it.AltPercent >= 0.3 && it.Max_AF <= 0.01 && (it.IMPACT == "HIGH" || it.IMPACT == "MODERATE") && (it.CADDP >= 20 || it.RevelScore >= 0.5)
+
+# Field-only
+it.FILTER == "PASS" && it.GQ >= 20 && it.Depth >= 10 && it.AltPercent >= 0.3 && it.Max_AF <= 0.01 && (it.IMPACT == "HIGH" || it.IMPACT == "MODERATE") && (it.CADDP >= 20 || it.RevelScore >= 0.5)
+
+
+Splice Suspects
+---------------
+# Helper-style (if splice helpers exist)
+it.FILTER == "PASS" && it.Max_AF <= 0.01 && (it.SAIS >= 0.2 || it.AdaScore >= 0.9 || it.RfScore >= 0.9)
+
+# Field-only
+it.FILTER == "PASS" && it.Max_AF <= 0.01 && (it.SAIS >= 0.2 || it.AdaScore >= 0.9 || it.RfScore >= 0.9)
+
+
+Likely Damaging Missense in List
+--------------------------------
+# Helper-style (if gene list helpers exist)
+it.FILTER == "PASS" && it.EFFECT == "missense_variant" && it.Max_AF <= 0.005 && (it.RevelScore >= 0.6 || it.CADDP >= 25) && it.IsGeneIn("SCN2A,KCNQ2,STXBP1")
+
+# Field-only
+it.FILTER == "PASS" && it.EFFECT == "missense_variant" && it.Max_AF <= 0.005 && (it.RevelScore >= 0.6 || it.CADDP >= 25) && (it.Gene == "SCN2A" || it.Gene == "KCNQ2" || it.Gene == "STXBP1")
+
+
+ClinVar Pathogenic / Likely Pathogenic
+--------------------------------------
+# Helper-style
+it.HasClinVarPathogenicity("Pathogenic,Likely Pathogenic")
+
+# Field-only
+(it.ClinVar == "Pathogenic" || it.ClinVar == "Likely Pathogenic")
+
+
+ClinVar Pathogenic / Likely Pathogenic / VUS
+--------------------------------------------
+# Field-only
+(it.ClinVar == "Pathogenic" || it.ClinVar == "Likely Pathogenic" || it.ClinVar == "Variant of Unknown Significance")
+
+
+ClinVar Benign Side
+-------------------
+# Field-only
+(it.ClinVar == "Likely Benign" || it.ClinVar == "Benign")
+
+
+X-Linked Candidates
+-------------------
+# Helper-style (if IsRare exists)
+it.Chromosome == "X" && (it.GT == "HEM" || it.GT == "HET") && it.IsRare(0.01)
+
+# Field-only
+it.Chromosome == "X" && (it.GT == "HEM" || it.GT == "HET") && it.Max_AF <= 0.01
+
+
+SV Filters
+----------
+
+Rare, High-Confidence CNV (≥100 kb)
+-----------------------------------
+# Helper-style (if IsRare exists)
+it.Len >= 100000 && it.CnvScore >= 15 && it.IsRare(0.01) && (it.GT == "HET" || it.GT == "HOM")
+
+# Field-only
+it.Len >= 100000 && it.CnvScore >= 15 && it.Max_AF <= 0.01 && (it.GT == "HET" || it.GT == "HOM")
+
+
+Rare Deletions
+--------------
+# Helper-style
+it.CopyNumber > 0 && it.CopyNumber < 2 && it.IsRare(0.005)
+
+# Field-only
+it.CopyNumber > 0 && it.CopyNumber < 2 && it.Max_AF <= 0.005
+
+
+Rare Duplications
+-----------------
+# Helper-style
+it.CopyNumber >= 2.5 && it.IsRare(0.005)
+
+# Field-only
+it.CopyNumber >= 2.5 && it.Max_AF <= 0.005
+
+
+Rare CNV Over Known Disorder Regions
+------------------------------------
+# Helper-style (if HasGDFilter exists)
+it.IsRare(0.005) && it.HasGDFilter("PASS")
+
+# Field-only
+it.Max_AF <= 0.005 && it.GD_FILTER == "PASS"
+
+
+Utility Filters
+---------------
+
+Whitelist Genes
+---------------
+# Helper-style
+it.IsGeneIn("BRCA1,BRCA2,TP53")
+
+# Field-only
+(it.Gene == "BRCA1" || it.Gene == "BRCA2" || it.Gene == "TP53")
+
+
+Blacklist Genes
+---------------
+# Helper-style
+!it.IsGeneIn("TTN,MUC16")
+
+# Field-only
+!(it.Gene == "TTN" || it.Gene == "MUC16")
+
+
+PASS or Missing Filter
+----------------------
+# Helper-style
+it.IsPass() || it.FILTER == ""
+
+# Field-only
+it.FILTER == "PASS" || it.FILTER == ""
+
+
+Autosomes Only
+--------------
+# Helper-style
+it.IsAutosome()
+
+# Field-only
+it.Chromosome != "X" && it.Chromosome != "Y"
+
