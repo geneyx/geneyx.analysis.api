@@ -13,9 +13,10 @@ class JsonSectionParser(IAdvancedAnalysisFileParser):
             section = data.get(key, {})
             for k, value in section.items():
                 if k == 'variants':
-                    caller_data[k] = {}
+                    variant_list = []
                     for index, var in enumerate(value):
-                        caller_data[k][index] = IAdvancedAnalysisFileParser._format_value(var)
+                        variant_list.append(IAdvancedAnalysisFileParser._format_value(var))
+                    caller_data[k] = variant_list
                 else:
                     caller_data[k] = IAdvancedAnalysisFileParser._format_value(value)
         return caller_data
