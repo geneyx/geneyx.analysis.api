@@ -34,7 +34,7 @@ Update the `baseURL` variable based on your deployment:
 
 1. Download [Postman](https://www.postman.com/downloads/)
 2. Open the app and click **Import**
-3. Upload `Geneyx Analysis API Collection.postman_collection.json`
+3. Upload `collection.json`
 
 Once imported, navigate to the collection, set your variables, and begin testing endpoints.
 
