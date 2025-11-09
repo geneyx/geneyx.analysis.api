@@ -45,8 +45,8 @@ usage: PacBioUnifyVcf.py [-h] -o OUTPUTPATH [-s SVPATH] [-c CNVPATH] [-r FULLREP
           the repeats vcf file (if given) will **not** be unified.  
           When called with this parameter, the PacBioUnifyVcf.py script creates a filtered repeats 
           vcf file and unifies it (rather than the full repeats file) with the other vcf files.  
-	  This bed file containing PacBio pathogenic repeat regions can be downloaded from [PacBio]   
-          (https://strchive.org/_astro/STRchive-disease-loci.hg38.TRGT.B2FLLAlV.bed)  
+	  This bed file containing PacBio pathogenic repeat regions can be downloaded from `scripts/UnifyVcf/STRchive-disease-loci.hg38.TRGT.bed`  
+        This is a static hg38 catalog of pathogenic STR loci
   
           Please note that when running with this parameter you **must** run PacBioUnify on linux   
 	  and have bedtools installed.
