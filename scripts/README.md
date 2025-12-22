@@ -51,6 +51,10 @@ An example of this command would be:
 
 C:\geneyx.analysis.api-main\scripts>python ga_uploadSample_json.py --data "C:\sample.json" --snvVcf "C:\UpNew.vcf.gz"
 
+Please note that all samples must be left-aligned prior to upload in order to be processed correctly by the platform.
+
+Uploads that are not left-aligned may fail validation or result in downstream processing issues. We recommend confirming alignment before initiating the upload.
+
 # ga_uploadBatch.py
 This script allows a user to initiate a batch upload via command line into a secondary pipeline of Geneyx using the BatchImportTemplate.txt file, located in the template directory (https://github.com/geneyx/geneyx.analysis.api/blob/main/scripts/templates/BatchImportTemplate.txt). To run this, a Data Source must be configured in your Geneyx account, which can be accessed in the Settings dialog of the application. 
 Below is an example of this script that is run from command line:
@@ -127,4 +131,5 @@ The <REF> and <NON_REF> values are removed from the ALT field.
 The header lines are retained.
 
 Variants with no remaining alternate alleles are skipped.
+
 
