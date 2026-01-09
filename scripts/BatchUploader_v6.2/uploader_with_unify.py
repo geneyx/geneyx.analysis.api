@@ -91,7 +91,9 @@ def upload_sample(sample, config):
 
     # External file URLs
     'BamUrl': sample.get('bamUrl'),
+    'localBamUrl': sample.get('localBamUrl'),
     'MethylationUrl': sample.get('methylationUrl'),
+    'localMethylationUrl': sample.get('localMethylationUrl'),
 
     # Group assignment
     'GroupAssignmentCode': sample.get('groupAssignmentCode'),
