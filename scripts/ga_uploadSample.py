@@ -33,8 +33,10 @@ parser.add_argument('--excludeFromLAF', help = 'exclude the sample from local AF
 parser.add_argument('--sampleRelation', help = 'Sample relation', choices=['Self','Mother','Father','Sibling','Twin','MotherRelative','FatherRelative','Other'], default='Self')
 
 # sample external files
-parser.add_argument('--bamUrl', help = 'Url of the FASTQ file')
+parser.add_argument('--bamUrl', help = 'Url of the BAM file')
+parser.add_argument('--localBamUrl', help = 'local BAM file path')
 parser.add_argument('--methylationUrl', help = 'Url of the methylation file')
+parser.add_argument('--localMethylationUrl', help = 'local methylation file path')
 
 #patient data
 parser.add_argument('--patientId', help = 'patient id (serial number)', required=True)
@@ -159,7 +161,9 @@ data = {
             'SampleAdvAnalysis': args.sampleAdvAnalysis,
             'ExcludeFromLAF': args.excludeFromLAF,
             'bamUrl': args.bamUrl,
+            'localBamUrl': args.localBamUrl,
             'methylationUrl': args.methylationUrl,
+            'localMethylationUrl': args.localMethylationUrl,
             'SnvFile': snvBaseName,
             'StructFile': svBaseName,
             'SubjectId': args.patientId,
