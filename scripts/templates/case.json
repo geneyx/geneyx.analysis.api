@@ -8,6 +8,7 @@
 	"Owner": "string",
 	"OwnerDepartment":"string",
 	"GeneList":"string",
+	"GenePanelId":"string",
 	"ProtocolId": "string",
 	"SubjectId": "string",
 	"ProbandSampleId": "string",
