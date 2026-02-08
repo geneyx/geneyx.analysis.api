@@ -35,6 +35,8 @@ class AdvancedAnalysisParser:
             callers = self.map_files[filename]
             for caller_name, caller_config in callers.items():
                 caller_data: JsonDict = parser.parse( {caller_name: caller_config})
+                # Derive inner caller payload (strip top-level caller key if present)
+                inner_data = caller_data.get(caller_name) if isinstance(caller_data, dict) and caller_name in caller_data else caller_data
                 caller_title = caller_config.get("caller_name", None)
                 fields = caller_config.get("fields", None)
                 fields = {k: v for k, v in fields.items()} if isinstance(fields, dict) else fields
@@ -42,17 +44,17 @@ class AdvancedAnalysisParser:
                     caller_warning = caller_config.get(AdvancedAnalysisConstants.WARNING_KEY, None)
                     if caller_warning:
                         warning_formatter: IWarning = WarningFactory.get_formatter(caller_warning)
-                        warning_text = warning_formatter.format(caller_warning, caller_data)
+                        warning_text = warning_formatter.format(caller_warning, inner_data)
                         if result.get(caller_name.upper()) is None:
                             result[caller_name.upper()] = {"data": {}, "warning": {}}
                         result[caller_name.upper()]["caller_name"] = caller_title
-                        result[caller_name.upper()]["data"] = caller_data
+                        result[caller_name.upper()]["data"] = inner_data
                         result[caller_name.upper()]["warning"] = warning_text
                     else:
                         if result.get(caller_name.upper()) is None:
                             result[caller_name.upper()] = {"data": {}}
                         result[caller_name.upper()]["caller_name"] = caller_title
-                        result[caller_name.upper()] = {"data": caller_data}
+                        result[caller_name.upper()]["data"] = inner_data
                 else:
                     for field in fields:
                         field_config = fields.get(field, {})

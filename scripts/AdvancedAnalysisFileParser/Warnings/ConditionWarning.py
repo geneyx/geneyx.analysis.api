@@ -1,5 +1,3 @@
-from calendar import c
-from logging import warning
 from .IWarning import IWarning
 from ..Models import JsonDict, FieldCondition, ConditionOperator
 

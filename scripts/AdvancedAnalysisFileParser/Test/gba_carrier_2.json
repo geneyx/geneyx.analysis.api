@@ -1,0 +1,101 @@
+{
+  "softwareVersion": "dragen v05.121.779.4.4.4",
+  "sampleId": "22WVHMLT4_5_270UDI-idt-UMI",
+  "genomeBuild": "hg38",
+  "phenotypeDatabaseSources": [
+    "PharmCAT Phenotypes Version: Snapshot-2022.09.15"
+  ],
+  "cyp2b6": {
+    "genotype": "*1/*29",
+    "genotypeFilter": "PASS",
+    "phenotypeDatabaseAnnotation": "Intermediate Metabolizer"
+  },
+  "lpa": {
+    "kiv2CopyNumber": 39.45213332616308,
+    "refMarkerAlleleCopyNumber": null,
+    "altMarkerAlleleCopyNumber": null,
+    "type": "Homozygous REF markers call",
+    "variants": [
+      {
+        "hgvs": "LPA:4925G>A",
+        "qual": 0.0,
+        "altCopyNumber": 0,
+        "altCopyNumberQuality": 150.0
+      },
+      {
+        "hgvs": "LPA:4733G>A",
+        "qual": 0.0,
+        "altCopyNumber": 0,
+        "altCopyNumberQuality": 150.0
+      }
+    ]
+  },
+  "rh": {
+    "totalCopyNumber": 4,
+    "rhdCopyNumber": 2,
+    "rhceCopyNumber": 2,
+    "variants": [
+      {
+        "hgvs": "NC_000001.11g.25405596_25409676con25283766_25287797",
+        "qual": 26.086525474041604,
+        "altCopyNumber": 1,
+        "altCopyNumberQuality": 150.0
+      }
+    ]
+  },
+  "cyp21a2": {
+    "totalCopyNumber": 3,
+    "deletionBreakpointInGene": false,
+    "recombinantHaplotypes": [
+      "",
+      ""
+    ],
+    "variants": []
+  },
+  "cyp2d6": {
+    "totalCopyNumber": 3,
+    "genotype": "*1/*5",
+    "genotypeFilter": "PASS",
+    "genotypeQuality": 150,
+    "phenotypeDatabaseAnnotation": "Intermediate Metabolizer",
+    "variants": [
+      {
+        "alleleId": "g.42126938C>T",
+        "alleleCopyNumber": 2,
+        "genotypeQuality": 21,
+        "filter": "PASS"
+      }
+    ]
+  },
+  "gba": {
+    "totalCopyNumber": 4,
+    "deletionBreakpointInGene": null,
+    "recombinantHaplotypes": [
+      "",
+      ""
+    ],
+    "variants": [
+      {
+        "alleleId": "var1",
+        "alleleCopyNumber": 1
+      }
+    ]
+  },
+  "hba": {
+    "totalCopyNumber": 4,
+    "genotype": "aa/aa",
+    "genotypeQuality": 56,
+    "genotypeFilter": "PASS",
+    "variants": []
+  },
+  "smn": {
+    "fullLengthCopyNumber": 3,
+    "totalCopyNumber": 4,
+    "smn1CopyNumber": 2,
+    "smn2CopyNumber": 1,
+    "smn2Delta78CopyNumber": 1,
+    "fullLengthCopyNumberFloat": "2.59",
+    "totalCopyNumberFloat": "3.56",
+    "variants": []
+  }
+}

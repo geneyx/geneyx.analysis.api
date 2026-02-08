@@ -1,0 +1,129 @@
+{
+    "LPA": {
+        "file": "targeted-json",
+        "parser": "targeted_json_parser",
+        "json_key": "lpa",
+        "Warning": null
+    },
+    "SMN": {
+        "file": "targeted-json",
+        "parser": "targeted_json_parser",
+        "json_key": "smn",
+        "Warning": {
+            "type": "smn",
+            "caller_name": "SMN Caller",
+            "disease_name": "Spinal Muscular Atrophy",
+            "silent_carrier_variant": "NM_000344.4:c.*3+80T>G",
+            "silent_carrier_min_allele_copy": 1
+        }
+    },
+    "HBA": {
+        "file": "targeted-json",
+        "parser": "targeted_json_parser",
+        "json_key": "hba",
+        "Warning": {
+            "type": "genotype",
+            "caller_name": "HBA Special Caller",
+            "genotype_data_key": "genotype",
+            "phenotypeGenotypeMapping": {
+                "alpha-globin triplication":[
+                    "aaa3.7/aa",
+                    "aaa4.2/aa",
+                    "aaa20.5/aa"
+                ],
+                "normal":[
+                    "aa/aa"
+                ],
+                "silent carrier": [
+                    "-a3.7/aa",
+                    "-a4.2/aa",
+                    "-a20.5/aa"
+                ],
+                "carrier": [
+                    "--/aaa3.7",
+                    "--/aaa4.2",
+                    "-a3.7/-a3.7",
+                    "-a4.2/-a4.2",
+                    "-a3.7/-a4.2",
+                    "--/aa",
+                    "-a20.5/-a20.5",
+                    "-a20.5/-a3.7",
+                    "-a20.5/-a4.2",
+                    "--/aaa20.5"
+                ],
+                "positive for hemoglobin H disease": [
+                    "--/-a3.7",
+                    "--/-a4.2",
+                    "--/-a20.5"
+                ],
+                "positive for hemoglobin Bart's hydrops fetalis disease": [
+                    "--/--"
+                ]
+            },
+            "genotypeReference": [
+                "aaa3.7/aa",
+                "aaa4.2/aa",
+                "aaa20.5/aa",
+                "aaa20.5/aaa3.7",
+                "aaa20.5/aaa4.2",
+                "aaa20.5/aaa20.5",
+                "aa/aa",
+                "-a3.7/aa",
+                "-a4.2/aa",
+                "-a20.5/aa",
+                "--/aaa3.7",
+                "--/aaa4.2",
+                "--/aaa20.5",
+                "-a3.7/aaa20.5",
+                "-a4.2/aaa20.5",
+                "-a20.5/aaa3.7",
+                "-a20.5/aaa4.2",
+                "-a3.7/-a3.7",
+                "-a4.2/-a4.2",
+                "-a20.5/-a20.5",
+                "-a3.7/-a4.2",
+                "-a20.5/-a3.7",
+                "-a20.5/-a4.2",
+                "--/aa",
+                "--/-a3.7",
+                "--/-a4.2",
+                "--/-a20.5",
+                "--/--"
+            ]
+        }
+    },
+    "RH": {
+        "file": "targeted-json",
+        "parser": "targeted_json_parser",
+        "json_key": "rh",
+        "Warning": null
+    },
+    "CYP2D6": {
+        "file": "targeted-json",
+        "parser": "targeted_json_parser",
+        "json_key": "cyp2d6",
+        "Warning": null
+    },
+    "CYP2B6": {
+        "file": "targeted-json",
+        "parser": "targeted_json_parser",
+        "json_key": "cyp2b6",
+        "Warning": null
+    },
+    "CYP21A2": {
+        "file": "targeted-json",
+        "parser": "targeted_json_parser",
+        "json_key": "cyp21a2",
+        "Warning": null
+    },
+    "GBA": {
+        "file": "targeted-json",
+        "parser": "targeted_json_parser",
+        "json_key": "gba",
+        "Warning": {
+            "type": "gba",
+            "caller_name": "GBA Caller",
+            "disease_name": "Gaucher disease"
+        }
+    }
+}

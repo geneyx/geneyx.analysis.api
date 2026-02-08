@@ -3,6 +3,8 @@ from .IWarning import IWarning
 from .CarrierPositiveWarning import CarrierPositiveWarning
 from .GenotypeWarning import GenotypeWarning
 from .ConditionWarning import ConditionWarning
+from .SmnWarning import SmnWarning
+from .GbaWarning import GbaWarning
 class WarningFactory:
     @staticmethod
     def get_formatter(wtype: Optional[Dict]) -> IWarning:
@@ -19,6 +21,10 @@ class WarningFactory:
             return CarrierPositiveWarning()
         if warning_type == "genotype":
             return GenotypeWarning()
+        if warning_type == "smn":
+            return SmnWarning()
+        if warning_type == "gba":
+            return GbaWarning()
         if not isinstance(wtype, Dict):
             raise TypeError(f"Warning type must be a dict, got {type(wtype).__name__}")
         # If the warning type is not found, raise an error

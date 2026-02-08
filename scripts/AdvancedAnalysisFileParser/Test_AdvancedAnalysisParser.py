@@ -113,7 +113,20 @@ TEST_CONTEXTS = [
                 },
                 "SRR12898317_.dragen.wgs.hg38.20240705-133604.targeted.json" :{
                     #https://help.dragen.illumina.com/product-guides/dragen-v4.3/dragen-dna-pipeline/targeted-caller/gba-calling
-                    "gba" :{ },
+                    "gba" :{
+                        "caller_name": "GBA Caller",
+                        "Warning": {
+                            "type": "condition",
+                            "conditions": [
+                                {
+                                    "field": "recombinantHaplotypes",
+                                    "operator": "CONTAINS",
+                                    "value": "L483P",
+                                    "message": "Based on the GBA Caller, this sample is carrier for Gaucher disease"
+                                }
+                            ]
+                        }
+                    },
                     #https://help.dragen.illumina.com/product-guides/dragen-v4.3/dragen-dna-pipeline/targeted-caller/smn-calling
                     "smn": { },
                     #https://help.dragen.illumina.com/product-guides/dragen-v4.3/dragen-dna-pipeline/targeted-caller/lpa-calling
@@ -134,14 +147,16 @@ TEST_CONTEXTS = [
                             "phenotypeGenotypeMapping": {
                                 "alpha-globin triplication":[
                                     "aaa3.7/aa",
-                                    "aaa4.2/aa"
+                                    "aaa4.2/aa",
+                                    "aaa20.5/aa"
                                 ],
                                 "normal":[
                                     "aa/aa"
                                 ],
                                 "silent carrier": [
                                     "-a3.7/aa",
-                                    "-a4.2/aa"
+                                    "-a4.2/aa",
+                                    "-a20.5/aa"
                                 ],
                                 "carrier": [
                                     "--/aaa3.7",
@@ -149,12 +164,17 @@ TEST_CONTEXTS = [
                                     "-a3.7/-a3.7",
                                     "-a4.2/-a4.2",
                                     "-a3.7/-a4.2",
-                                    "--/aa"
+                                    "--/aa",
+                                    "-a20.5/-a20.5",
+                                    "-a20.5/-a3.7",
+                                    "-a20.5/-a4.2",
+                                    "--/aaa20.5",
                                 ],
                                  #Hb H disease
                                 "positive for hemoglobin H disease": [
                                     "--/-a3.7",
-                                    "--/-a4.2" 
+                                    "--/-a4.2",
+                                    "--/-a20.5"
                                 ],
                                 #Hb Bart's hydrops fetalis disease
                                 "positive for hemoglobin Bart's hydrops fetalis disease": [
@@ -163,6 +183,540 @@ TEST_CONTEXTS = [
                             }
                         }
                     }
+                },
+                "hba_hemoglobin_h_disease.json": {
+                    "hba": {
+                        "caller_name": "HBA Special Caller",
+                        "Warning": {
+                            "type": "genotype",
+                            "phenotypeGenotypeMapping": {
+                                "alpha-globin triplication":[
+                                    "aaa3.7/aa",
+                                    "aaa4.2/aa",
+                                    "aaa20.5/aa"
+                                ],
+                                "normal":[
+                                    "aa/aa"
+                                ],
+                                "silent carrier": [
+                                    "-a3.7/aa",
+                                    "-a4.2/aa",
+                                    "-a20.5/aa"
+                                ],
+                                "carrier": [
+                                    "--/aaa3.7",
+                                    "--/aaa4.2",
+                                    "-a3.7/-a3.7",
+                                    "-a4.2/-a4.2",
+                                    "-a3.7/-a4.2",
+                                    "--/aa",
+                                    "-a20.5/-a20.5",
+                                    "-a20.5/-a3.7",
+                                    "-a20.5/-a4.2",
+                                    "--/aaa20.5",
+                                ],
+                                 #Hb H disease
+                                "positive for hemoglobin H disease": [
+                                    "--/-a3.7",
+                                    "--/-a4.2",
+                                    "--/-a20.5"
+                                ],
+                                #Hb Bart's hydrops fetalis disease
+                                "positive for hemoglobin Bart's hydrops fetalis disease": [
+                                    "--/--"
+                                ]
+                            }
+                        }
+                    },
+                    "smn": { "caller_name": "SMN Special Caller" },
+                    "gba": { "caller_name": "GBA Caller" },
+                    "lpa": {},
+                    "rh": {},
+                    "cyp2b6": {},
+                    "cyp2d6": {},
+                    "cyp21a2": {}
+                },
+                "hba_carrier_1.json": {
+                    "hba": {
+                        "caller_name": "HBA Special Caller",
+                        "Warning": {
+                            "type": "genotype",
+                            "phenotypeGenotypeMapping": {
+                                "alpha-globin triplication":[
+                                    "aaa3.7/aa",
+                                    "aaa4.2/aa",
+                                    "aaa20.5/aa"
+                                ],
+                                "normal":[
+                                    "aa/aa"
+                                ],
+                                "silent carrier": [
+                                    "-a3.7/aa",
+                                    "-a4.2/aa",
+                                    "-a20.5/aa"
+                                ],
+                                "carrier": [
+                                    "--/aaa3.7",
+                                    "--/aaa4.2",
+                                    "-a3.7/-a3.7",
+                                    "-a4.2/-a4.2",
+                                    "-a3.7/-a4.2",
+                                    "--/aa",
+                                    "-a20.5/-a20.5",
+                                    "-a20.5/-a3.7",
+                                    "-a20.5/-a4.2",
+                                    "--/aaa20.5",
+                                ],
+                                 #Hb H disease
+                                "positive for hemoglobin H disease": [
+                                    "--/-a3.7",
+                                    "--/-a4.2",
+                                    "--/-a20.5"
+                                ],
+                                #Hb Bart's hydrops fetalis disease
+                                "positive for hemoglobin Bart's hydrops fetalis disease": [
+                                    "--/--"
+                                ]                            }
+                        }
+                    },
+                    "smn": { "caller_name": "SMN Special Caller" },
+                    "gba": { "caller_name": "GBA Caller" },
+                    "lpa": {},
+                    "rh": {},
+                    "cyp2b6": {},
+                    "cyp2d6": {},
+                    "cyp21a2": {}
+                },
+                "hba_carrier_2.json": {
+                    "hba": {
+                        "caller_name": "HBA Special Caller",
+                        "Warning": {
+                            "type": "genotype",
+                            "phenotypeGenotypeMapping": {
+                                "alpha-globin triplication":[
+                                    "aaa3.7/aa",
+                                    "aaa4.2/aa",
+                                    "aaa20.5/aa"
+                                ],
+                                "normal":[
+                                    "aa/aa"
+                                ],
+                                "silent carrier": [
+                                    "-a3.7/aa",
+                                    "-a4.2/aa",
+                                    "-a20.5/aa"
+                                ],
+                                "carrier": [
+                                    "--/aaa3.7",
+                                    "--/aaa4.2",
+                                    "-a3.7/-a3.7",
+                                    "-a4.2/-a4.2",
+                                    "-a3.7/-a4.2",
+                                    "--/aa",
+                                    "-a20.5/-a20.5",
+                                    "-a20.5/-a3.7",
+                                    "-a20.5/-a4.2",
+                                    "--/aaa20.5",
+                                ],
+                                 #Hb H disease
+                                "positive for hemoglobin H disease": [
+                                    "--/-a3.7",
+                                    "--/-a4.2",
+                                    "--/-a20.5"
+                                ],
+                                #Hb Bart's hydrops fetalis disease
+                                "positive for hemoglobin Bart's hydrops fetalis disease": [
+                                    "--/--"
+                                ]                            }
+                        }
+                    },
+                    "smn": { "caller_name": "SMN Special Caller" },
+                    "gba": { "caller_name": "GBA Caller" },
+                    "lpa": {},
+                    "rh": {},
+                    "cyp2b6": {},
+                    "cyp2d6": {},
+                    "cyp21a2": {}
+                },
+                "hba_carrier_3.json": {
+                    "hba": {
+                        "caller_name": "HBA Special Caller",
+                        "Warning": {
+                            "type": "genotype",
+                            "phenotypeGenotypeMapping": {
+                                "alpha-globin triplication":[
+                                    "aaa3.7/aa",
+                                    "aaa4.2/aa",
+                                    "aaa20.5/aa"
+                                ],
+                                "normal":[
+                                    "aa/aa"
+                                ],
+                                "silent carrier": [
+                                    "-a3.7/aa",
+                                    "-a4.2/aa",
+                                    "-a20.5/aa"
+                                ],
+                                "carrier": [
+                                    "--/aaa3.7",
+                                    "--/aaa4.2",
+                                    "-a3.7/-a3.7",
+                                    "-a4.2/-a4.2",
+                                    "-a3.7/-a4.2",
+                                    "--/aa",
+                                    "-a20.5/-a20.5",
+                                    "-a20.5/-a3.7",
+                                    "-a20.5/-a4.2",
+                                    "--/aaa20.5",
+                                ],
+                                 #Hb H disease
+                                "positive for hemoglobin H disease": [
+                                    "--/-a3.7",
+                                    "--/-a4.2",
+                                    "--/-a20.5"
+                                ],
+                                #Hb Bart's hydrops fetalis disease
+                                "positive for hemoglobin Bart's hydrops fetalis disease": [
+                                    "--/--"
+                                ]                            }
+                        }
+                    },
+                    "smn": { "caller_name": "SMN Special Caller" },
+                    "gba": { "caller_name": "GBA Caller" },
+                    "lpa": {},
+                    "rh": {},
+                    "cyp2b6": {},
+                    "cyp2d6": {},
+                    "cyp21a2": {}
+                },
+                "hba_carrier_4.json": {
+                    "hba": {
+                        "caller_name": "HBA Special Caller",
+                        "Warning": {
+                            "type": "genotype",
+                            "phenotypeGenotypeMapping": {
+                                "alpha-globin triplication":[
+                                    "aaa3.7/aa",
+                                    "aaa4.2/aa",
+                                    "aaa20.5/aa"
+                                ],
+                                "normal":[
+                                    "aa/aa"
+                                ],
+                                "silent carrier": [
+                                    "-a3.7/aa",
+                                    "-a4.2/aa",
+                                    "-a20.5/aa"
+                                ],
+                                "carrier": [
+                                    "--/aaa3.7",
+                                    "--/aaa4.2",
+                                    "-a3.7/-a3.7",
+                                    "-a4.2/-a4.2",
+                                    "-a3.7/-a4.2",
+                                    "--/aa",
+                                    "-a20.5/-a20.5",
+                                    "-a20.5/-a3.7",
+                                    "-a20.5/-a4.2",
+                                    "--/aaa20.5",
+                                ],
+                                 #Hb H disease
+                                "positive for hemoglobin H disease": [
+                                    "--/-a3.7",
+                                    "--/-a4.2",
+                                    "--/-a20.5"
+                                ],
+                                #Hb Bart's hydrops fetalis disease
+                                "positive for hemoglobin Bart's hydrops fetalis disease": [
+                                    "--/--"
+                                ]
+                            }
+                        }
+                    },
+                    "smn": { "caller_name": "SMN Special Caller" },
+                    "gba": { "caller_name": "GBA Caller" },
+                    "lpa": {},
+                    "rh": {},
+                    "cyp2b6": {},
+                    "cyp2d6": {},
+                    "cyp21a2": {}
+                },
+                "hba_silent_carrier.json": {
+                    "hba": {
+                        "caller_name": "HBA Special Caller",
+                        "Warning": {
+                            "type": "genotype",
+                            "phenotypeGenotypeMapping": {
+                                "alpha-globin triplication":[
+                                    "aaa3.7/aa",
+                                    "aaa4.2/aa",
+                                    "aaa20.5/aa"
+                                ],
+                                "normal":[
+                                    "aa/aa"
+                                ],
+                                "silent carrier": [
+                                    "-a3.7/aa",
+                                    "-a4.2/aa",
+                                    "-a20.5/aa"
+                                ],
+                                "carrier": [
+                                    "--/aaa3.7",
+                                    "--/aaa4.2",
+                                    "-a3.7/-a3.7",
+                                    "-a4.2/-a4.2",
+                                    "-a3.7/-a4.2",
+                                    "--/aa",
+                                    "-a20.5/-a20.5",
+                                    "-a20.5/-a3.7",
+                                    "-a20.5/-a4.2",
+                                    "--/aaa20.5",
+                                ],
+                                 #Hb H disease
+                                "positive for hemoglobin H disease": [
+                                    "--/-a3.7",
+                                    "--/-a4.2",
+                                    "--/-a20.5"
+                                ],
+                                #Hb Bart's hydrops fetalis disease
+                                "positive for hemoglobin Bart's hydrops fetalis disease": [
+                                    "--/--"
+                                ]
+                            }
+                        }
+                    },
+                    "smn": { "caller_name": "SMN Special Caller" },
+                    "gba": { "caller_name": "GBA Caller" },
+                    "lpa": {},
+                    "rh": {},
+                    "cyp2b6": {},
+                    "cyp2d6": {},
+                    "cyp21a2": {}
+                },
+                "smn_positive.json": {
+                    "hba": { "caller_name": "HBA Special Caller" },
+                    "smn": {
+                        "caller_name": "SMN Special Caller",
+                        "Warning": {
+                            "type": "condition",
+                            "conditions": [
+                                {
+                                    "field": "smn1CopyNumber",
+                                    "operator": "EQ",
+                                    "value": 0,
+                                    "message": "Based on the SMN Caller, this sample is positive for Spinal Muscular Atrophy"
+                                }
+                            ]
+                        }
+                    },
+                    "gba": { "caller_name": "GBA Caller" },
+                    "lpa": {},
+                    "rh": {},
+                    "cyp2b6": {},
+                    "cyp2d6": {},
+                    "cyp21a2": {}
+                },
+                "smn_carrier.json": {
+                    "hba": { "caller_name": "HBA Special Caller" },
+                    "smn": {
+                        "caller_name": "SMN Special Caller",
+                        "Warning": {
+                            "type": "condition",
+                            "conditions": [
+                                {
+                                    "field": "smn1CopyNumber",
+                                    "operator": "EQ",
+                                    "value": 1,
+                                    "message": "Based on the SMN Caller, this sample is carrier for Spinal Muscular Atrophy"
+                                }
+                            ]
+                        }
+                    },
+                    "gba": { "caller_name": "GBA Caller" },
+                    "lpa": {},
+                    "rh": {},
+                    "cyp2b6": {},
+                    "cyp2d6": {},
+                    "cyp21a2": {}
+                },
+                "smn_silent_carrier_risk.json": {
+                    "hba": { "caller_name": "HBA Special Caller" },
+                    "smn": {
+                        "caller_name": "SMN Special Caller",
+                        "Warning": {
+                            "type": "condition",
+                            "conditions": [
+                                {
+                                    "field": "smn1CopyNumber",
+                                    "operator": "EQ",
+                                    "value": 2,
+                                    "message": "Based on the SMN Caller, this sample has increased risk of being a silent carrier (2+0) for Spinal Muscular Atrophy"
+                                },
+                                {
+                                    "field": "variants",
+                                    "operator": "CONTAINS",
+                                    "value": {"alleleId": "NM_000344.4:c.*3+80T>G", "alleleCopyNumber": 1},
+                                    "message": "Based on the SMN Caller, this sample has increased risk of being a silent carrier (2+0) for Spinal Muscular Atrophy"
+                                }
+                            ]
+                        }
+                    },
+                    "gba": { "caller_name": "GBA Caller" },
+                    "lpa": {},
+                    "rh": {},
+                    "cyp2b6": {},
+                    "cyp2d6": {},
+                    "cyp21a2": {}
+                },
+                "gba_positive_1.json": {
+                    "hba": { "caller_name": "HBA Special Caller" },
+                    "smn": { "caller_name": "SMN Special Caller" },
+                    "gba": {
+                        "caller_name": "GBA Caller",
+                        "Warning": {
+                            "type": "condition",
+                            "conditions": [
+                                {
+                                    "field": "recombinantHaplotypes",
+                                    "operator": "GE",
+                                    "value": 2,
+                                    "message": "Based on the GBA Caller, this sample is positive for Gaucher disease"
+                                }
+                            ]
+                        }
+                    },
+                    "lpa": {},
+                    "rh": {},
+                    "cyp2b6": {},
+                    "cyp2d6": {},
+                    "cyp21a2": {}
+                },
+                "gba_positive_2.json": {
+                    "hba": { "caller_name": "HBA Special Caller" },
+                    "smn": { "caller_name": "SMN Special Caller" },
+                    "gba": {
+                        "caller_name": "GBA Caller",
+                        "Warning": {
+                            "type": "condition",
+                            "conditions": [
+                                {
+                                    "field": "variants",
+                                    "operator": "CONTAINS",
+                                    "value": {"alleleCopyNumber": 2},
+                                    "message": "Based on the GBA Caller, this sample is positive for Gaucher disease"
+                                }
+                            ]
+                        }
+                    },
+                    "lpa": {},
+                    "rh": {},
+                    "cyp2b6": {},
+                    "cyp2d6": {},
+                    "cyp21a2": {}
+                },
+                "gba_multiple_phase_unknown_1.json": {
+                    "hba": { "caller_name": "HBA Special Caller" },
+                    "smn": { "caller_name": "SMN Special Caller" },
+                    "gba": {
+                        "caller_name": "GBA Caller",
+                        "Warning": {
+                            "type": "condition",
+                            "conditions": [
+                                {
+                                    "field": "recombinantHaplotypes",
+                                    "operator": "EQ", 
+                                    "value": 1,
+                                    "message": "Multiple GBA variants detected; phase is unknown (could be in cis or in trans). Interpret cautiously."
+                                },
+                                {
+                                    "field": "variants",
+                                    "operator": "GE",
+                                    "value": 1,
+                                    "message": "Multiple GBA variants detected; phase is unknown (could be in cis or in trans). Interpret cautiously."
+                                }
+                            ]
+                        }
+                    },
+                    "lpa": {},
+                    "rh": {},
+                    "cyp2b6": {},
+                    "cyp2d6": {},
+                    "cyp21a2": {}
+                },
+                "gba_multiple_phase_unknown_2.json": {
+                    "hba": { "caller_name": "HBA Special Caller" },
+                    "smn": { "caller_name": "SMN Special Caller" },
+                    "gba": {
+                        "caller_name": "GBA Caller",
+                        "Warning": {
+                            "type": "condition",
+                            "conditions": [
+                                {
+                                    "field": "recombinantHaplotypes",
+                                    "operator": "EQ", 
+                                    "value": 0,
+                                    "message": "Multiple GBA variants detected; phase is unknown (could be in cis or in trans). Interpret cautiously."
+                                },
+                                {
+                                    "field": "variants",
+                                    "operator": "GE",
+                                    "value": 2,
+                                    "message": "Multiple GBA variants detected; phase is unknown (could be in cis or in trans). Interpret cautiously."
+                                }
+                            ]
+                        }
+                    },
+                    "lpa": {},
+                    "rh": {},
+                    "cyp2b6": {},
+                    "cyp2d6": {},
+                    "cyp21a2": {}
+                },
+                "gba_carrier_1.json": {
+                    "hba": { "caller_name": "HBA Special Caller" },
+                    "smn": { "caller_name": "SMN Special Caller" },
+                    "gba": {
+                        "caller_name": "GBA Caller",
+                        "Warning": {
+                            "type": "condition",
+                            "conditions": [
+                                {
+                                    "field": "recombinantHaplotypes",
+                                    "operator": "EQ", 
+                                    "value": 1,
+                                    "message": "Based on the GBA Caller, this sample is carrier for Gaucher disease"
+                                }
+                            ]
+                        }
+                    },
+                    "lpa": {},
+                    "rh": {},
+                    "cyp2b6": {},
+                    "cyp2d6": {},
+                    "cyp21a2": {}
+                },
+                "gba_carrier_2.json": {
+                    "hba": { "caller_name": "HBA Special Caller" },
+                    "smn": { "caller_name": "SMN Special Caller" },
+                    "gba": {
+                        "caller_name": "GBA Caller",
+                        "Warning": {
+                            "type": "condition",
+                            "conditions": [
+                                {
+                                    "field": "variants",
+                                    "operator": "EQ", 
+                                    "value": 1,
+                                    "message": "Based on the GBA Caller, this sample is carrier for Gaucher disease"
+                                }
+                            ]
+                        }
+                    },
+                    "lpa": {},
+                    "rh": {},
+                    "cyp2b6": {},
+                    "cyp2d6": {},
+                    "cyp21a2": {}
                 }
             },
         },
@@ -187,6 +741,15 @@ def test_parser_in_memory( context : JsonDict) -> None:
     # Compare to expected
     assert result is not None
     assert result['MSI'].get('warning') == 'MSI>10 detected in this sample'
-    assert result['SMN1'].get('warning') == 'Carrier positive for Spinal Muscular Atrophy'
     assert result['TMB'].get('warning') == 'TMB>10 detected in this sample'
-    
+    assert result['GIS'].get('warning') == 'GIS>42 detected in this sample'
+    assert result['SMN1'].get('warning') == 'Carrier positive for Spinal Muscular Atrophy'
+    assert result['GBA'].get('warning') == ''
+    # Add assertions for all relevant callers in the test context
+    for caller in ['hba', 'smn', 'gba', 'lpa', 'rh', 'cyp2b6', 'cyp2d6', 'cyp21a2']:
+        if caller in result:
+            assert 'caller_name' in result[caller]
+            # Optionally check warning presence/absence
+            if 'Warning' in context['request']['map_files'].get(context['request'].get('input_json', ''), {}).get(caller, {}):
+                assert 'warning' in result[caller]
+
