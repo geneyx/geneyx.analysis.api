@@ -25,7 +25,7 @@ parser.add_argument('--svVcf', help = 'The path to the SV VCF file')
 parser.add_argument('--cnvVcf', help = 'The path to the CNV  VCF file')
 
 # Clinical-record data Json file
-parser.add_argument('--data','-d', help = 'data JSON file', default='templates\sample.json')
+parser.add_argument('--data','-d', help = 'data JSON file', default='templates/sample.json')
 
 parser.add_argument('--config','-c', help = 'configuration file', default='ga.config.yml')
 
