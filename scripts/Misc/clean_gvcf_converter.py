@@ -10,9 +10,68 @@ def open_text(path):
     return open(path, "r")
 
 
+def is_hom_ref(gt):
+    """
+    Returns True if GT is homozygous reference:
+    0/0, 0|0, or haploid 0.
+    """
+    if gt in {".", "./.", ".|.", ""}:
+        return False
+
+    alleles = gt.replace("|", "/").split("/")
+
+    return all(a == "0" for a in alleles)
+
+
+def get_gt_from_sample(format_keys, sample_value):
+    """
+    Extract GT from a sample column based on FORMAT.
+    """
+    if "GT" not in format_keys:
+        return None
+
+    gt_index = format_keys.index("GT")
+    sample_values = sample_value.split(":")
+
+    if len(sample_values) <= gt_index:
+        return None
+
+    return sample_values[gt_index]
+
+
+def should_drop_all_hom_ref(fields):
+    """
+    Drop only if all samples with GT are homozygous reference.
+    If no GT is found, do not drop.
+    """
+    if len(fields) < 10:
+        return False
+
+    format_keys = fields[8].split(":")
+
+    if "GT" not in format_keys:
+        return False
+
+    found_gt = False
+
+    for sample_col in range(9, len(fields)):
+        gt = get_gt_from_sample(format_keys, fields[sample_col])
+
+        if gt is None:
+            continue
+
+        found_gt = True
+
+        if not is_hom_ref(gt):
+            return False
+
+    return found_gt
+
+
 def process_vcf(input_vcf, output_vcf):
     total = 0
     written = 0
+    dropped_hom_ref = 0
     rewritten_records = 0
     rewritten_alleles = 0
 
@@ -31,6 +90,11 @@ def process_vcf(input_vcf, output_vcf):
                 # Write malformed/nonstandard lines unchanged
                 out.write(line + "\n")
                 written += 1
+                continue
+
+            # Drop records where all sample GTs are 0/0 or 0|0
+            if should_drop_all_hom_ref(fields):
+                dropped_hom_ref += 1
                 continue
 
             alts = fields[4].split(",")
@@ -60,6 +124,7 @@ def process_vcf(input_vcf, output_vcf):
     print("Processing complete.")
     print(f"Input records: {total}")
     print(f"Records written: {written}")
+    print(f"Records dropped because all GTs were 0/0 or 0|0: {dropped_hom_ref}")
     print(f"Records with <NON_REF> rewritten: {rewritten_records}")
     print(f"<NON_REF> alleles rewritten to <REF>: {rewritten_alleles}")
     print(f"Clean VCF: {output_vcf}")
