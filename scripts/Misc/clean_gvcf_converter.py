@@ -10,23 +10,20 @@ def open_text(path):
     return open(path, "r")
 
 
-def is_hom_ref(gt):
+def is_hom_ref_or_missing(gt):
     """
-    Returns True if GT is homozygous reference:
-    0/0, 0|0, or haploid 0.
+    Returns True if GT is:
+    - homozygous reference: 0/0, 0|0, 0
+    - missing: ./., .|., .
     """
     if gt in {".", "./.", ".|.", ""}:
-        return False
+        return True
 
     alleles = gt.replace("|", "/").split("/")
-
     return all(a == "0" for a in alleles)
 
 
 def get_gt_from_sample(format_keys, sample_value):
-    """
-    Extract GT from a sample column based on FORMAT.
-    """
     if "GT" not in format_keys:
         return None
 
@@ -39,10 +36,10 @@ def get_gt_from_sample(format_keys, sample_value):
     return sample_values[gt_index]
 
 
-def should_drop_all_hom_ref(fields):
+def should_drop_all_hom_ref_or_missing(fields):
     """
-    Drop only if all samples with GT are homozygous reference.
-    If no GT is found, do not drop.
+    Drop only if all samples with GT are homozygous reference or missing.
+    Keep if any sample has a non-reference GT.
     """
     if len(fields) < 10:
         return False
@@ -62,7 +59,7 @@ def should_drop_all_hom_ref(fields):
 
         found_gt = True
 
-        if not is_hom_ref(gt):
+        if not is_hom_ref_or_missing(gt):
             return False
 
     return found_gt
@@ -71,7 +68,7 @@ def should_drop_all_hom_ref(fields):
 def process_vcf(input_vcf, output_vcf):
     total = 0
     written = 0
-    dropped_hom_ref = 0
+    dropped_hom_ref_or_missing = 0
     rewritten_records = 0
     rewritten_alleles = 0
 
@@ -87,14 +84,12 @@ def process_vcf(input_vcf, output_vcf):
             fields = line.split("\t")
 
             if len(fields) < 8:
-                # Write malformed/nonstandard lines unchanged
                 out.write(line + "\n")
                 written += 1
                 continue
 
-            # Drop records where all sample GTs are 0/0 or 0|0
-            if should_drop_all_hom_ref(fields):
-                dropped_hom_ref += 1
+            if should_drop_all_hom_ref_or_missing(fields):
+                dropped_hom_ref_or_missing += 1
                 continue
 
             alts = fields[4].split(",")
@@ -115,16 +110,13 @@ def process_vcf(input_vcf, output_vcf):
 
             fields[4] = ",".join(new_alts)
 
-            # Important:
-            # Do NOT modify GT, AD, AF, or any FORMAT fields.
-            # Allele indexes stay exactly the same.
             out.write("\t".join(fields) + "\n")
             written += 1
 
     print("Processing complete.")
     print(f"Input records: {total}")
     print(f"Records written: {written}")
-    print(f"Records dropped because all GTs were 0/0 or 0|0: {dropped_hom_ref}")
+    print(f"Records dropped because all GTs were 0/0, 0|0, ./., .|., or .: {dropped_hom_ref_or_missing}")
     print(f"Records with <NON_REF> rewritten: {rewritten_records}")
     print(f"<NON_REF> alleles rewritten to <REF>: {rewritten_alleles}")
     print(f"Clean VCF: {output_vcf}")
