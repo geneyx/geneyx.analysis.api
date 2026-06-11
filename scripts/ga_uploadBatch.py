@@ -32,7 +32,7 @@ print(config)
 #prepare the data to send
 data = {
 			'ApiUserKey': config['apiUserKey'],
-			'ApiUserID': config['apiUserId']
+			'ApiUserId': config['apiUserId']
 	    }
 
 files = { 'batchFile': open(batchFile, "rb") }
