@@ -1,55 +1,119 @@
-# Unifying structural vcf files
+# Unifying Structural VCF Files
 
-UnifyVcf.py is a script that unifies different types of vcf files so that the unified file can be 
-uploaded as sv-vcf into Geneyx application.  
+The **UnifyVcf** scripts combine multiple variant files into a single structural variant VCF (`SV-VCF`) that can be uploaded to the Geneyx application.
 
-Please note these script should be ran using **python3**.  
+The scripts support the following variant types:
 
-The vcf files that are unified by it are: 
-- **SV** – structural variants VCF  
-- **CNV** – copy number variants VCF  
-- **Repeats** – tandem repeat variants VCF  
-- **ROH** – Regions of Homozygosity BED (DRAGEN only)
+* **SV** — Structural variants
+* **CNV** — Copy number variants
+* **Repeats** — Tandem repeat variants
+* **ROH** — Regions of Homozygosity (DRAGEN only)
 
-This script not only unifies the files but also modifies them when necessary, since each provider provides 
-slightly different vcf files, and the final file has to include specific fields for the Geneyx application 
-to be able to read it properly.  
+> **Requirement:** These scripts must be run using **Python 3**.
 
-Hence, it's important to run the script that matches the pipeline with which the vcf files were created.  
+## How It Works
 
-## Scripts
-  
-- `DragenUnifyVcf.py` – for DRAGEN pipeline  
-- `ONTUnifyVcf.py` – for Oxford Nanopore sequences and pipeline  
-- `PacBioUnifyVcf.py` – for PacBio sequences and pipeline  
+In addition to combining variant files, the scripts make pipeline-specific modifications when necessary to ensure the resulting VCF contains the fields and formatting required by Geneyx.
+
+Because VCF output differs between sequencing and analysis pipelines, **use the UnifyVcf script that corresponds to the pipeline used to generate your files.**
+
+## Available Scripts
+
+* `DragenUnifyVcf.py` — DRAGEN
+* `ONTUnifyVcf.py` — Oxford Nanopore Technologies (ONT)
+* `PacBioUnifyVcf.py` — PacBio
 
 ## Usage
-Running the Unifying scripts:  
-usage: DragenUnifyVcf.py [-h] -o OUTPUTPATH [-s SVPATH] [-c CNVPATH] [-r REPEATPATH] [-d ROH_BED_FILE]  
-usage: ONTUnifyVcf.py [-h] -o OUTPUTPATH [-s SVPATH] [-c CNVPATH] [-r REPEATPATH] -modify  
-usage: PacBioUnifyVcf.py [-h] -o OUTPUTPATH [-s SVPATH] [-c CNVPATH] [-r FULLREPEATPATH] [-b REPEATLOCATIONSBEDFILEPATH]  
 
-**Arguments**
+### DRAGEN
 
-`-o`        The path to the unified vcf file, including its name. The script compresses 
-	  the output file, so its name should end with ".vcf" and not ".gz"  
-`-s`        The path to the structural variants (sv) vcf. This file can be either gzipped or unzipped,   
-          but it must be a vcf file.  
-`-c`        The path to the Copy Number Variants (CNV) vcf. This file can be either gzipped or unzipped,   
-          but it must be a vcf file.  
-`-r`        The path to the tandem repeats variants vcf. This file can be either gzipped or unzipped, 
-          but it must be a vcf file.  
+```bash
+python3 DragenUnifyVcf.py \
+  -o OUTPUTPATH \
+  [-s SVPATH] \
+  [-c CNVPATH] \
+  [-r REPEATPATH] \
+  [-d ROH_BED_FILE]
+```
 
-`-d`        Relevant for DRAGEN only.  Parameter is the fully qualified path to BED file containing the ROH 
-          (Regions of Homozygosity) call produced by DRAGEN when run with the --vc-enable-roh flag.  
-`-modify`   Relevant for ONT only.  Required to modify REPEAT calls if STRaglr is called.  
-`-b`        Relevant only for PacBio only. A bed file used to filter the repeats vcf file.   
-          If the PacBioUnifyVcf.py script is called without this parameter,  
-          the repeats vcf file (if given) will **not** be unified.  
-          When called with this parameter, the PacBioUnifyVcf.py script creates a filtered repeats 
-          vcf file and unifies it (rather than the full repeats file) with the other vcf files.  
-	  This bed file containing PacBio pathogenic repeat regions can be downloaded from `scripts/UnifyVcf/STRchive-disease-loci.hg38.TRGT.bed`  
-        This is a static hg38 catalog of pathogenic STR loci
-  
-          Please note that when running with this parameter you **must** run PacBioUnify on linux   
-	  and have bedtools installed.
+### Oxford Nanopore (ONT)
+
+```bash
+python3 ONTUnifyVcf.py \
+  -o OUTPUTPATH \
+  [-s SVPATH] \
+  [-c CNVPATH] \
+  [-r REPEATPATH] \
+  -modify
+```
+
+### PacBio
+
+```bash
+python3 PacBioUnifyVcf.py \
+  -o OUTPUTPATH \
+  [-s SVPATH] \
+  [-c CNVPATH] \
+  [-r FULLREPEATPATH] \
+  [-b REPEATLOCATIONSBEDFILEPATH]
+```
+
+## Common Arguments
+
+**`-o` — Output VCF**
+
+Path and filename for the unified VCF.
+
+The script automatically compresses the output, so the specified filename should end in `.vcf`, **not** `.vcf.gz`.
+
+**`-s` — Structural Variant VCF**
+
+Path to the structural variant (SV) VCF. The input may be compressed or uncompressed but must be a valid VCF file.
+
+**`-c` — Copy Number Variant VCF**
+
+Path to the copy number variant (CNV) VCF. The input may be compressed or uncompressed but must be a valid VCF file.
+
+**`-r` — Tandem Repeat VCF**
+
+Path to the tandem repeat variant VCF. The input may be compressed or uncompressed but must be a valid VCF file.
+
+## Pipeline-Specific Arguments
+
+### DRAGEN: `-d`
+
+Path to the BED file containing **Regions of Homozygosity (ROH)** calls generated by DRAGEN.
+
+This file is produced when DRAGEN is run with:
+
+```bash
+--vc-enable-roh
+```
+
+### ONT: `-modify`
+
+Used to modify tandem repeat calls when **STRaglr** output is provided.
+
+### PacBio: `-b`
+
+Path to a BED file containing the repeat regions that should be included in the unified VCF.
+
+When `-b` is provided, `PacBioUnifyVcf.py`:
+
+1. Filters the supplied repeats VCF to the regions defined in the BED file.
+2. Creates a filtered repeats VCF.
+3. Unifies the filtered repeat calls with the other supplied variant files.
+
+If `-b` is **not** provided, the repeats VCF will **not** be included in the unified output.
+
+The Geneyx repository includes a static hg38 catalog of pathogenic STR loci for this purpose:
+
+```text
+scripts/UnifyVcf/STRchive-disease-loci.hg38.TRGT.bed
+```
+
+## Important
+
+The unified VCF is intended for upload to Geneyx as an **SV-VCF**.
+
+Always use the script corresponding to the pipeline that generated the source files, as each script contains pipeline-specific processing required to produce Geneyx-compatible output.
