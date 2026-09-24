@@ -1,0 +1,27 @@
+# Everything the scripts in this folder need.
+#
+#   pip install -r requirements.txt
+#
+# or run install.py, which does the same and then checks the imports resolve.
+
+# --- Geneyx libraries (https://pypi.org/search/?q=Geneyx) --------------------
+# The same implementations the Geneyx pipeline runs, so a file you produce here
+# matches what Geneyx produces internally.
+
+# Unify SV / CNV / tandem-repeat / ROH calls into one structural VCF.
+# Used by DragenUnifyVcf.py, ONTUnifyVcf.py, PacBioUnifyVcf.py and
+# Misc/ONT_AppendChr.py. 0.2.0 is the floor, not a preference: from it the
+# package decides per record whether a repeat call needs ;SVTYPE=REP, which
+# is what ONT_AppendChr.py relies on instead of forcing the decision itself.
+UnifyVcf==0.2.0
+
+# Convert PharmCAT / pbStarPhase long-read PGx output into the Geneyx PGx JSON.
+# Used by ga_uploadPgxResultToSample.py.
+PharmcatParser==0.1.0
+
+# Parse secondary-pipeline TSV/JSON outputs into the Geneyx advanced-analysis JSON.
+AdvancedAnalysisFileParser==0.1.3
+
+# --- third party ------------------------------------------------------------
+requests
+PyYAML

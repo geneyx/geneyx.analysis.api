@@ -1,16 +1,32 @@
 #!/usr/bin/env python3
-import argparse
+"""Unify DRAGEN structural VCF files into one VCF for Geneyx.
 
-from UnifyVcf import run
+Takes the separate files DRAGEN produces and writes the single sorted, bgzipped
+VCF that Geneyx accepts as an SV VCF, rewriting the records that need it on the way.
+
+Usage:
+
+    # SV and CNV
+    python3 DragenUnifyVcf.py -o unified.vcf -s sv.vcf.gz -c cnv.vcf.gz
+
+    # adding repeats, and the ROH bed DRAGEN writes under --vc-enable-roh
+    python3 DragenUnifyVcf.py -o unified.vcf -s sv.vcf.gz -c cnv.vcf.gz \
+        -r repeats.vcf.gz -d sample.roh.bed
+
+Run with --help for the full list of arguments, and see README.md for what each one
+means and which are specific to DRAGEN.
+
+The implementation is the UnifyVcf package, which the Geneyx pipeline uses too, so a
+file unified here matches what Geneyx produces internally:
+
+    pip install UnifyVcf
+
+Installing it also puts `dragen-unify-vcf` on PATH, which takes the same arguments and is
+the preferred way to run this. This file stays so the older
+`python3 DragenUnifyVcf.py ...` invocation keeps working.
+"""
+
+from UnifyVcf import dragen_from_cli
 
 if __name__ == '__main__':
-    parser = argparse.ArgumentParser(description='Filter PacBio repeats file with pre-defined bed file and unify structural vcf files')
-    parser.add_argument('-o', '--outputPath', help='the unified output VCF path (required)', required=True)
-    parser.add_argument('-s', '--svPath', help='SV input file path (optional)', required=False, default=None)
-    parser.add_argument('-c', '--cnvPath', help='CNV input file path (optional)', required=False, default=None)
-    parser.add_argument('-r', '--repeatPath', help='repeats input file path (optional)', required=False, default=None)
-    parser.add_argument('-d', '--roh', help='ROH bed file (optional)', required=False, default=None)
-
-
-    args = parser.parse_args()
-    run(output_path=args.outputPath, sv_path=args.svPath, cnv_path=args.cnvPath, repeat_path=args.repeatPath, roh_bed_path=args.roh)
+    dragen_from_cli()

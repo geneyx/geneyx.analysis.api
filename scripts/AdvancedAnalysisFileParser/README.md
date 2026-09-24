@@ -7,7 +7,7 @@ This project now uses the [AdvancedAnalysisFileParser](https://pypi.org/project/
 ## Installation
 
 ```bash
-pip install AdvancedAnalysisFileParser==0.1.2
+pip install AdvancedAnalysisFileParser==0.1.3
 ```
 
 ## Quickstart
