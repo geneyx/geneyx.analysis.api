@@ -10,7 +10,7 @@ Either give a file the Geneyx PGx parser already produced:
     ga_uploadPgxResultToSample.py --sampleId S123 --pgxFile geneyx-pgx-results.json
 
 or give the caller's own output and let this script convert it first, using the
-pharmcatparser library from PyPI - the same conversion Geneyx runs internally:
+GeneyxPgxParser library from PyPI - the same conversion Geneyx runs internally:
 
     ga_uploadPgxResultToSample.py --sampleId S123 --pharmcatFile HG002.pbstarphase.json
 
@@ -77,7 +77,7 @@ for path in (args.pgxFile, args.pharmcatFile):
 def convertToGeneyxPgx(callerFile, outputDir):
     """Convert a PharmCAT / pbStarPhase file with the Geneyx PGx parser library."""
     try:
-        from PharmcatParser import PharmcatParser as PgxParser
+        from GeneyxPgxParser import GeneyxPgxParser as PgxParser
     except ImportError:
         raise Exception(
             "The Geneyx PGx parser is not installed. Run: python3 install.py"

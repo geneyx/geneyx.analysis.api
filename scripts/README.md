@@ -36,7 +36,7 @@ PyPI, so a file you produce locally matches what Geneyx produces internally:
 | Package                                                                            | Does                                                                      | Used by                         |
 | ---------------------------------------------------------------------------------- | ------------------------------------------------------------------------- | ------------------------------- |
 | [UnifyVcf](https://pypi.org/project/UnifyVcf/)                                     | Unifies SV / CNV / tandem-repeat / ROH calls into one structural VCF      | `UnifyVcf/*.py`                 |
-| [pharmcatparser](https://pypi.org/project/pharmcatparser/)                         | Converts PharmCAT / pbStarPhase PGx output to the Geneyx PGx format       | `ga_uploadPgxResultToSample.py` |
+| [GeneyxPgxParser](https://pypi.org/project/GeneyxPgxParser/)                       | Converts PharmCAT / pbStarPhase PGx output to the Geneyx PGx format       | `ga_uploadPgxResultToSample.py` |
 | [AdvancedAnalysisFileParser](https://pypi.org/project/advancedanalysisfileparser/) | Parses secondary-pipeline TSV/JSON into the Geneyx advanced-analysis JSON | `AdvancedAnalysisFileParser/`   |
 
 They ship as compiled wheels built per platform and Python version. If `pip` reports

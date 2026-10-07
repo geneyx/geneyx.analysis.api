@@ -28,7 +28,7 @@ _REQUIREMENTS = os.path.join(_HERE, "requirements.txt")
 # enough that reporting the distribution name alone is not much help.
 _GENEYX_LIBRARIES = [
     ("UnifyVcf", "UnifyVcf"),
-    ("PharmcatParser", "PharmcatParser"),
+    ("GeneyxPgxParser", "GeneyxPgxParser"),
     ("AdvancedAnalysisFileParser", "AdvancedAnalysisFileParser"),
 ]
 
