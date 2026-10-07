@@ -13,7 +13,7 @@
 # Misc/ONT_AppendChr.py. 0.2.2 is the floor, not a preference: from it the
 # package decides per record whether a repeat call needs ;SVTYPE=REP, which
 # is what ONT_AppendChr.py relies on instead of forcing the decision itself.
-UnifyVcf==0.2.2
+UnifyVcf==0.2.3
 
 # Convert PharmCAT / pbStarPhase long-read PGx output into the Geneyx PGx JSON.
 # Used by ga_uploadPgxResultToSample.py.
