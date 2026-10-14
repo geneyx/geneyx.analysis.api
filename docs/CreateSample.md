@@ -47,7 +47,7 @@ Sample		SampleSerialNumber   		sampleId				Sample ID, name given to the VCF file
             BamUrl                		bamUrl					The URL to the BAM file          																			No
 Subject  	SubjectId        			patientId				Unique identified for Subject. May be any string. If an existing subject exists. It will be associated.   	Yes
             SubjectName             	patientName				Name of subject                       																		No
-            SubjectGender           	patientGender			May be “M” or “F”                     																		No
+            SubjectGender           	patientGender			May be â€œMâ€ or â€œFâ€                     																		No
             SubjectDateOfBirth     		patientDateOfBirth		Date of birth of subject              																		No
             SubjectConsanguinity    	patientConsanguinity	The subject consanguinity, option are Unkown (Default), Consanguineous, Non-Consanguineous          		No
             SubjectPopulationType   	patientPopulationType	Population type                       																		No
@@ -62,7 +62,7 @@ File        Files                   	snvVcf, svVcf, cnvVcf	Parameter of type Fil
 #Request Example
 
 {
---snvVcf "C:\Users\eliws\OneDrive\Desktop\Geneyx\Production\scripts\GeneyxEval.vcf.gz" 
+--snvVcf "C:\path\to\sample.vcf.gz" 
 --sampleId New3 
 --sampleSequenceDate 01/02/03 
 --sampleTakenDate 02/03/04 
@@ -85,7 +85,7 @@ File        Files                   	snvVcf, svVcf, cnvVcf	Parameter of type Fil
 
 #Complete Command Line Request 
 
-C:\Dev\geneyx.analysis.api\scripts>python ga_uploadSamples.py --snvVcf "C:\Users\eliws\OneDrive\Desktop\Geneyx\Production\scripts\GeneyxEval.vcf.gz" --sampleId Example3 --sampleSequenceDate 01/02/03 --sampleTakenDate 02/03/04 --sampleReceiveDate 03/18/22 --seqMachineId "NextSeq 2000" --kitId "Default - Exons only" --sampleType DnaSeq --sampleTarget Exome --sampleSource GermLine --genomeBuild hg19 --sampleNotes DemonstrationImport --sampleRelation Self --patientId ExampleImporta --patientName Example12 --patientGender M --patientDateOfBirth 08/04/1969 --patientConsanguinity Unknown
+C:\Dev\geneyx.analysis.api\scripts>python ga_uploadSamples.py --snvVcf "C:\path\to\sample.vcf.gz" --sampleId Example3 --sampleSequenceDate 01/02/03 --sampleTakenDate 02/03/04 --sampleReceiveDate 03/18/22 --seqMachineId "NextSeq 2000" --kitId "Default - Exons only" --sampleType DnaSeq --sampleTarget Exome --sampleSource GermLine --genomeBuild hg19 --sampleNotes DemonstrationImport --sampleRelation Self --patientId ExampleImporta --patientName Example12 --patientGender M --patientDateOfBirth 08/04/1969 --patientConsanguinity Unknown
 
 #Response 
 
