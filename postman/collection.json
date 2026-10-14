@@ -6034,7 +6034,7 @@
 									"key": "File1",
 									"description": "12345.sv.vcf.gz",
 									"type": "file",
-									"src": "/C:/Users/eliws/Downloads/flexible_vcf_downloader/12345.sv.vcf.gz"
+									"src": "/path/to/12345.sv.vcf.gz"
 								},
 								{
 									"key": "File2",
