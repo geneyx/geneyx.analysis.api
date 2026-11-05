@@ -100,7 +100,7 @@ data['SnvFile'] = snvBaseName
 data['StructFile'] = svBaseName
 # add user connection fields
 data['ApiUserKey'] = config['apiUserKey']
-data['ApiUserID'] = config['apiUserId']
+data['ApiUserId'] = config['apiUserId']
 print(data)
 
 
